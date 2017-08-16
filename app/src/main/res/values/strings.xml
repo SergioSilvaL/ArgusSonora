@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Argus Sonora</string>
     <string name="action_settings">Settings</string>
+    <string name="hint_email">Enter Email Address</string>
+    <string name="hint_password">Enter Password Field</string>
+    <string name="text_button_login">Login</string>
+    <string name="invalid_format_email">Invalid Email Format</string>
+    <string name="empty_email">Empty Email</string>
+    <string name="empty_password">Empty Password</string>
+    <string name="invalid_format_password">Invalid Password Format</string>
+    <string name="No_Connection_To_Internet">No Internet Connection</string>
 </resources>
