@@ -9,4 +9,5 @@
     <string name="empty_password">Empty Password</string>
     <string name="invalid_format_password">Invalid Password Format</string>
     <string name="No_Connection_To_Internet">No Internet Connection</string>
+    <string name="title_activity_cliente_guardias">ClienteGuardiasActivity</string>
 </resources>
