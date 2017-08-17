@@ -20,7 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
-import com.tecnologiasintech.argussonora.FirebaseExceptionConstants;
+import com.tecnologiasintech.argussonora.domain.FirebaseExceptionConstants;
 import com.tecnologiasintech.argussonora.R;
 
 /**
@@ -123,7 +123,7 @@ public class SignInActivity extends AppCompatActivity{
         // Log In User Directly if already Signed In
 
         if(auth.getCurrentUser() != null){
-            startActivity(new Intent(SignInActivity.this,MainActivity.class));
+            startActivity(new Intent(SignInActivity.this, ClienteGuardiaActivity.class));
             finish();
         }
     }
@@ -145,7 +145,8 @@ public class SignInActivity extends AppCompatActivity{
                         // signed in user can be handled in the listener.
                         progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
-                            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                            Intent intent = new Intent(
+                                    SignInActivity.this, ClienteGuardiaActivity.class);
                             startActivity(intent);
                             finish();
                         }

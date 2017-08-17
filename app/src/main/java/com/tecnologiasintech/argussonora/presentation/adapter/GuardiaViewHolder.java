@@ -89,7 +89,6 @@ public class GuardiaViewHolder extends RecyclerView.ViewHolder implements View.O
         }
         // Todo Set Invisible
 
-
     }
 
 
