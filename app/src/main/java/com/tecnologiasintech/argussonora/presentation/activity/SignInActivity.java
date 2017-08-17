@@ -1,4 +1,4 @@
-package com.tecnologiasintech.argussonora;
+package com.tecnologiasintech.argussonora.presentation.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +20,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
+import com.tecnologiasintech.argussonora.FirebaseExceptionConstants;
+import com.tecnologiasintech.argussonora.R;
 
 /**
  * Created by sergiosilva on 8/16/17.
