@@ -30,6 +30,11 @@ import com.tecnologiasintech.argussonora.domain.costumSignaturePad;
 
 import java.io.ByteArrayOutputStream;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
+
+import static com.tecnologiasintech.argussonora.R.id.time;
 
 public class AsistioActivity extends AppCompatActivity {
 
@@ -37,12 +42,15 @@ public class AsistioActivity extends AppCompatActivity {
     private Guardia mGuardia;
 
     SignaturePad mSignaturePad;
+    //@InjectView(R.id.CloseBtn) ImageButton mCloseBtn;
+    @InjectView(R.id.ContinuarBtn) Button mContinuarBtn;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_asistio);
+        ButterKnife.inject(this);
         mSignaturePad = (SignaturePad) findViewById(R.id.signaturePad);
 
 
@@ -54,22 +62,19 @@ public class AsistioActivity extends AppCompatActivity {
             Log.i(TAG, mGuardia.toString());
         }
 
-        Button mContinuar = (Button) findViewById(R.id.ContinuarBtn);
-        mContinuar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uploadData();
-            }
-        });
-
 
     }
 
-
-//    @OnClick(R.id.ContinuarBtn)
-//    public void continuar(){
-//        uploadData();
+//    @OnClick(R.id.CloseBtn)
+//    public void close(){
+//        Log.i(TAG, "Close Button Clicked");
+//        finish();
 //    }
+
+    @OnClick(R.id.ContinuarBtn)
+    public void continuar(){
+        uploadData();
+    }
 
     public void uploadData(){
 
