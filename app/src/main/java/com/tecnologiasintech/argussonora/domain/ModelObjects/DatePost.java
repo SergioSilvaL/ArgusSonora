@@ -1,4 +1,4 @@
-package com.tecnologiasintech.argussonora.domain;
+package com.tecnologiasintech.argussonora.domain.ModelObjects;
 
 import java.util.Calendar;
 import java.util.Date;

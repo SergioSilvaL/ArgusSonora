@@ -6,8 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tecnologiasintech.argussonora.R;
-import com.tecnologiasintech.argussonora.domain.DatePost;
-import com.tecnologiasintech.argussonora.domain.guardias;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
 
 /**
  * Created by sergiosilva on 8/17/17.
@@ -32,68 +31,60 @@ public class GuardiaViewHolder extends RecyclerView.ViewHolder implements View.O
         itemView.setOnClickListener(this);
     }
 
-    public void bindGuardia(guardias guardia){
+    public void bindGuardia(Guardia guardia){
         mGuardianameDisplay.setText(guardia.getUsuarioNombre());
 
         // Implement Binding Code
+        // 1. Check if fecha is not null;
 
-        // Asistio
-        if (guardia.isUsuarioAsistio()){
-            if (guardia.getUsuarioAsistenciaFecha()!=null){
-                if (guardia.getUsuarioAsistenciaFecha().equals(new DatePost().getDate())){
-                    mAsistioIcon.setVisibility(View.VISIBLE);
-                }
+        // Implement Binding Code
+        // TODO: set Current Date Key
+        String fechaActual = "20170821";
+
+        String fecha = guardia.getBitacoraSimple().getFecha();
+        if (fecha.equals(fechaActual) ){
+            // Bind
+
+            // Asistio
+            if (guardia.getBitacoraSimple().isAsistio()){
+                mAsistioIcon.setVisibility(View.VISIBLE);
             }
-        }
 
-        // Cubre Descanso
-        if (guardia.isUsuarioCubreTurno()){
-            if (guardia.getUsuarioAsistenciaFecha()!=null){
-                if (guardia.getUsuarioAsistenciaFecha().equals(new DatePost().getDate())){
-                    mDescansoElaboradoIcon.setVisibility(View.VISIBLE);
-                }
+            // Cubre Descanso
+            if (guardia.getBitacoraSimple().isCubredescanso()){
+                mDescansoElaboradoIcon.setVisibility(View.VISIBLE);
             }
-        }
 
-        // Doble Turno
-        if (guardia.isUsuarioDobleTurno()){
-            if (guardia.getUsuarioAsistenciaFecha()!=null){
-                if (guardia.getUsuarioAsistenciaFecha().equals(new DatePost().getDate())){
-                    mDobleTurnoIcon.setVisibility(View.VISIBLE);
-                }
+            // Doble Turno
+            if (guardia.getBitacoraSimple().isDobleturno()){
+                mDobleTurnoIcon.setVisibility(View.VISIBLE);
             }
-        }
 
-        // Horas Extra
-        if (guardia.getUsuarioHorasExtra()>0){
-            if (guardia.getUsuarioAsistenciaFecha()!=null){
-                if (guardia.getUsuarioAsistenciaFecha().equals(new DatePost().getDate())){
-                    mHorasExtraIcon.setVisibility(View.VISIBLE);
-                }
+            // Horas Extra
+            if (guardia.getBitacoraSimple().getHorasextra() > 0){
+                mHorasExtraIcon.setVisibility(View.VISIBLE);
             }
-        }
 
-        // No Asisitio
-        if (guardia.isUsuarioAsistio() == false){
-            if (guardia.getUsuarioAsistenciaFecha()!=null){
-                if (guardia.getUsuarioAsistenciaFecha().equals(new DatePost().getDate())){
-                    mNoAsistioIcon.setVisibility(View.VISIBLE);
-
-                    // Set the rest to False
-                    mAsistioIcon.setVisibility(View.INVISIBLE);
-                    mHorasExtraIcon.setVisibility(View.INVISIBLE);
-                    mDescansoElaboradoIcon.setVisibility(View.INVISIBLE);
-                    mDobleTurnoIcon.setVisibility(View.INVISIBLE);
-                }
+            // No Asitio
+            if (guardia.getBitacoraSimple().isNoasistio()){
+                mNoAsistioIcon.setVisibility(View.VISIBLE);
             }
+
+
+        }else{
+            // Update day and delete node
+            // OverRide bitacora
+            // TODO: If it's not the same date, decide how it will be handled, Handle in Signature Activity
+
+
         }
-        // Todo Set Invisible
 
     }
-
 
     @Override
     public void onClick(View v) {
         // Transfer Information
+        // TODO Send Intent on Given Information
+
     }
 }
