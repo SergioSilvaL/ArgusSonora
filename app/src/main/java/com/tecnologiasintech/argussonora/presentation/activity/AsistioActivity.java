@@ -42,7 +42,7 @@ public class AsistioActivity extends AppCompatActivity {
     private Guardia mGuardia;
 
     SignaturePad mSignaturePad;
-    //@InjectView(R.id.CloseBtn) ImageButton mCloseBtn;
+    @InjectView(R.id.CloseBtn) ImageButton mCloseBtn;
     @InjectView(R.id.ContinuarBtn) Button mContinuarBtn;
 
 
@@ -65,11 +65,11 @@ public class AsistioActivity extends AppCompatActivity {
 
     }
 
-//    @OnClick(R.id.CloseBtn)
-//    public void close(){
-//        Log.i(TAG, "Close Button Clicked");
-//        finish();
-//    }
+    @OnClick(R.id.CloseBtn)
+    public void close(){
+        Log.i(TAG, "Close Button Clicked");
+        finish();
+    }
 
     @OnClick(R.id.ContinuarBtn)
     public void continuar(){
