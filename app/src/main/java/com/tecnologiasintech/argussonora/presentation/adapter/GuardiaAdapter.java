@@ -16,14 +16,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
-import com.tecnologiasintech.argussonora.presentation.activity.ClienteGuardiaActivity;
+import com.tecnologiasintech.argussonora.presentation.activity.ClienteActivity;
 import com.tecnologiasintech.argussonora.presentation.activity.GuardiaActivity;
 
-import java.sql.ClientInfoStatus;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -167,7 +165,7 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(mContext, GuardiaActivity.class);
-            intent.putExtra(ClienteGuardiaActivity.EXTRA_CLIENTE, mCliente);
+            intent.putExtra(ClienteActivity.EXTRA_CLIENTE, mCliente);
 
             ((Activity)mContext).startActivity(intent);
         }

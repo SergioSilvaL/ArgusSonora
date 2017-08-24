@@ -123,7 +123,7 @@ public class SignInActivity extends AppCompatActivity{
         // Log In User Directly if already Signed In
 
         if(auth.getCurrentUser() != null){
-            startActivity(new Intent(SignInActivity.this, ClienteGuardiaActivity.class));
+            startActivity(new Intent(SignInActivity.this, ClienteActivity.class));
             finish();
         }
     }
@@ -146,7 +146,7 @@ public class SignInActivity extends AppCompatActivity{
                         progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
                             Intent intent = new Intent(
-                                    SignInActivity.this, ClienteGuardiaActivity.class);
+                                    SignInActivity.this, ClienteActivity.class);
                             startActivity(intent);
                             finish();
                         }

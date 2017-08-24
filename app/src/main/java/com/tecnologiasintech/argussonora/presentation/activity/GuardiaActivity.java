@@ -61,8 +61,8 @@ public class GuardiaActivity extends AppCompatActivity implements ValueEventList
 
         Intent intent = getIntent();
 
-        if (intent.getParcelableExtra(ClienteGuardiaActivity.EXTRA_CLIENTE) != null){
-            mCliente = intent.getParcelableExtra(ClienteGuardiaActivity.EXTRA_CLIENTE);
+        if (intent.getParcelableExtra(ClienteActivity.EXTRA_CLIENTE) != null){
+            mCliente = intent.getParcelableExtra(ClienteActivity.EXTRA_CLIENTE);
             Log.i(TAG, mCliente.toString());
         }
 

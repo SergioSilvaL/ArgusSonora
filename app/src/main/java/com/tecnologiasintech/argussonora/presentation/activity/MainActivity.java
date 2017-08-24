@@ -3,7 +3,6 @@ package com.tecnologiasintech.argussonora.presentation.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,8 +10,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.tecnologiasintech.argussonora.R;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
+
+    public static final String TAG = MainActivity.class.getSimpleName();
+    private Cliente mCliente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +29,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-            Intent intent = new Intent(MainActivity.this, ClienteGuardiaActivity.class);
+            Intent intent = new Intent(MainActivity.this, ClienteActivity.class);
             startActivity(intent);
             }
         });
+
+
+
+//        DatabaseReference clienteReference = FirebaseDatabase
+//                .getInstance().getReference("Argus/Clientes/Almacen Zapata");
+//
+//        clienteReference.addValueEventListener(this);
     }
 
     @Override
@@ -53,4 +63,15 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+//    @Override
+//    public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//    }
+//
+//    @Override
+//    public void onCancelled(DatabaseError databaseError) {
+//
+//    }
 }

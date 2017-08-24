@@ -15,9 +15,9 @@ import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.presentation.adapter.GuardiaAdapter;
 
-public class ClienteGuardiaActivity extends AppCompatActivity implements ValueEventListener{
+public class ClienteActivity extends AppCompatActivity implements ValueEventListener{
 
-    public static final String TAG = ClienteGuardiaActivity.class.getSimpleName();
+    public static final String TAG = ClienteActivity.class.getSimpleName();
     public static final String EXTRA_CLIENTE = "EXTRA_CLIENTE";
     private GuardiaAdapter mAdapter;
     private Cliente mCliente;
