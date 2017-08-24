@@ -20,7 +20,7 @@
             android:text="Sergio Silva Leon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView"
+            android:id="@+id/nameLabel"
             android:layout_alignBottom="@+id/CloseBtn"
             android:layout_centerHorizontal="true"
             android:gravity="center"/>
@@ -29,10 +29,10 @@
             android:text="Almacen Zapata"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView2"
-            android:layout_above="@+id/textView"
+            android:layout_above="@+id/nameLabel"
             android:layout_centerHorizontal="true"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:id="@+id/clientLabel"/>
 
         <ImageButton
             app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"

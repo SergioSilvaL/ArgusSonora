@@ -15,11 +15,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.gcacace.signaturepad.views.SignaturePad;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -29,29 +32,33 @@ import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
 import com.tecnologiasintech.argussonora.domain.costumSignaturePad;
 
 import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
+import static com.tecnologiasintech.argussonora.R.id.nameLabel;
 import static com.tecnologiasintech.argussonora.R.id.time;
 
 public class AsistioActivity extends AppCompatActivity {
 
     public static final String TAG = AsistioActivity.class.getSimpleName();
     private Guardia mGuardia;
+    private FirebaseDatabase firebase = FirebaseDatabase.getInstance();
 
-    SignaturePad mSignaturePad;
     @InjectView(R.id.CloseBtn) ImageButton mCloseBtn;
     @InjectView(R.id.ContinuarBtn) Button mContinuarBtn;
-
+    @InjectView(R.id.nameLabel) TextView mNameLabel;
+    @InjectView(R.id.clientLabel) TextView mClientLabel;
+    @InjectView(R.id.signaturePad) SignaturePad mSignaturePad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_asistio);
         ButterKnife.inject(this);
-        mSignaturePad = (SignaturePad) findViewById(R.id.signaturePad);
 
 
 
@@ -60,6 +67,9 @@ public class AsistioActivity extends AppCompatActivity {
         if (intent.getParcelableExtra(GuardiaActivity.EXTRA_GUARDIA) != null){
             mGuardia = intent.getParcelableExtra(GuardiaActivity.EXTRA_GUARDIA);
             Log.i(TAG, mGuardia.toString());
+
+            mNameLabel.setText(mGuardia.getUsuarioNombre());
+
         }
 
 
@@ -78,7 +88,7 @@ public class AsistioActivity extends AppCompatActivity {
 
     public void uploadData(){
 
-        UploadTask uploadTask = getStorageReference().putBytes(getDataFromSignaturePadAsBytes());
+        final UploadTask uploadTask = getStorageReference().putBytes(getDataFromSignaturePadAsBytes());
 
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -93,9 +103,64 @@ public class AsistioActivity extends AppCompatActivity {
                 Log.i(TAG, taskSnapshot.getDownloadUrl().toString());
                 // push Data
                 Log.i(TAG, "push Data");
+
+                /** 1. Upload Data to ClieteGuardias Node;
+                 *
+                 *  3. Update Guardia Lista Context
+                 */
+
+                // 1.
+                pushBitacora(taskSnapshot.getDownloadUrl().toString());
+
+                // 2.
+                pushBitacoraSimple();
+
+                // 3.
+
+
+                finish();
+
             }
         });
 
+    }
+
+    private void pushBitacora(String urlPicture){
+
+        DatabaseReference reference = firebase.getReference("Argus/Bitacora/")
+                .child(new DatePost().getDateKey()) // Gets Current Date
+                .child(mGuardia.getUsuarioKey());//Get Guardia Key
+
+
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/asistio",true);
+        childUpdates.put("/cliente",mGuardia.getUsuarioClienteAsignado());
+        String currentDate = new DatePost().getDatePost();
+        childUpdates.put("/fecha",currentDate);
+        childUpdates.put("/firmaAsistio",urlPicture);
+        childUpdates.put("/guardiaNombre",mGuardia.getUsuarioNombre());
+        childUpdates.put("/turno",mGuardia.getUsuarioTurno());
+        //TODO: Add Zona
+        childUpdates.put("/zona","EveryBody");
+        reference.updateChildren(childUpdates);
+
+
+    }
+
+    private void pushBitacoraSimple(){
+        // TODO: replace Clientes with Cliente Object
+        DatabaseReference reference =
+                firebase.getReference("Argus/Clientes/Almacen Zapata/clienteGuardias").child("-KjPXYaFJkh9-5weX6mY")
+                        .child("BitacoraSimple");
+
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/asistio",true);
+        // TODO: set Dates
+        reference.updateChildren(childUpdates);
+    }
+
+    private void updateGuardiaArrayList(){
+        // TODO: Update List
     }
 
     private byte[] getDataFromSignaturePadAsBytes(){
@@ -112,7 +177,6 @@ public class AsistioActivity extends AppCompatActivity {
 
         return baos.toByteArray();
     }
-
 
     private StorageReference getStorageReference() {
 
