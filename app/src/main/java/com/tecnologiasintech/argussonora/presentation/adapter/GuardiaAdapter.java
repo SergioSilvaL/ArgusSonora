@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.tecnologiasintech.argussonora.R;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.BitacoraSimple;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
 import com.tecnologiasintech.argussonora.presentation.activity.ClienteActivity;
@@ -87,6 +88,13 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
     @Override
     public int getItemCount() {
         return mGuardiaBitacoraList.size();
+    }
+
+    public void updateBitacoraSimple(BitacoraSimple bitacoraSimple, int pos){
+        // TODO: set Correct status
+
+        mGuardiaBitacoraList.get(pos).getBitacoraSimple().setAsistio(true);
+        notifyItemChanged(pos);
     }
 
 

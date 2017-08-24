@@ -85,6 +85,8 @@ public class ClienteActivity extends AppCompatActivity implements ValueEventList
 
                 Log.i(TAG, guardiaBitacora.toString());
                 Log.i(TAG, position + "");
+                guardiaBitacora.getBitacoraSimple();
+                mAdapter.updateBitacoraSimple(guardiaBitacora.getBitacoraSimple(), position);
 
             }
         }

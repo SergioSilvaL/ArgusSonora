@@ -187,10 +187,13 @@ public class AsistioActivity extends AppCompatActivity {
     }
 
     private void updateGuardiaArrayList(){
+
         // TODO: Update List
+
+        mBitacora.getBitacoraSimple().setAsistio(true);
+
         Intent resultIntent = new Intent();
         // Data you want to give back
-        //resultIntent.putExtra(MainActivity.EXTRA_FAVORITE, b);
         resultIntent.putExtra(ClienteActivity.EXTRA_LIST_POSITION, listPosition);
         resultIntent.putExtra(ClienteActivity.EXTRA_GUARDIA_BITACORA, mBitacora);
         setResult(RESULT_OK, resultIntent);
