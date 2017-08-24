@@ -51,8 +51,6 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
     private Context mContext;
     private Cliente mCliente;
     private List<GuardiaBitacora> mGuardiaBitacoraList;
-    private GuardiaBitacora mGuardiaBitacora;
-    public static final String EXTRA_GUARDIA_BITACORA = "EXTRA_GUARDIA_BITACORA";
     public static final String TAG = GuardiaAdapter.class.getSimpleName();
 
 
@@ -166,8 +164,9 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
         public void onClick(View v) {
             Intent intent = new Intent(mContext, GuardiaActivity.class);
             intent.putExtra(ClienteActivity.EXTRA_CLIENTE, mCliente);
-            intent.putExtra(EXTRA_GUARDIA_BITACORA , mGuardiaBitacoraList.get(getAdapterPosition()));
-            ((Activity)mContext).startActivity(intent);
+            intent.putExtra(ClienteActivity.EXTRA_GUARDIA_BITACORA , mGuardiaBitacoraList.get(getAdapterPosition()));
+            intent.putExtra(ClienteActivity.EXTRA_LIST_POSITION, getAdapterPosition());
+            ((Activity)mContext).startActivityForResult(intent, ClienteActivity.REQUEST_FAVORITE);
         }
     }
 

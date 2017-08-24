@@ -51,6 +51,7 @@ public class AsistioActivity extends AppCompatActivity {
     public static final String TAG = AsistioActivity.class.getSimpleName();
     private Guardia mGuardia;
     private Cliente mCliente;
+    private int listPosition;
     private GuardiaBitacora mBitacora;
     private FirebaseDatabase firebase = FirebaseDatabase.getInstance();
 
@@ -89,6 +90,8 @@ public class AsistioActivity extends AppCompatActivity {
             mBitacora = intent.getParcelableExtra(GuardiaActivity.EXTRA_GUARDIA_BITACORA);
             Log.i(TAG, mBitacora.toString());
         }
+
+        listPosition = intent.getIntExtra(ClienteActivity.EXTRA_LIST_POSITION, 0);
 
 
         Log.i(TAG, "-------------------------");
@@ -138,6 +141,7 @@ public class AsistioActivity extends AppCompatActivity {
                 pushBitacoraSimple();
 
                 // 3.
+                updateGuardiaArrayList();
 
 
                 finish();
@@ -184,6 +188,13 @@ public class AsistioActivity extends AppCompatActivity {
 
     private void updateGuardiaArrayList(){
         // TODO: Update List
+        Intent resultIntent = new Intent();
+        // Data you want to give back
+        //resultIntent.putExtra(MainActivity.EXTRA_FAVORITE, b);
+        resultIntent.putExtra(ClienteActivity.EXTRA_LIST_POSITION, listPosition);
+        resultIntent.putExtra(ClienteActivity.EXTRA_GUARDIA_BITACORA, mBitacora);
+        setResult(RESULT_OK, resultIntent);
+        finish();
     }
 
     private byte[] getDataFromSignaturePadAsBytes(){

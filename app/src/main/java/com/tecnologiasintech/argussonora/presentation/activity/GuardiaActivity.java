@@ -44,11 +44,13 @@ public class GuardiaActivity extends AppCompatActivity implements ValueEventList
 
     public static final String EXTRA_GUARDIA = "EXTRA_GUARDIA";
     public static final String EXTRA_CLIENTE = "EXTRA_CLIENTE";
+    public static final String EXTRA_LIST_POSITION = "EXTRA_LIST_POSITION";
     public static final String EXTRA_GUARDIA_BITACORA = "EXTRA_GUARDIA_BITACORA";
 
     private Guardia mGuardia;
     private Cliente mCliente;
     private GuardiaBitacora mBitacora;
+    private int listPosition;
 
     @InjectView(R.id.nameLabel) TextView mNameLabel;
     @InjectView(R.id.phoneValue) TextView mPhoneValue;
@@ -70,10 +72,14 @@ public class GuardiaActivity extends AppCompatActivity implements ValueEventList
             Log.i(TAG, mCliente.toString());
         }
 
-        if (intent.getParcelableExtra(GuardiaAdapter.EXTRA_GUARDIA_BITACORA) != null){
-            mBitacora = intent.getParcelableExtra(GuardiaAdapter.EXTRA_GUARDIA_BITACORA);
+        if (intent.getParcelableExtra(ClienteActivity.EXTRA_GUARDIA_BITACORA) != null){
+            mBitacora = intent.getParcelableExtra(ClienteActivity.EXTRA_GUARDIA_BITACORA);
             Log.i(TAG, mBitacora.toString());
         }
+
+        listPosition = intent.getIntExtra(ClienteActivity.EXTRA_LIST_POSITION, 0);
+
+
 
         // Load Firebase Date
         GuardiaReference.addValueEventListener(this);
@@ -88,8 +94,10 @@ public class GuardiaActivity extends AppCompatActivity implements ValueEventList
         intent.putExtra(EXTRA_GUARDIA, mGuardia);
         intent.putExtra(EXTRA_CLIENTE, mCliente);
         intent.putExtra(EXTRA_GUARDIA_BITACORA, mBitacora);
-
+        intent.putExtra(EXTRA_LIST_POSITION, listPosition);
+        intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
         startActivity(intent);
+        finish();
 
     }
 
