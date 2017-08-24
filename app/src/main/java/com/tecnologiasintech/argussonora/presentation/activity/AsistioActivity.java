@@ -175,7 +175,7 @@ public class AsistioActivity extends AppCompatActivity {
     private void pushBitacoraSimple(){
         // TODO: replace Clientes with Cliente Object
         DatabaseReference reference =
-                firebase.getReference("Argus/Clientes/ " +
+                firebase.getReference("Argus/Clientes/" +
                         mCliente.getClienteNombre() +
                         "/clienteGuardias").child("-KjPXYaFJkh9-5weX6mY")
                         .child("BitacoraSimple");

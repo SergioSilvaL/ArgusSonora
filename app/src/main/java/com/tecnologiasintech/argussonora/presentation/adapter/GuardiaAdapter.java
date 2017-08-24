@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.BitacoraSimple;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.DatePost;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
 import com.tecnologiasintech.argussonora.presentation.activity.ClienteActivity;
 import com.tecnologiasintech.argussonora.presentation.activity.GuardiaActivity;
@@ -126,44 +127,39 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
 
             // Implement Binding Code
             // TODO: set Current Date Key
-            String fechaActual = "20170824";
-
+            String fechaActual = new DatePost().getDateKey();
             String fecha = guardia.getBitacoraSimple().getFecha();
-            if (fecha.equals(fechaActual) ){
-                // Bind
 
-                // Asistio
-                if (guardia.getBitacoraSimple().isAsistio()){
-                    mAsistioIcon.setVisibility(View.VISIBLE);
+            if (fecha != null){
+                if (fecha.equals(fechaActual) ){
+                    // Bind
+
+                    // Asistio
+                    if (guardia.getBitacoraSimple().isAsistio()){
+                        mAsistioIcon.setVisibility(View.VISIBLE);
+                    }
+
+                    // Cubre Descanso
+                    if (guardia.getBitacoraSimple().isCubredescanso()){
+                        mDescansoElaboradoIcon.setVisibility(View.VISIBLE);
+                    }
+
+                    // Doble Turno
+                    if (guardia.getBitacoraSimple().isDobleturno()){
+                        mDobleTurnoIcon.setVisibility(View.VISIBLE);
+                    }
+
+                    // Horas Extra
+                    if (guardia.getBitacoraSimple().getHorasextra() > 0){
+                        mHorasExtraIcon.setVisibility(View.VISIBLE);
+                    }
+
+                    // No Asitio
+                    if (guardia.getBitacoraSimple().isNoasistio()){
+                        mNoAsistioIcon.setVisibility(View.VISIBLE);
+                    }
+
                 }
-
-                // Cubre Descanso
-                if (guardia.getBitacoraSimple().isCubredescanso()){
-                    mDescansoElaboradoIcon.setVisibility(View.VISIBLE);
-                }
-
-                // Doble Turno
-                if (guardia.getBitacoraSimple().isDobleturno()){
-                    mDobleTurnoIcon.setVisibility(View.VISIBLE);
-                }
-
-                // Horas Extra
-                if (guardia.getBitacoraSimple().getHorasextra() > 0){
-                    mHorasExtraIcon.setVisibility(View.VISIBLE);
-                }
-
-                // No Asitio
-                if (guardia.getBitacoraSimple().isNoasistio()){
-                    mNoAsistioIcon.setVisibility(View.VISIBLE);
-                }
-
-
-            }else{
-                // Update day and delete node
-                // OverRide bitacora
-                // TODO: If it's not the same date, decide how it will be handled, Handle in Signature Activity
-
-
             }
 
         }
