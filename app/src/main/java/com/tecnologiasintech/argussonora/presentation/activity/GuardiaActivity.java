@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tecnologiasintech.argussonora.R;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
 
 import butterknife.ButterKnife;
@@ -40,8 +41,10 @@ public class GuardiaActivity extends AppCompatActivity implements ValueEventList
             firebase.getReference("Argus/guardias").child(Guardia_FIREBASE_KEY);
 
     public static final String EXTRA_GUARDIA = "EXTRA_GUARDIA";
+    public static final String EXTRA_CLIENTE = "EXTRA_CLIENTE";
 
     private Guardia mGuardia;
+    private Cliente mCliente;
 
     @InjectView(R.id.nameLabel) TextView mNameLabel;
     @InjectView(R.id.phoneValue) TextView mPhoneValue;
@@ -56,7 +59,12 @@ public class GuardiaActivity extends AppCompatActivity implements ValueEventList
 
         // Use Butterknife to set the views with fewer set of lines
 
+        Intent intent = getIntent();
 
+        if (intent.getParcelableExtra(ClienteGuardiaActivity.EXTRA_CLIENTE) != null){
+            mCliente = intent.getParcelableExtra(ClienteGuardiaActivity.EXTRA_CLIENTE);
+            Log.i(TAG, mCliente.toString());
+        }
 
         // Load Firebase Date
         GuardiaReference.addValueEventListener(this);
@@ -69,6 +77,8 @@ public class GuardiaActivity extends AppCompatActivity implements ValueEventList
 
         Intent intent = new Intent(this, AsistioActivity.class);
         intent.putExtra(EXTRA_GUARDIA, mGuardia);
+        intent.putExtra(EXTRA_CLIENTE, mCliente);
+
         startActivity(intent);
 
     }

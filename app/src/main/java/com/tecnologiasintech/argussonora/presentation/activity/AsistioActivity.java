@@ -27,18 +27,21 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.tecnologiasintech.argussonora.R;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.DatePost;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
 import com.tecnologiasintech.argussonora.domain.costumSignaturePad;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
+import java.util.IllegalFormatCodePointException;
 import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
+import static android.R.attr.data;
 import static com.tecnologiasintech.argussonora.R.id.nameLabel;
 import static com.tecnologiasintech.argussonora.R.id.time;
 
@@ -46,6 +49,7 @@ public class AsistioActivity extends AppCompatActivity {
 
     public static final String TAG = AsistioActivity.class.getSimpleName();
     private Guardia mGuardia;
+    private Cliente mCliente;
     private FirebaseDatabase firebase = FirebaseDatabase.getInstance();
 
     @InjectView(R.id.CloseBtn) ImageButton mCloseBtn;
@@ -60,17 +64,28 @@ public class AsistioActivity extends AppCompatActivity {
         setContentView(R.layout.activity_asistio);
         ButterKnife.inject(this);
 
-
+        // Get Data From intent
 
         Intent intent = getIntent();
 
-        if (intent.getParcelableExtra(GuardiaActivity.EXTRA_GUARDIA) != null){
+        Log.i(TAG, "Getting Info from intent");
+
+        // Get Guardia Intent
+        if (intent.getParcelableExtra(GuardiaActivity.EXTRA_GUARDIA) != null) {
             mGuardia = intent.getParcelableExtra(GuardiaActivity.EXTRA_GUARDIA);
             Log.i(TAG, mGuardia.toString());
 
             mNameLabel.setText(mGuardia.getUsuarioNombre());
-
         }
+
+        if (intent.getParcelableExtra(GuardiaActivity.EXTRA_CLIENTE) != null){
+            mCliente = intent.getParcelableExtra(GuardiaActivity.EXTRA_CLIENTE);
+            Log.i(TAG, mCliente.toString());
+        }
+
+
+        Log.i(TAG, "-------------------------");
+
 
 
     }
@@ -134,14 +149,13 @@ public class AsistioActivity extends AppCompatActivity {
 
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/asistio",true);
-        childUpdates.put("/cliente",mGuardia.getUsuarioClienteAsignado());
+        childUpdates.put("/cliente",mCliente.getClienteNombre());
         String currentDate = new DatePost().getDatePost();
         childUpdates.put("/fecha",currentDate);
         childUpdates.put("/firmaAsistio",urlPicture);
         childUpdates.put("/guardiaNombre",mGuardia.getUsuarioNombre());
         childUpdates.put("/turno",mGuardia.getUsuarioTurno());
-        //TODO: Add Zona
-        childUpdates.put("/zona","EveryBody");
+        childUpdates.put("/zona",mCliente.getClienteZonaAsignada());
         reference.updateChildren(childUpdates);
 
 
@@ -150,7 +164,9 @@ public class AsistioActivity extends AppCompatActivity {
     private void pushBitacoraSimple(){
         // TODO: replace Clientes with Cliente Object
         DatabaseReference reference =
-                firebase.getReference("Argus/Clientes/Almacen Zapata/clienteGuardias").child("-KjPXYaFJkh9-5weX6mY")
+                firebase.getReference("Argus/Clientes/ " +
+                        mCliente.getClienteNombre() +
+                        "/clienteGuardias").child("-KjPXYaFJkh9-5weX6mY")
                         .child("BitacoraSimple");
 
         Map<String, Object> childUpdates = new HashMap<>();
