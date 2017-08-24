@@ -15,6 +15,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
+import com.tecnologiasintech.argussonora.presentation.adapter.GuardiaAdapter;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -45,6 +47,7 @@ public class GuardiaActivity extends AppCompatActivity implements ValueEventList
 
     private Guardia mGuardia;
     private Cliente mCliente;
+    private GuardiaBitacora mBitacora;
 
     @InjectView(R.id.nameLabel) TextView mNameLabel;
     @InjectView(R.id.phoneValue) TextView mPhoneValue;
@@ -64,6 +67,11 @@ public class GuardiaActivity extends AppCompatActivity implements ValueEventList
         if (intent.getParcelableExtra(ClienteActivity.EXTRA_CLIENTE) != null){
             mCliente = intent.getParcelableExtra(ClienteActivity.EXTRA_CLIENTE);
             Log.i(TAG, mCliente.toString());
+        }
+
+        if (intent.getParcelableExtra(GuardiaAdapter.EXTRA_GUARDIA_BITACORA) != null){
+            mBitacora = intent.getParcelableExtra(GuardiaAdapter.EXTRA_GUARDIA_BITACORA);
+            Log.i(TAG, mBitacora.toString());
         }
 
         // Load Firebase Date
