@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
 import com.tecnologiasintech.argussonora.presentation.activity.ClienteActivity;
 import com.tecnologiasintech.argussonora.presentation.activity.GuardiaActivity;
 
@@ -50,14 +51,14 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
 
     private Context mContext;
     private Cliente mCliente;
-    private List<Guardia> mGuardias;
+    private List<GuardiaBitacora> mGuardiaBitacora;
     public static final String TAG = GuardiaAdapter.class.getSimpleName();
 
 
     public GuardiaAdapter(Context context){
         mContext = context;
 
-        mGuardias = new ArrayList<>();
+        mGuardiaBitacora = new ArrayList<>();
 
 
         Log.i(TAG, "Cliente Reference Child Event Listener Added");
@@ -76,8 +77,8 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
 
     @Override
     public void onBindViewHolder(GuardiaViewHolder holder, int position) {
-        Guardia guardia = mGuardias.get(position);
-        holder.bindGuardia(guardia);
+        GuardiaBitacora guardiaBitacora = mGuardiaBitacora.get(position);
+        holder.bindGuardia(guardiaBitacora);
     }
 
     public void setCliente(Cliente cliente){
@@ -86,7 +87,7 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
 
     @Override
     public int getItemCount() {
-        return mGuardias.size();
+        return mGuardiaBitacora.size();
     }
 
 
@@ -109,7 +110,7 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
             itemView.setOnClickListener(this);
         }
 
-        public void bindGuardia(Guardia guardia){
+        public void bindGuardia(GuardiaBitacora guardia){
 
 
 
@@ -177,25 +178,28 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
 
     @Override
     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-        Guardia guardia = dataSnapshot.getValue(Guardia.class);
-        guardia.setUsuarioKey(dataSnapshot.getKey());
+        // 4.
+        GuardiaBitacora guardiaBitacora = dataSnapshot.getValue(GuardiaBitacora.class);
 
-        Log.i(TAG, dataSnapshot.toString());
+        // TODO: Deal with this line
+        guardiaBitacora.setUsuarioKey(dataSnapshot.getKey());
+
+        Log.i(TAG, guardiaBitacora.toString());
 
         boolean bandera = false;
 
-        if (mGuardias.size()>0){
+        if (mGuardiaBitacora.size()>0){
 
-            for (Guardia currentGuardia : mGuardias){
+            for (GuardiaBitacora currentGuardia : mGuardiaBitacora){
 
-                if (currentGuardia.getUsuarioNombre().equals(guardia.getUsuarioNombre())){
+                if (currentGuardia.getUsuarioNombre().equals(guardiaBitacora.getUsuarioNombre())){
                     bandera = true;
                 }
             }
         }
 
         if (bandera == false){
-            mGuardias.add(0,guardia);
+            mGuardiaBitacora.add(0,guardiaBitacora);
         }
 
         notifyDataSetChanged();

@@ -50,7 +50,10 @@ public class ClienteActivity extends AppCompatActivity implements ValueEventList
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
+
+        // 1
         mCliente = dataSnapshot.getValue(Cliente.class);
+        // 2
         mAdapter.setCliente(mCliente);
         Log.i(TAG, mCliente.toString());
     }
