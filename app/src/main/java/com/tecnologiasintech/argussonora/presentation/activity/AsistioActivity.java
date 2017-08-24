@@ -30,6 +30,7 @@ import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.DatePost;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
 import com.tecnologiasintech.argussonora.domain.costumSignaturePad;
 
 import java.io.ByteArrayOutputStream;
@@ -50,6 +51,7 @@ public class AsistioActivity extends AppCompatActivity {
     public static final String TAG = AsistioActivity.class.getSimpleName();
     private Guardia mGuardia;
     private Cliente mCliente;
+    private GuardiaBitacora mBitacora;
     private FirebaseDatabase firebase = FirebaseDatabase.getInstance();
 
     @InjectView(R.id.CloseBtn) ImageButton mCloseBtn;
@@ -81,6 +83,11 @@ public class AsistioActivity extends AppCompatActivity {
         if (intent.getParcelableExtra(GuardiaActivity.EXTRA_CLIENTE) != null){
             mCliente = intent.getParcelableExtra(GuardiaActivity.EXTRA_CLIENTE);
             Log.i(TAG, mCliente.toString());
+        }
+
+        if (intent.getParcelableExtra(GuardiaActivity.EXTRA_GUARDIA_BITACORA) != null){
+            mBitacora = intent.getParcelableExtra(GuardiaActivity.EXTRA_GUARDIA_BITACORA);
+            Log.i(TAG, mBitacora.toString());
         }
 
 

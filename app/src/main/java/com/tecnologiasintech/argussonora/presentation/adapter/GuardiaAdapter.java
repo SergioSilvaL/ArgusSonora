@@ -166,7 +166,7 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
         public void onClick(View v) {
             Intent intent = new Intent(mContext, GuardiaActivity.class);
             intent.putExtra(ClienteActivity.EXTRA_CLIENTE, mCliente);
-            intent.putExtra(EXTRA_GUARDIA_BITACORA , mGuardiaBitacora);
+            intent.putExtra(EXTRA_GUARDIA_BITACORA , mGuardiaBitacoraList.get(getAdapterPosition()));
             ((Activity)mContext).startActivity(intent);
         }
     }

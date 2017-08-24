@@ -44,6 +44,7 @@ public class GuardiaActivity extends AppCompatActivity implements ValueEventList
 
     public static final String EXTRA_GUARDIA = "EXTRA_GUARDIA";
     public static final String EXTRA_CLIENTE = "EXTRA_CLIENTE";
+    public static final String EXTRA_GUARDIA_BITACORA = "EXTRA_GUARDIA_BITACORA";
 
     private Guardia mGuardia;
     private Cliente mCliente;
@@ -86,6 +87,7 @@ public class GuardiaActivity extends AppCompatActivity implements ValueEventList
         Intent intent = new Intent(this, AsistioActivity.class);
         intent.putExtra(EXTRA_GUARDIA, mGuardia);
         intent.putExtra(EXTRA_CLIENTE, mCliente);
+        intent.putExtra(EXTRA_GUARDIA_BITACORA, mBitacora);
 
         startActivity(intent);
 

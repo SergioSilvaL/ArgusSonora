@@ -74,19 +74,19 @@ public class BitacoraSimple implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeByte((byte) (mAsistio ? 1 : 0));
-        dest.writeByte((byte) (mNoasistio ? 1 : 0));
-        dest.writeByte((byte) (mDobleturno ? 1 : 0));
-        dest.writeByte((byte) (mCubredescanso ? 1 : 0));
+        dest.writeInt (mAsistio ? 1 : 0);
+        dest.writeInt(mNoasistio ? 1 : 0);
+        dest.writeInt(mDobleturno ? 1 : 0);
+        dest.writeInt(mCubredescanso ? 1 : 0);
         dest.writeLong(mHorasextra);
         dest.writeString(mFecha);
     }
 
     protected BitacoraSimple(Parcel in) {
-        mAsistio = in.readByte() != 0;
-        mNoasistio = in.readByte() != 0;
-        mDobleturno = in.readByte() != 0;
-        mCubredescanso = in.readByte() != 0;
+        mAsistio = in.readInt() != 0;
+        mNoasistio = in.readInt() != 0;
+        mDobleturno = in.readInt() != 0;
+        mCubredescanso = in.readInt() != 0;
         mHorasextra = in.readLong();
         mFecha = in.readString();
     }
