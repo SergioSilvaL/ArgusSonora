@@ -85,6 +85,7 @@ public class AsistioActivity extends AppCompatActivity {
         if (intent.getParcelableExtra(GuardiaActivity.EXTRA_CLIENTE) != null){
             mCliente = intent.getParcelableExtra(GuardiaActivity.EXTRA_CLIENTE);
             Log.i(TAG, mCliente.toString());
+            mClientLabel.setText(mCliente.getClienteNombre());
         }
 
         if (intent.getParcelableExtra(GuardiaActivity.EXTRA_GUARDIA_BITACORA) != null){

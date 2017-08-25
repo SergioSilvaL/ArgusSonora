@@ -14,41 +14,43 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="40dp">
+
+        <ImageButton
+            app:srcCompat="@drawable/ic_close_black_24dp"
+            android:id="@+id/CloseBtn"
+            android:layout_width="wrap_content"
+            android:background="@color/cardview_light_background"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginStart="16dp"
+            android:layout_alignParentTop="true"
+            android:tint="@color/color_black"
+
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Almacen Zapata"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/clientLabel"
+            android:layout_above="@+id/nameLabel"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
 
         <TextView
             android:text="Sergio Silva Leon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/nameLabel"
-            android:layout_alignBottom="@+id/CloseBtn"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"/>
-
-        <TextView
-            android:text="Almacen Zapata"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/nameLabel"
-            android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:id="@+id/clientLabel"/>
-
-        <ImageButton
-            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
-            android:id="@+id/CloseBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:background="@color/cardview_light_background"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginStart="16dp"
-            android:layout_alignParentTop="true"
-
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
     </RelativeLayout>
-
 
 
     <LinearLayout
@@ -67,6 +69,12 @@
             android:background="@color/cardview_light_background"
             android:layout_margin="1sp"
             />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_black"
+            android:layout_margin="4dp"/>
 
         <TextView
             android:layout_width="match_parent"
