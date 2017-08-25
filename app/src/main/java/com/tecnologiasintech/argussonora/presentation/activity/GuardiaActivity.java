@@ -27,7 +27,7 @@ public class GuardiaActivity extends AppCompatActivity implements ValueEventList
     /**
      * We use this key to reference the list of messages in Firebase.
      */
-    public static final String Guardia_FIREBASE_KEY = "-KjPAAGyiRDt7xTdtLj2";
+
     private static final String TAG = GuardiaActivity.class.getSimpleName();
 
     /**
@@ -40,8 +40,7 @@ public class GuardiaActivity extends AppCompatActivity implements ValueEventList
      * listening to changes to the children of this reference in this Activity.
      */
     private DatabaseReference GuardiaReference =
-            firebase.getReference("Argus/guardias").child(Guardia_FIREBASE_KEY);
-
+            firebase.getReference("Argus/guardias");
     public static final String EXTRA_GUARDIA = "EXTRA_GUARDIA";
     public static final String EXTRA_CLIENTE = "EXTRA_CLIENTE";
     public static final String EXTRA_LIST_POSITION = "EXTRA_LIST_POSITION";
@@ -74,7 +73,6 @@ public class GuardiaActivity extends AppCompatActivity implements ValueEventList
 
         if (intent.getParcelableExtra(ClienteActivity.EXTRA_GUARDIA_BITACORA) != null){
             mBitacora = intent.getParcelableExtra(ClienteActivity.EXTRA_GUARDIA_BITACORA);
-            Log.i(TAG, mBitacora.toString());
         }
 
         listPosition = intent.getIntExtra(ClienteActivity.EXTRA_LIST_POSITION, 0);
@@ -82,7 +80,7 @@ public class GuardiaActivity extends AppCompatActivity implements ValueEventList
 
 
         // Load Firebase Date
-        GuardiaReference.addValueEventListener(this);
+        GuardiaReference.child(mBitacora.getUsuarioKey()).addValueEventListener(this);
 
     }
 
@@ -123,15 +121,13 @@ public class GuardiaActivity extends AppCompatActivity implements ValueEventList
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
-        Guardia guardia = dataSnapshot.getValue(Guardia.class);
-        Log.i(TAG, guardia.toString());
-
-        mGuardia = guardia;
+        mGuardia = dataSnapshot.getValue(Guardia.class);
+        Log.i(TAG, mGuardia.toString());
 
         // Update Views
-        mNameLabel.setText(guardia.getUsuarioNombre());
-        mPhoneValue.setText(guardia.getUsuarioTelefono() + "");
-        mDomicilioLabel.setText(guardia.getUsuarioDomicilio());
+        mNameLabel.setText(mGuardia.getUsuarioNombre());
+        mPhoneValue.setText(mGuardia.getUsuarioTelefono() + "");
+        mDomicilioLabel.setText(mGuardia.getUsuarioDomicilio());
 
     }
 

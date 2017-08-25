@@ -47,8 +47,10 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
      * Using the key, "messages", we can access a reference to the list of messages. We will be
      * listening to changes to the children of this reference in this Activity.
      */
+
+    // TODO: Update Cliente Reference
     private DatabaseReference clienteReference =
-            firebase.getReference("Argus/Clientes/Almacen Zapata/clienteGuardias");
+            firebase.getReference("Argus/Clientes/All/clienteGuardias");
 
     private Context mContext;
     private Cliente mCliente;
@@ -94,7 +96,17 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
     public void updateBitacoraSimple(BitacoraSimple bitacoraSimple, int pos){
         // TODO: set Correct status
 
-        mGuardiaBitacoraList.get(pos).getBitacoraSimple().setAsistio(true);
+        // Create route if does not exist
+        if (mGuardiaBitacoraList.get(pos).getBitacoraSimple() == null){
+            BitacoraSimple newBitacoraSimple = new BitacoraSimple();
+            mGuardiaBitacoraList.get(pos).setBitacoraSimple(newBitacoraSimple);
+
+            mGuardiaBitacoraList.get(pos).getBitacoraSimple().setAsistio(true);
+            mGuardiaBitacoraList.get(pos).getBitacoraSimple().setFecha(new DatePost().getDateKey());
+        }else {
+
+            mGuardiaBitacoraList.get(pos).getBitacoraSimple().setAsistio(true);
+        }
         notifyItemChanged(pos);
     }
 
@@ -122,16 +134,8 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
 
             mGuardianameDisplay.setText(guardia.getUsuarioNombre());
 
-            // Implement Binding Code
-            // 1. Check if fecha is not null;
-
-            // Implement Binding Code
-            // TODO: set Current Date Key
-            String fechaActual = new DatePost().getDateKey();
-            String fecha = guardia.getBitacoraSimple().getFecha();
-
-            if (fecha != null){
-                if (fecha.equals(fechaActual) ){
+            if (guardia.getBitacoraSimple() != null){
+                if (guardia.getBitacoraSimple().getFecha().equals(new DatePost().getDateKey()) ){
                     // Bind
 
                     // Asistio
@@ -182,11 +186,6 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
         // 4.
         GuardiaBitacora guardiaBitacora = dataSnapshot.getValue(GuardiaBitacora.class);
-
-        // TODO: Deal with this line
-        guardiaBitacora.setUsuarioKey(dataSnapshot.getKey());
-
-        Log.i(TAG, guardiaBitacora.toString());
 
         boolean bandera = false;
 

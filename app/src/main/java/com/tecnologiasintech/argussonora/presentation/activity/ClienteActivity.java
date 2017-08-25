@@ -25,7 +25,6 @@ public class ClienteActivity extends AppCompatActivity implements ValueEventList
     public static final String EXTRA_LIST_POSITION = "EXTRA_LIST_POSITION";
     public static final int REQUEST_FAVORITE = 0;
 
-
     private GuardiaAdapter mAdapter;
     private Cliente mCliente;
 
@@ -34,7 +33,7 @@ public class ClienteActivity extends AppCompatActivity implements ValueEventList
         super.onCreate(savedInstanceState);
 
         DatabaseReference clienteReference = FirebaseDatabase
-                .getInstance().getReference("Argus/Clientes/Almacen Zapata");
+                .getInstance().getReference("Argus/Clientes/All");
 
         clienteReference.addValueEventListener(this);
 

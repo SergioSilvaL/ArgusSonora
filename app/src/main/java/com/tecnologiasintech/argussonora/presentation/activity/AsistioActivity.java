@@ -27,6 +27,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.tecnologiasintech.argussonora.R;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.BitacoraSimple;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.DatePost;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
@@ -88,7 +89,6 @@ public class AsistioActivity extends AppCompatActivity {
 
         if (intent.getParcelableExtra(GuardiaActivity.EXTRA_GUARDIA_BITACORA) != null){
             mBitacora = intent.getParcelableExtra(GuardiaActivity.EXTRA_GUARDIA_BITACORA);
-            Log.i(TAG, mBitacora.toString());
         }
 
         listPosition = intent.getIntExtra(ClienteActivity.EXTRA_LIST_POSITION, 0);
@@ -177,11 +177,12 @@ public class AsistioActivity extends AppCompatActivity {
         DatabaseReference reference =
                 firebase.getReference("Argus/Clientes/" +
                         mCliente.getClienteNombre() +
-                        "/clienteGuardias").child("-KjPXYaFJkh9-5weX6mY")
+                        "/clienteGuardias").child(mGuardia.getUsuarioKey())
                         .child("BitacoraSimple");
 
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/asistio",true);
+        childUpdates.put("/fecha", new DatePost().getDateKey());
         // TODO: set Dates
         reference.updateChildren(childUpdates);
     }
@@ -189,8 +190,15 @@ public class AsistioActivity extends AppCompatActivity {
     private void updateGuardiaArrayList(){
 
         // TODO: Update List
-
-        mBitacora.getBitacoraSimple().setAsistio(true);
+        if (mBitacora.getBitacoraSimple() == null){
+            // Create new route
+            BitacoraSimple bitacoraSimple = new BitacoraSimple();
+            bitacoraSimple.setAsistio(true);
+            bitacoraSimple.setFecha(new DatePost().getDateKey());
+            mBitacora.setBitacoraSimple(bitacoraSimple);
+        }else {
+            mBitacora.getBitacoraSimple().setAsistio(true);
+        }
 
         Intent resultIntent = new Intent();
         // Data you want to give back
@@ -220,16 +228,10 @@ public class AsistioActivity extends AppCompatActivity {
         // Create a storage reference from our app
         StorageReference storageRef =  FirebaseStorage.getInstance().getReference();
 
-        // Create a child reference
-        // imagesRef now points to "image"
-        if (mGuardia.getUsuarioKey() == null){
-            mGuardia.setUsuarioKey("asdf");
-        }
-
         return  storageRef
                 .child("Bitacora")
                 .child(new DatePost().getDateKey())
-                .child("123")
+                .child(mGuardia.getUsuarioKey())
                 .child("asistioFirma");
     }
 
