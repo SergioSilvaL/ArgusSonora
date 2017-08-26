@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class GuardiaActivity extends AppCompatActivity implements ValueEventListener{
+public class GuardiaActivity extends LoggingActivity implements ValueEventListener{
 
     /**
      * We use this key to reference the list of messages in Firebase.
@@ -55,6 +55,10 @@ public class GuardiaActivity extends AppCompatActivity implements ValueEventList
     @InjectView(R.id.phoneValue) TextView mPhoneValue;
     @InjectView(R.id.domicilioLabel) TextView mDomicilioLabel;
 
+
+    public GuardiaActivity(){
+        setActivityName(GuardiaActivity.class.getSimpleName());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

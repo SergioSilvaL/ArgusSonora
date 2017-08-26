@@ -17,7 +17,7 @@ import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
 import com.tecnologiasintech.argussonora.presentation.adapter.GuardiaAdapter;
 
-public class ClienteActivity extends AppCompatActivity implements ValueEventListener{
+public class ClienteActivity extends LoggingActivity implements ValueEventListener{
 
     public static final String TAG = ClienteActivity.class.getSimpleName();
     public static final String EXTRA_CLIENTE = "EXTRA_CLIENTE";
@@ -27,6 +27,10 @@ public class ClienteActivity extends AppCompatActivity implements ValueEventList
 
     private GuardiaAdapter mAdapter;
     private Cliente mCliente;
+
+    public ClienteActivity(){
+        setActivityName(ClienteActivity.class.getSimpleName());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

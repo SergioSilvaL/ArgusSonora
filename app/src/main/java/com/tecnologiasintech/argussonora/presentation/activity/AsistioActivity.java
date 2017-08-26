@@ -47,7 +47,7 @@ import static android.R.attr.data;
 import static com.tecnologiasintech.argussonora.R.id.nameLabel;
 import static com.tecnologiasintech.argussonora.R.id.time;
 
-public class AsistioActivity extends AppCompatActivity {
+public class AsistioActivity extends LoggingActivity {
 
     public static final String TAG = AsistioActivity.class.getSimpleName();
     private Guardia mGuardia;
@@ -61,6 +61,10 @@ public class AsistioActivity extends AppCompatActivity {
     @InjectView(R.id.nameLabel) TextView mNameLabel;
     @InjectView(R.id.clientLabel) TextView mClientLabel;
     @InjectView(R.id.signaturePad) SignaturePad mSignaturePad;
+
+    public AsistioActivity(){
+        setActivityName(AsistioActivity.class.getSimpleName());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
