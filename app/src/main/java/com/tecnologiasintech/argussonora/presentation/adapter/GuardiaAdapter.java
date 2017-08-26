@@ -30,27 +30,8 @@ import java.util.List;
 /**
  * Created by sergiosilva on 8/16/17.
  */
-public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaViewHolder> implements ChildEventListener{
+public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaViewHolder>{
 
-
-    /**
-     * We use this key to reference the list of messages in Firebase.
-     */
-    public static final String CLIENTE_FIREBASE_KEY = "Almacen Zapata";
-
-    /**
-     * This is a reference to the root of our Firebase. With this object, we can access any child
-     * information in the database.
-     */
-    private FirebaseDatabase firebase = FirebaseDatabase.getInstance();
-    /**
-     * Using the key, "messages", we can access a reference to the list of messages. We will be
-     * listening to changes to the children of this reference in this Activity.
-     */
-
-    // TODO: Update Cliente Reference
-    private DatabaseReference clienteReference =
-            firebase.getReference("Argus/Clientes/All/clienteGuardias");
 
     private Context mContext;
     private Cliente mCliente;
@@ -58,16 +39,10 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
     public static final String TAG = GuardiaAdapter.class.getSimpleName();
 
 
-    public GuardiaAdapter(Context context){
+    public GuardiaAdapter(Context context, Cliente cliente, List<GuardiaBitacora> guardiaBitacora){
         mContext = context;
-
-        mGuardiaBitacoraList = new ArrayList<>();
-
-
-        Log.i(TAG, "Cliente Reference Child Event Listener Added");
-
-        clienteReference.addChildEventListener(this);
-
+        mCliente = cliente;
+        mGuardiaBitacoraList = guardiaBitacora;
     }
 
     @Override
@@ -82,10 +57,6 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
     public void onBindViewHolder(GuardiaViewHolder holder, int position) {
         GuardiaBitacora guardiaBitacora = mGuardiaBitacoraList.get(position);
         holder.bindGuardia(guardiaBitacora);
-    }
-
-    public void setCliente(Cliente cliente){
-        mCliente = cliente;
     }
 
     @Override
@@ -109,7 +80,6 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
         }
         notifyItemChanged(pos);
     }
-
 
     public class GuardiaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
@@ -178,52 +148,6 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
         }
     }
 
-    /**
-     * Get Information from Firebase Node
-     * */ 
 
-    @Override
-    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-        // 4.
-        GuardiaBitacora guardiaBitacora = dataSnapshot.getValue(GuardiaBitacora.class);
-
-        boolean bandera = false;
-
-        if (mGuardiaBitacoraList.size()>0){
-
-            for (GuardiaBitacora currentGuardia : mGuardiaBitacoraList){
-
-                if (currentGuardia.getUsuarioNombre().equals(guardiaBitacora.getUsuarioNombre())){
-                    bandera = true;
-                }
-            }
-        }
-
-        if (bandera == false){
-            mGuardiaBitacoraList.add(0,guardiaBitacora);
-        }
-
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-    }
-
-    @Override
-    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-    }
-
-    @Override
-    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-    }
-
-    @Override
-    public void onCancelled(DatabaseError databaseError) {
-
-    }
 
 }
