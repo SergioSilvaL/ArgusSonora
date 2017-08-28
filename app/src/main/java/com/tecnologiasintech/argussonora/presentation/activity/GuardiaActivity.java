@@ -88,6 +88,20 @@ public class GuardiaActivity extends LoggingActivity implements ValueEventListen
 
     }
 
+    @OnClick(R.id.moveButton)
+    public void moveGuardia(){
+        Log.i(TAG, "Move Guardia");
+
+        Intent intent = new Intent(this, MoveGuardiaActivity.class);
+        intent.putExtra(EXTRA_GUARDIA, mGuardia);
+        intent.putExtra(EXTRA_CLIENTE, mCliente);
+        intent.putExtra(EXTRA_GUARDIA_BITACORA, mBitacora);
+        // Send Line position ?
+
+        startActivity(intent);
+        finish();
+    }
+
     @OnClick(R.id.btnCapturaAsistencia)
     public void capturarAsistencia(){
         Log.i(TAG, "Captura Asistencia");
@@ -111,11 +125,29 @@ public class GuardiaActivity extends LoggingActivity implements ValueEventListen
     @OnClick(R.id.btnCapturaDobleTurno)
     public void capturarDobleTurno(){
         Log.i(TAG, "Captura Doble Turno");
+
+        Intent intent = new Intent(this, DobleTurnoActivity.class);
+        intent.putExtra(EXTRA_GUARDIA, mGuardia);
+        intent.putExtra(EXTRA_CLIENTE, mCliente);
+        intent.putExtra(EXTRA_GUARDIA_BITACORA, mBitacora);
+        intent.putExtra(EXTRA_LIST_POSITION, listPosition);
+        intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+        startActivity(intent);
+        finish();
     }
 
     @OnClick(R.id.btnCapturaCubreDescanso)
     public void capturarCubreDescanso(){
         Log.i(TAG, "Captura Cubre Descanso");
+
+        Intent intent = new Intent(this, CubreDescansoActivity.class);
+        intent.putExtra(EXTRA_GUARDIA, mGuardia);
+        intent.putExtra(EXTRA_CLIENTE, mCliente);
+        intent.putExtra(EXTRA_GUARDIA_BITACORA, mBitacora);
+        intent.putExtra(EXTRA_LIST_POSITION, listPosition);
+        intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+        startActivity(intent);
+        finish();
     }
 
     @OnClick(R.id.btnCapturaHorasExtra)
