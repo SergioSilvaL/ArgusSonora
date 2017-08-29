@@ -57,23 +57,88 @@ public class MoveGuardiaActivity extends AppCompatActivity {
         // Get Guardia from Intent
         if (intent.getParcelableExtra(GuardiaActivity.EXTRA_GUARDIA) != null) {
             mGuardia = intent.getParcelableExtra(GuardiaActivity.EXTRA_GUARDIA);
-            Log.i(TAG, mGuardia.toString());
+            //Log.i(TAG, mGuardia.toString());
         }
 
         // Get Guardia Bitacora Intent
         if (intent.getParcelableExtra(GuardiaActivity.EXTRA_GUARDIA_BITACORA) != null){
             mGuardiaBitacora = intent.getParcelableExtra(GuardiaActivity.EXTRA_GUARDIA_BITACORA);
-            Log.i(TAG, mGuardiaBitacora.toString());
+            //Log.i(TAG, mGuardiaBitacora.toString());
         }
         // Get Cliente from Intent
         if (intent.getParcelableExtra(GuardiaActivity.EXTRA_CLIENTE)!= null){
             mCliente = intent.getParcelableExtra(GuardiaActivity.EXTRA_CLIENTE);
-            Log.i(TAG, mCliente.toString());
+            //Log.i(TAG, mCliente.toString());
         }
 
 
+        // Listview on child click listener
+        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+                // TODO Auto-generated method stub
+
+                String client = listDataChild.get(listDataHeader.get(groupPosition))
+                        .get(childPosition);
+
+                String zona = listDataHeader.get(groupPosition);
+
+                Toast.makeText(
+                        getApplicationContext(),
+                        (mGuardia.getUsuarioNombre() + " a sido asignado a " + client),
+                        Toast.LENGTH_SHORT)
+                        .show();
+
+                updateInformation(client, zona);
 
 
+                finish();
+
+
+                return false;
+            }
+        });
+
+    }
+
+    private void updateInformation(String client, String zona){
+
+        // Change Guardia Status
+        updateGuardiaClientStatus(client);
+        // Errase from current Client
+        DeleteFromCurrentClient();
+        // Move to new Client
+        addToNewClient(client);
+
+    }
+
+    private void addToNewClient(String client) {
+
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("Argus/Clientes").child(client).child("clienteGuardias");
+
+        reference.child(mGuardia.getUsuarioKey()).setValue(mGuardiaBitacora);
+
+    }
+
+    private void DeleteFromCurrentClient() {
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("Argus/Clientes").child(mCliente.getClienteNombre()).child("clienteGuardias")
+                .child(mGuardia.getUsuarioKey());
+
+        reference.setValue(null);
+
+    }
+
+    private void updateGuardiaClientStatus(String client) {
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("Argus/guardias")
+                .child(mGuardia.getUsuarioKey())
+                .child("usuarioClienteAsignado");
+
+        reference.setValue(client);
     }
 
     public void getData(){
@@ -113,17 +178,13 @@ public class MoveGuardiaActivity extends AppCompatActivity {
 
                 }
 
-
-
-
-
                 listAdapter = new ExpandableListAdapter(
                          MoveGuardiaActivity.this, listDataHeader, listDataChild);
 
+
+
                 // setting list adapter
                 expListView.setAdapter(listAdapter);
-
-
             }
 
             @Override
