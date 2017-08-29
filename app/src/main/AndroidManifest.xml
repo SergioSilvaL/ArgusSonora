@@ -12,12 +12,10 @@
             android:name=".presentation.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-
         </activity>
         <activity android:name=".presentation.activity.SignInActivity">
         </activity>
         <activity android:name=".presentation.activity.ClienteActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -25,12 +23,22 @@
             </intent-filter>
         </activity>
         <activity android:name=".presentation.activity.GuardiaActivity">
-
         </activity>
         <activity android:name=".presentation.activity.MoveGuardiaActivity"/>
-        <activity android:name=".presentation.activity.AsistioActivity"
-                  android:screenOrientation="landscape"
-                  android:parentActivityName=".presentation.activity.GuardiaActivity"
+        <activity
+            android:name=".presentation.activity.AsistioActivity"
+            android:parentActivityName=".presentation.activity.GuardiaActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".presentation.activity.DobleTurnoActivity"
+            android:parentActivityName=".presentation.activity.GuardiaActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".presentation.activity.CubreDescansoActivity"
+            android:parentActivityName=".presentation.activity.GuardiaActivity"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
