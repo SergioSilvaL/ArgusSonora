@@ -65,6 +65,7 @@ public class AsistioActivity extends LoggingActivity {
 
     @InjectView(R.id.CloseBtn) ImageButton mCloseBtn;
     @InjectView(R.id.ContinuarBtn) Button mContinuarBtn;
+    @InjectView(R.id.LimpiarBtn) Button mLimpiarBtn;
     @InjectView(R.id.nameLabel) TextView mNameLabel;
     @InjectView(R.id.clientLabel) TextView mClientLabel;
     @InjectView(R.id.signaturePad) SignaturePad mSignaturePad;
@@ -134,11 +135,16 @@ public class AsistioActivity extends LoggingActivity {
 
     @OnClick(R.id.ContinuarBtn)
     public void continuar(){
-        
+
         // take photo using intent
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING", 1);
         startActivityForResult(takePictureIntent, REQUEST_TAKE_PICTURE);
+    }
+
+    @OnClick(R.id.LimpiarBtn)
+    public void limpiar(){
+        mSignaturePad.clear();
     }
 
     public void uploadData(Uri imageUri){
