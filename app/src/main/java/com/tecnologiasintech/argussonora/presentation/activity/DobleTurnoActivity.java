@@ -300,7 +300,7 @@ public class DobleTurnoActivity extends LoggingActivity {
                 .child("Bitacora")
                 .child(new DatePost().getDateKey())
                 .child(mGuardia.getUsuarioKey())
-                .child("dobleTurnoCaptura");
+                .child("dobleturnoCaptura");
     }
 
 }
