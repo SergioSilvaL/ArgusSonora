@@ -36,7 +36,14 @@
             android:parentActivityName=".presentation.activity.GuardiaActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".presentation.activity.CubreDescansoActivity"
+        <activity
+            android:name=".presentation.activity.CubreDescansoActivity"
+            android:parentActivityName=".presentation.activity.GuardiaActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".presentation.activity.HorasExtraActivity"
             android:parentActivityName=".presentation.activity.GuardiaActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar">

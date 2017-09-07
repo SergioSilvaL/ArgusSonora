@@ -94,6 +94,7 @@ public class ClienteActivity extends LoggingActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Alert User
+                Log.i(TAG, databaseError.getMessage());
             }
         });
 

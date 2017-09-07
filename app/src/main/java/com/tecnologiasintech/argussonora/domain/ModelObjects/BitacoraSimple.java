@@ -12,7 +12,7 @@ public class BitacoraSimple implements Parcelable{
     private boolean mNoasistio;
     private boolean mDobleturno;
     private boolean mCubredescanso;
-    private long mHorasextra;
+    private long mHorasExtra;
     private String mFecha;
 
     public BitacoraSimple() {
@@ -51,12 +51,16 @@ public class BitacoraSimple implements Parcelable{
         this.mCubredescanso = cubredescanso;
     }
 
-    public long getHorasextra() {
-        return mHorasextra;
+    public long getHorasExtra() {
+        return mHorasExtra;
     }
 
-    public void setHorasextra(long horasextra) {
-        this.mHorasextra = horasextra;
+    public void setHorasExtra(long horasExtra) {
+        mHorasExtra = horasExtra;
+    }
+
+    public static Creator<BitacoraSimple> getCREATOR() {
+        return CREATOR;
     }
 
     public String getFecha() {
@@ -78,7 +82,7 @@ public class BitacoraSimple implements Parcelable{
         dest.writeInt(mNoasistio ? 1 : 0);
         dest.writeInt(mDobleturno ? 1 : 0);
         dest.writeInt(mCubredescanso ? 1 : 0);
-        dest.writeLong(mHorasextra);
+        dest.writeLong(mHorasExtra);
         dest.writeString(mFecha);
     }
 
@@ -87,7 +91,7 @@ public class BitacoraSimple implements Parcelable{
         mNoasistio = in.readInt() != 0;
         mDobleturno = in.readInt() != 0;
         mCubredescanso = in.readInt() != 0;
-        mHorasextra = in.readLong();
+        mHorasExtra = in.readLong();
         mFecha = in.readString();
     }
 

@@ -153,6 +153,15 @@ public class GuardiaActivity extends LoggingActivity implements ValueEventListen
     @OnClick(R.id.btnCapturaHorasExtra)
     public void capturarHorasExtra(){
         Log.i(TAG, "Captura Horas Extra");
+        Intent intent = new Intent(this, HorasExtraActivity.class);
+        intent.putExtra(EXTRA_GUARDIA, mGuardia);
+        intent.putExtra(EXTRA_CLIENTE, mCliente);
+        intent.putExtra(EXTRA_GUARDIA_BITACORA, mBitacora);
+        intent.putExtra(EXTRA_LIST_POSITION, listPosition);
+        intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+        startActivity(intent);
+        finish();
+
     }
 
     @Override

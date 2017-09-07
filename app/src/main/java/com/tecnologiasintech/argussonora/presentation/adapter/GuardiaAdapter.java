@@ -124,7 +124,7 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
                     }
 
                     // Horas Extra
-                    if (guardia.getBitacoraSimple().getHorasextra() > 0){
+                    if (guardia.getBitacoraSimple().getHorasExtra() > 0){
                         mHorasExtraIcon.setVisibility(View.VISIBLE);
                     }
 

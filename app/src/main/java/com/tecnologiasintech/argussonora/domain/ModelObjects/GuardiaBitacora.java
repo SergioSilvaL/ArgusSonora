@@ -48,7 +48,7 @@ public class GuardiaBitacora implements Parcelable{
                 "Bitacora no asistio: " + BitacoraSimple.isNoasistio() + "\n" +
                 "Bitacora dobleturno: " + BitacoraSimple.isDobleturno() + "\n" +
                 "Bitacora cubredescanso: " + BitacoraSimple.isCubredescanso() + "\n" +
-                "Bitacora horasextra: " + BitacoraSimple.getHorasextra() + "\n" +
+                "Bitacora horasextra: " + BitacoraSimple.getHorasExtra() + "\n" +
                 "Bitcora fecha: " + BitacoraSimple.getFecha() + "\n";
     }
 
