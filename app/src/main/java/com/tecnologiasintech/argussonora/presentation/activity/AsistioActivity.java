@@ -136,10 +136,16 @@ public class AsistioActivity extends LoggingActivity {
     @OnClick(R.id.ContinuarBtn)
     public void continuar(){
 
-        // take photo using intent
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING", 1);
-        startActivityForResult(takePictureIntent, REQUEST_TAKE_PICTURE);
+
+        if (mSignaturePad.isEmpty()){
+            Toast.makeText(this, "Favor, de Firmar antes de continuar", Toast.LENGTH_LONG).show();
+        }else {
+
+            // take photo using intent
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING", 1);
+            startActivityForResult(takePictureIntent, REQUEST_TAKE_PICTURE);
+        }
     }
 
     @OnClick(R.id.LimpiarBtn)
