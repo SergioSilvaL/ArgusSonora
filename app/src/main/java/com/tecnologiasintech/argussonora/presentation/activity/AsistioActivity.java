@@ -3,6 +3,8 @@ package com.tecnologiasintech.argussonora.presentation.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +26,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.tecnologiasintech.argussonora.R;
@@ -50,8 +53,12 @@ import static com.tecnologiasintech.argussonora.R.id.time;
 public class AsistioActivity extends LoggingActivity {
 
     public static final String TAG = AsistioActivity.class.getSimpleName();
+
+    public static final int REQUEST_TAKE_PICTURE = 0;
+
     private Guardia mGuardia;
     private Cliente mCliente;
+    
     private int listPosition;
     private GuardiaBitacora mBitacora;
     private FirebaseDatabase firebase = FirebaseDatabase.getInstance();
@@ -105,6 +112,20 @@ public class AsistioActivity extends LoggingActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == REQUEST_TAKE_PICTURE){
+            if (data != null){
+
+                // Upload Image(s) and data to Firebase Database
+                Uri imageUri = data.getData();
+                uploadData(imageUri);
+            }
+        }
+    }
+
     @OnClick(R.id.CloseBtn)
     public void close(){
         Log.i(TAG, "Close Button Clicked");
@@ -113,12 +134,24 @@ public class AsistioActivity extends LoggingActivity {
 
     @OnClick(R.id.ContinuarBtn)
     public void continuar(){
-        uploadData();
+        
+        // take photo using intent
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING", 1);
+        startActivityForResult(takePictureIntent, REQUEST_TAKE_PICTURE);
     }
 
-    public void uploadData(){
+    public void uploadData(Uri imageUri){
 
         final UploadTask uploadTask = getStorageReference().putBytes(getDataFromSignaturePadAsBytes());
+        UploadTask uploadSelfieTask = getStorageSelfieReference().putFile(imageUri);
+
+        uploadSelfieTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                pushSelfieUrl(taskSnapshot.getDownloadUrl().toString());
+            }
+        });
 
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -134,11 +167,6 @@ public class AsistioActivity extends LoggingActivity {
                 // push Data
                 Log.i(TAG, "push Data");
 
-                /** 1. Upload Data to ClieteGuardias Node;
-                 *
-                 *  3. Update Guardia Lista Context
-                 */
-
                 // 1.
                 pushBitacora(taskSnapshot.getDownloadUrl().toString());
 
@@ -152,8 +180,25 @@ public class AsistioActivity extends LoggingActivity {
                 finish();
 
             }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                Log.i(TAG, "Progress: " + progress );
+            }
         });
 
+    }
+
+    private void pushSelfieUrl(String s) {
+        DatabaseReference reference = firebase.getReference("Argus/Bitacora/")
+                .child(new DatePost().getDateKey()) // Gets Current Date
+                .child(mGuardia.getUsuarioKey());//Get Guardia Key
+
+
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/firmaAsistio",s);
+        reference.updateChildren(childUpdates);
     }
 
     private void pushBitacora(String urlPicture){
@@ -239,5 +284,17 @@ public class AsistioActivity extends LoggingActivity {
                 .child(mGuardia.getUsuarioKey())
                 .child("asistioFirma");
     }
+
+    private StorageReference getStorageSelfieReference(){
+        // Create a storage reference from our app
+        StorageReference storageRef =  FirebaseStorage.getInstance().getReference();
+
+        return  storageRef
+                .child("Bitacora")
+                .child(new DatePost().getDateKey())
+                .child(mGuardia.getUsuarioKey())
+                .child("asistioCaptura");
+    }
+
 
 }
