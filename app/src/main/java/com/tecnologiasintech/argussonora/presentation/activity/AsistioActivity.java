@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,9 +49,12 @@ import butterknife.OnClick;
 
 import static android.R.attr.data;
 import static com.tecnologiasintech.argussonora.R.id.nameLabel;
+import static com.tecnologiasintech.argussonora.R.id.progressBar;
 import static com.tecnologiasintech.argussonora.R.id.time;
 
 public class AsistioActivity extends LoggingActivity {
+
+    private FirebaseDatabase firebase = FirebaseDatabase.getInstance();
 
     public static final String TAG = AsistioActivity.class.getSimpleName();
 
@@ -58,10 +62,10 @@ public class AsistioActivity extends LoggingActivity {
 
     private Guardia mGuardia;
     private Cliente mCliente;
-    
-    private int listPosition;
     private GuardiaBitacora mBitacora;
-    private FirebaseDatabase firebase = FirebaseDatabase.getInstance();
+
+    private int listPosition;
+
 
     @InjectView(R.id.CloseBtn) ImageButton mCloseBtn;
     @InjectView(R.id.ContinuarBtn) Button mContinuarBtn;
@@ -69,6 +73,7 @@ public class AsistioActivity extends LoggingActivity {
     @InjectView(R.id.nameLabel) TextView mNameLabel;
     @InjectView(R.id.clientLabel) TextView mClientLabel;
     @InjectView(R.id.signaturePad) SignaturePad mSignaturePad;
+    @InjectView(R.id.progressBar) ProgressBar mProgressBar;
 
     public AsistioActivity(){
         setActivityName(AsistioActivity.class.getSimpleName());
@@ -121,6 +126,8 @@ public class AsistioActivity extends LoggingActivity {
             if (data != null){
 
                 // Upload Image(s) and data to Firebase Database
+
+
                 Uri imageUri = data.getData();
                 uploadData(imageUri);
             }
@@ -162,11 +169,13 @@ public class AsistioActivity extends LoggingActivity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 pushSelfieUrl(taskSnapshot.getDownloadUrl().toString());
+                mProgressBar.setProgress(40);
             }
         });
 
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
+
             @Override
             public void onFailure(@NonNull Exception e) {
 
@@ -175,28 +184,27 @@ public class AsistioActivity extends LoggingActivity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // Upload Data
+
+                mProgressBar.setProgress(70);
+
                 Log.i(TAG, taskSnapshot.getDownloadUrl().toString());
                 // push Data
                 Log.i(TAG, "push Data");
 
                 // 1.
                 pushBitacora(taskSnapshot.getDownloadUrl().toString());
+                mProgressBar.setProgress(80);
 
                 // 2.
                 pushBitacoraSimple();
+                mProgressBar.setProgress(90);
 
                 // 3.
                 updateGuardiaArrayList();
-
+                mProgressBar.setProgress(100);
 
                 finish();
 
-            }
-        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                Log.i(TAG, "Progress: " + progress );
             }
         });
 

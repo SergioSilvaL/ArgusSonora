@@ -67,13 +67,14 @@
             android:layout_weight="0.95"
             android:background="@color/cardview_light_background"
             android:layout_margin="1sp"
-            android:layout_height="300dp"/>
+            android:layout_height="250dp"/>
 
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="@color/color_black"
-            android:layout_margin="4dp"/>
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_weight="0.95"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -108,7 +109,6 @@
 
 
         </LinearLayout>
-
 
 
     </LinearLayout>
