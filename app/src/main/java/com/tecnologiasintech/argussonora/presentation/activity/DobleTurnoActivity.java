@@ -2,12 +2,16 @@ package com.tecnologiasintech.argussonora.presentation.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.gcacace.signaturepad.views.SignaturePad;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -38,18 +42,25 @@ import butterknife.OnClick;
 
 public class DobleTurnoActivity extends LoggingActivity {
 
+    private FirebaseDatabase firebase = FirebaseDatabase.getInstance();
+
     public static final String TAG = AsistioActivity.class.getSimpleName();
+
+    public static final int REQUEST_TAKE_PICTURE = 0;
+
     private Guardia mGuardia;
     private Cliente mCliente;
-    private int listPosition;
     private GuardiaBitacora mBitacora;
-    private FirebaseDatabase firebase = FirebaseDatabase.getInstance();
+
+    private int listPosition;
 
     @InjectView(R.id.CloseBtn) ImageButton mCloseBtn;
     @InjectView(R.id.ContinuarBtn) Button mContinuarBtn;
+    @InjectView(R.id.LimpiarBtn) Button mLimpiarBtn;
     @InjectView(R.id.nameLabel) TextView mNameLabel;
     @InjectView(R.id.clientLabel) TextView mClientLabel;
     @InjectView(R.id.signaturePad) SignaturePad mSignaturePad;
+    @InjectView(R.id.progressBar) ProgressBar mProgressBar;
 
     public DobleTurnoActivity(){
         setActivityName(AsistioActivity.class.getSimpleName());
@@ -58,7 +69,7 @@ public class DobleTurnoActivity extends LoggingActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_doble_turno);
+        setContentView(R.layout.activity_asistio);
         ButterKnife.inject(this);
 
         // Get Data From intent
@@ -94,6 +105,22 @@ public class DobleTurnoActivity extends LoggingActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == REQUEST_TAKE_PICTURE){
+            if (data != null){
+
+                // Upload Image(s) and data to Firebase Database
+
+
+                Uri imageUri = data.getData();
+                uploadData(imageUri);
+            }
+        }
+    }
+
     @OnClick(R.id.CloseBtn)
     public void close(){
         Log.i(TAG, "Close Button Clicked");
@@ -102,15 +129,40 @@ public class DobleTurnoActivity extends LoggingActivity {
 
     @OnClick(R.id.ContinuarBtn)
     public void continuar(){
-        uploadData();
+
+
+        if (mSignaturePad.isEmpty()){
+            Toast.makeText(this, "Favor, de Firmar antes de continuar", Toast.LENGTH_LONG).show();
+        }else {
+
+            // take photo using intent
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING", 1);
+            startActivityForResult(takePictureIntent, REQUEST_TAKE_PICTURE);
+        }
     }
 
-    public void uploadData(){
+    @OnClick(R.id.LimpiarBtn)
+    public void limpiar(){
+        mSignaturePad.clear();
+    }
+
+    public void uploadData(Uri imageUri){
 
         final UploadTask uploadTask = getStorageReference().putBytes(getDataFromSignaturePadAsBytes());
+        UploadTask uploadSelfieTask = getStorageSelfieReference().putFile(imageUri);
+
+        uploadSelfieTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                pushSelfieUrl(taskSnapshot.getDownloadUrl().toString());
+                mProgressBar.setProgress(40);
+            }
+        });
 
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
+
             @Override
             public void onFailure(@NonNull Exception e) {
 
@@ -119,30 +171,41 @@ public class DobleTurnoActivity extends LoggingActivity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // Upload Data
+
+                mProgressBar.setProgress(70);
+
                 Log.i(TAG, taskSnapshot.getDownloadUrl().toString());
                 // push Data
                 Log.i(TAG, "push Data");
 
-                /** 1. Upload Data to ClieteGuardias Node;
-                 *
-                 *  3. Update Guardia Lista Context
-                 */
-
                 // 1.
                 pushBitacora(taskSnapshot.getDownloadUrl().toString());
+                mProgressBar.setProgress(80);
 
                 // 2.
                 pushBitacoraSimple();
+                mProgressBar.setProgress(90);
 
                 // 3.
                 updateGuardiaArrayList();
-
+                mProgressBar.setProgress(100);
 
                 finish();
 
             }
         });
 
+    }
+
+    private void pushSelfieUrl(String s) {
+        DatabaseReference reference = firebase.getReference("Argus/Bitacora/")
+                .child(new DatePost().getDateKey()) // Gets Current Date
+                .child(mGuardia.getUsuarioKey());//Get Guardia Key
+
+
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/firmaDobleTurno",s);
+        reference.updateChildren(childUpdates);
     }
 
     private void pushBitacora(String urlPicture){
@@ -227,6 +290,17 @@ public class DobleTurnoActivity extends LoggingActivity {
                 .child(new DatePost().getDateKey())
                 .child(mGuardia.getUsuarioKey())
                 .child("dobleTurnoFirma");
+    }
+
+    private StorageReference getStorageSelfieReference(){
+        // Create a storage reference from our app
+        StorageReference storageRef =  FirebaseStorage.getInstance().getReference();
+
+        return  storageRef
+                .child("Bitacora")
+                .child(new DatePost().getDateKey())
+                .child(mGuardia.getUsuarioKey())
+                .child("dobleTurnoCaptura");
     }
 
 }
