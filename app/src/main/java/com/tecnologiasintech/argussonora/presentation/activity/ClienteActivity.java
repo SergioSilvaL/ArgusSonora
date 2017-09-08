@@ -2,6 +2,7 @@ package com.tecnologiasintech.argussonora.presentation.activity;
 
 import android.content.Intent;
 import android.os.PersistableBundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -40,6 +41,7 @@ public class ClienteActivity extends LoggingActivity {
     private Cliente mCliente;
     private List<GuardiaBitacora> mGuardiaBitacora;
 
+    private ActionBar mActionBar;
     @InjectView(R.id.recyclerView) RecyclerView mRecyclerView;
 
     public ClienteActivity(){
@@ -51,6 +53,11 @@ public class ClienteActivity extends LoggingActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cliente_guardia);
         ButterKnife.inject(this);
+
+
+        mActionBar = getSupportActionBar();
+        mActionBar.setDisplayHomeAsUpEnabled(true);
+
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
@@ -68,6 +75,7 @@ public class ClienteActivity extends LoggingActivity {
 
         FirebaseDatabase firebase = FirebaseDatabase.getInstance();
 
+        // TODO: Replace "All" wih Client that was selected
         DatabaseReference reference = firebase.getReference("Argus/Clientes/All");
 
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -77,6 +85,8 @@ public class ClienteActivity extends LoggingActivity {
                 mCliente = dataSnapshot.getValue(Cliente.class);
                 Log.i(TAG, mCliente.toString());
 
+                // Set Titlebar
+                mActionBar.setTitle(mCliente.getClienteNombre());
 
                 // Get Guardia Bitacora
 
