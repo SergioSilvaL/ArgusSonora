@@ -120,6 +120,15 @@ public class GuardiaActivity extends LoggingActivity implements ValueEventListen
     @OnClick(R.id.btnCapturaInAsistencia)
     public void capturarInAsistencia(){
         Log.i(TAG, "Captura InAsistencia");
+
+        Intent intent = new Intent(this, InAsistenciaActivity.class);
+        intent.putExtra(EXTRA_GUARDIA, mGuardia);
+        intent.putExtra(EXTRA_CLIENTE, mCliente);
+        intent.putExtra(EXTRA_GUARDIA_BITACORA, mBitacora);
+        intent.putExtra(EXTRA_LIST_POSITION, listPosition);
+        intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+        startActivity(intent);
+        finish();
     }
 
     @OnClick(R.id.btnCapturaDobleTurno)
