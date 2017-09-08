@@ -197,6 +197,8 @@ public class HorasExtraActivity extends LoggingActivity {
                 updateGuardiaArrayList();
                 mProgressBar.setProgress(100);
 
+                updateFechaInfo();
+
                 finish();
 
             }
@@ -346,6 +348,20 @@ public class HorasExtraActivity extends LoggingActivity {
         });
         builder.create().show();
 
+    }
+
+    private void updateFechaInfo(){
+
+        DatabaseReference reference =firebase.getReference()
+                .child("Argus")
+                .child("Bitacora")
+                .child(new DatePost().getDateKey());
+
+        Map<String, Object> childUpdates = new HashMap<>();
+
+        childUpdates.put("/fecha", Long.valueOf(new DatePost().getDateKey()));
+
+        reference.updateChildren(childUpdates);
     }
 
 

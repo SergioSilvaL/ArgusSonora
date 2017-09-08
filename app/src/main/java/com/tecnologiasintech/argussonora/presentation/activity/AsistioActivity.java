@@ -203,6 +203,9 @@ public class AsistioActivity extends LoggingActivity {
                 updateGuardiaArrayList();
                 mProgressBar.setProgress(100);
 
+                // update fecha
+                updateFechaInfo();
+
                 finish();
 
             }
@@ -314,6 +317,20 @@ public class AsistioActivity extends LoggingActivity {
                 .child(new DatePost().getDateKey())
                 .child(mGuardia.getUsuarioKey())
                 .child("asistioCaptura");
+    }
+
+    private void updateFechaInfo(){
+
+        DatabaseReference reference =firebase.getReference()
+                .child("Argus")
+                .child("Bitacora")
+                .child(new DatePost().getDateKey());
+
+        Map<String, Object> childUpdates = new HashMap<>();
+
+        childUpdates.put("/fecha", Long.valueOf(new DatePost().getDateKey()));
+
+        reference.updateChildren(childUpdates);
     }
 
 

@@ -187,6 +187,9 @@ public class CubreDescansoActivity extends LoggingActivity {
                 updateGuardiaArrayList();
                 mProgressBar.setProgress(100);
 
+                // 4.
+                updateFechaInfo();
+
                 finish();
 
             }
@@ -299,6 +302,20 @@ public class CubreDescansoActivity extends LoggingActivity {
                 .child(new DatePost().getDateKey())
                 .child(mGuardia.getUsuarioKey())
                 .child("cubredescansoCaptura");
+    }
+
+    private void updateFechaInfo(){
+
+        DatabaseReference reference =firebase.getReference()
+                .child("Argus")
+                .child("Bitacora")
+                .child(new DatePost().getDateKey());
+
+        Map<String, Object> childUpdates = new HashMap<>();
+
+        childUpdates.put("/fecha", Long.valueOf(new DatePost().getDateKey()));
+
+        reference.updateChildren(childUpdates);
     }
 
 }

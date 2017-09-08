@@ -100,6 +100,9 @@ public class InAsistenciaActivity extends LoggingActivity {
         // Update List
         updateClientList();
 
+        // update fecha
+        updateFechaInfo();
+
         // finish
         finish();
 
@@ -180,5 +183,18 @@ public class InAsistenciaActivity extends LoggingActivity {
         reference.updateChildren(childUpdates);
     }
 
+    private void updateFechaInfo(){
+
+        DatabaseReference reference =firebase.getReference()
+                        .child("Argus")
+                        .child("Bitacora")
+                        .child(new DatePost().getDateKey());
+
+        Map<String, Object> childUpdates = new HashMap<>();
+
+        childUpdates.put("/fecha", Long.valueOf(new DatePost().getDateKey()));
+
+        reference.updateChildren(childUpdates);
+    }
 
 }
