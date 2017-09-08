@@ -105,6 +105,9 @@ public class ClienteActivity extends LoggingActivity {
     }
 
     private void openTutorial() {
+        TutorialViewDialogFragment df = new TutorialViewDialogFragment();
+
+        df.show(getSupportFragmentManager(),"dialog_fragment_tutorial");
     }
 
     private void addGuardiaTemporal() {

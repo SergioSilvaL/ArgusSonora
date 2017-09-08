@@ -14,4 +14,5 @@
     <string name="action_add_guardia">Agregar Guardia Temporal</string>
     <string name="action_consigna">Consignas</string>
     <string name="action_tutorial">Tutorial</string>
+    <string name="button_cancelar">Cancelar</string>
 </resources>
