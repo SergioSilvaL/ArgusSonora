@@ -86,6 +86,7 @@ public class ClienteActivity extends LoggingActivity {
                 Log.i(TAG, mCliente.toString());
 
                 // Set Titlebar
+                if (mActionBar != null)
                 mActionBar.setTitle(mCliente.getClienteNombre());
 
                 // Get Guardia Bitacora
