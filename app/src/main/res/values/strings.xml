@@ -11,4 +11,7 @@
     <string name="No_Connection_To_Internet">No Internet Connection</string>
     <string name="title_activity_cliente_guardias">ClienteGuardiasActivity</string>
     <string name="hello_world">Hello World!</string>
+    <string name="action_add_guardia">Agregar Guardia Temporal</string>
+    <string name="action_consigna">Consignas</string>
+    <string name="action_tutorial">Tutorial</string>
 </resources>

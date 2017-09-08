@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -67,6 +69,49 @@ public class ClienteActivity extends LoggingActivity {
 
 
         Log.i(TAG, "Main UI Code is running");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_cliente, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+
+            case android.R.id.home:
+                finish();
+                return true;
+
+            case R.id.action_add_guardia:
+                addGuardiaTemporal();
+                return true;
+
+            case R.id.action_consigna:
+                openConsigna();
+                return true;
+
+            case R.id.action_tutorial:
+                openTutorial();
+                return true;
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void openTutorial() {
+    }
+
+    private void addGuardiaTemporal() {
+    }
+
+    private void openConsigna(){
+
     }
 
     public void getCliente(){
