@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -21,6 +22,7 @@ import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.BitacoraSimple;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
+import com.tecnologiasintech.argussonora.presentation.ClienteRecyclerAdapter;
 import com.tecnologiasintech.argussonora.presentation.adapter.GuardiaAdapter;
 
 import java.util.ArrayList;
@@ -124,7 +126,9 @@ public class ClienteActivity extends LoggingActivity {
         FirebaseDatabase firebase = FirebaseDatabase.getInstance();
 
         // TODO: Replace "All" wih Client that was selected
-        DatabaseReference reference = firebase.getReference("Argus/Clientes/All");
+        Intent intent = getIntent();
+        DatabaseReference reference = firebase.getReference("Argus/Clientes")
+                .child(intent.getStringExtra(ClienteRecyclerAdapter.EXTRA_CLIENTE));
 
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -142,9 +146,12 @@ public class ClienteActivity extends LoggingActivity {
                 mGuardiaBitacora = new ArrayList<>();
 
                 for (DataSnapshot snapshot : dataSnapshot.child("clienteGuardias").getChildren()){
-                    GuardiaBitacora guardiaBitacora = snapshot.getValue(GuardiaBitacora.class);
-                    //Log.i(TAG, guardiaBitacora.toString());
-                    mGuardiaBitacora.add(guardiaBitacora);
+                    try {
+                        GuardiaBitacora guardiaBitacora = snapshot.getValue(GuardiaBitacora.class);
+                        mGuardiaBitacora.add(guardiaBitacora);
+                    }catch (DatabaseException dbe){
+                        Log.e(TAG, dbe.getMessage());
+                    }
                 }
 
                 updateAdapter(mCliente, mGuardiaBitacora);

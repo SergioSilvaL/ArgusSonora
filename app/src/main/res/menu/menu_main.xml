@@ -3,8 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.tecnologiasintech.argussonora.presentation.activity.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_search"
+        android:icon="@android:drawable/ic_menu_search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView"
+        android:title="Search"/>
+
+    <item
+        android:id="@+id/action_sign_out"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/action_sign_out"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_bitacora"
+        android:orderInCategory="100"
+        android:title="@string/action_bitacora"
+        app:showAsAction="never" />
+
 </menu>

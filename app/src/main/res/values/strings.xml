@@ -15,4 +15,6 @@
     <string name="action_consigna">Consignas</string>
     <string name="action_tutorial">Tutorial</string>
     <string name="button_cancelar">Cancelar</string>
+    <string name="action_sign_out">Cerrar Session</string>
+    <string name="action_bitacora">Bitacora</string>
 </resources>
