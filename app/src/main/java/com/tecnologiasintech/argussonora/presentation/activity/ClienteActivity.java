@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.BitacoraSimple;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.DatePost;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
 import com.tecnologiasintech.argussonora.presentation.ClienteRecyclerAdapter;
 import com.tecnologiasintech.argussonora.presentation.adapter.GuardiaAdapter;
@@ -43,6 +44,7 @@ public class ClienteActivity extends LoggingActivity {
 
     private GuardiaAdapter mAdapter;
     private Cliente mCliente;
+    private String mClienteName;
     private List<GuardiaBitacora> mGuardiaBitacora;
 
     private ActionBar mActionBar;
@@ -58,6 +60,8 @@ public class ClienteActivity extends LoggingActivity {
         setContentView(R.layout.activity_cliente_guardia);
         ButterKnife.inject(this);
 
+        Intent intent = getIntent();
+        mClienteName = intent.getStringExtra(ClienteRecyclerAdapter.EXTRA_CLIENTE);
 
         mActionBar = getSupportActionBar();
         mActionBar.setDisplayHomeAsUpEnabled(true);
@@ -67,10 +71,14 @@ public class ClienteActivity extends LoggingActivity {
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        getCliente();
-
 
         Log.i(TAG, "Main UI Code is running");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getCliente();
     }
 
     @Override
@@ -126,9 +134,8 @@ public class ClienteActivity extends LoggingActivity {
         FirebaseDatabase firebase = FirebaseDatabase.getInstance();
 
         // TODO: Replace "All" wih Client that was selected
-        Intent intent = getIntent();
         DatabaseReference reference = firebase.getReference("Argus/Clientes")
-                .child(intent.getStringExtra(ClienteRecyclerAdapter.EXTRA_CLIENTE));
+                .child(mClienteName);
 
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -142,13 +149,23 @@ public class ClienteActivity extends LoggingActivity {
                 mActionBar.setTitle(mCliente.getClienteNombre());
 
                 // Get Guardia Bitacora
+                // TODO: Create method and Test!
 
                 mGuardiaBitacora = new ArrayList<>();
 
                 for (DataSnapshot snapshot : dataSnapshot.child("clienteGuardias").getChildren()){
                     try {
                         GuardiaBitacora guardiaBitacora = snapshot.getValue(GuardiaBitacora.class);
+
+                        // Get the inner Simple Bitacora
+                        for (DataSnapshot snapshot1: snapshot.child("BitacoraSimple").getChildren()){
+                            if (snapshot1.getKey().equals(new DatePost().getDateKey())){
+                                BitacoraSimple bitacoraSimple = snapshot1.getValue(BitacoraSimple.class);
+                                guardiaBitacora.setBitacoraSimple(bitacoraSimple);
+                            }
+                        }
                         mGuardiaBitacora.add(guardiaBitacora);
+
                     }catch (DatabaseException dbe){
                         Log.e(TAG, dbe.getMessage());
                     }

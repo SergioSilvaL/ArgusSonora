@@ -232,10 +232,12 @@ public class CubreDescansoActivity extends LoggingActivity {
     private void pushBitacoraSimple(){
         // TODO: replace Clientes with Cliente Object
         DatabaseReference reference =
-                firebase.getReference("Argus/Clientes/" +
-                        mCliente.getClienteNombre() +
-                        "/clienteGuardias").child(mGuardia.getUsuarioKey())
-                        .child("BitacoraSimple");
+                firebase.getReference(
+                        "Argus/Clientes/" +
+                                mCliente.getClienteNombre() + "/clienteGuardias")
+                        .child(mGuardia.getUsuarioKey())
+                        .child("BitacoraSimple")
+                        .child(new DatePost().getDateKey());
 
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/cubredescanso",true);
