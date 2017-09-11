@@ -1,12 +1,16 @@
 package com.tecnologiasintech.argussonora.domain.ModelObjects;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.firebase.database.Exclude;
 
 /**
  * Created by sergiosilva on 9/11/17.
  */
 
-public class supervisores {
+public class Supervisor implements Parcelable{
+
     private String usuarioContrasena;
     private String usuarioDomicilio;
     private String usuarioEmail;
@@ -16,9 +20,9 @@ public class supervisores {
     private String usuarioZona;
     private String key;
 
-    public supervisores(){}
+    public Supervisor(){}
 
-    public supervisores(String usuarioContrasena, String usuarioDomicilio, String usuarioEmail, String usuarioNombre, String usuarioTipo, String usuarioTurno, String usuarioZona) {
+    public Supervisor(String usuarioContrasena, String usuarioDomicilio, String usuarioEmail, String usuarioNombre, String usuarioTipo, String usuarioTurno, String usuarioZona) {
         this.usuarioContrasena = usuarioContrasena;
         this.usuarioDomicilio = usuarioDomicilio;
         this.usuarioEmail = usuarioEmail;
@@ -27,6 +31,29 @@ public class supervisores {
         this.usuarioTurno = usuarioTurno;
         this.usuarioZona = usuarioZona;
     }
+
+    protected Supervisor(Parcel in) {
+        usuarioContrasena = in.readString();
+        usuarioDomicilio = in.readString();
+        usuarioEmail = in.readString();
+        usuarioNombre = in.readString();
+        usuarioTipo = in.readString();
+        usuarioTurno = in.readString();
+        usuarioZona = in.readString();
+        key = in.readString();
+    }
+
+    public static final Creator<Supervisor> CREATOR = new Creator<Supervisor>() {
+        @Override
+        public Supervisor createFromParcel(Parcel in) {
+            return new Supervisor(in);
+        }
+
+        @Override
+        public Supervisor[] newArray(int size) {
+            return new Supervisor[size];
+        }
+    };
 
     @Exclude
     public String getKey() {
@@ -91,5 +118,22 @@ public class supervisores {
 
     public void setUsuarioZona(String usuarioZona) {
         this.usuarioZona = usuarioZona;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(usuarioContrasena);
+        dest.writeString(usuarioDomicilio);
+        dest.writeString(usuarioEmail);
+        dest.writeString(usuarioNombre);
+        dest.writeString(usuarioTipo);
+        dest.writeString(usuarioTurno);
+        dest.writeString(usuarioZona);
+        dest.writeString(key);
     }
 }
