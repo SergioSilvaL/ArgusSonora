@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
 import com.tecnologiasintech.argussonora.presentation.ClienteFragment;
 
 
@@ -16,11 +17,14 @@ public class Adapter_ViewPagerMain extends FragmentPagerAdapter {
 
     int mNumberOfTabs;
     private Context mContext;
+    private Supervisor mSupervisor;
 
-    public Adapter_ViewPagerMain(FragmentManager fm, int numberOfTabs, Context mContext) {
+
+    public Adapter_ViewPagerMain(FragmentManager fm, int numberOfTabs, Context mContext, Supervisor supervisor) {
         super(fm);
         this.mNumberOfTabs = numberOfTabs;
         this.mContext = mContext;
+        mSupervisor = supervisor;
     }
     /**
      * Return the Fragment associated with a specified position.
@@ -36,14 +40,13 @@ public class Adapter_ViewPagerMain extends FragmentPagerAdapter {
          * */
         switch (position) {
 
-            case 0: // I'll always begin in 0.
-                return new ClienteFragment();
-            //ClienteFragment.newInstance(zonaSupervisorRef);
+            case 0:
+            return ClienteFragment.newInstance(mSupervisor);
+
 
             case 1:
                 return new GuardiaFragment();
 
-            // If the position we receive doesn't correspond to any section.
             default:
                 return null;
         }

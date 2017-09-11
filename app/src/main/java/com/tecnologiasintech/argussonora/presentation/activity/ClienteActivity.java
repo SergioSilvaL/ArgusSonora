@@ -1,9 +1,7 @@
 package com.tecnologiasintech.argussonora.presentation.activity;
 
 import android.content.Intent;
-import android.os.PersistableBundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +9,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseException;
@@ -23,7 +20,7 @@ import com.tecnologiasintech.argussonora.domain.ModelObjects.BitacoraSimple;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.DatePost;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
-import com.tecnologiasintech.argussonora.presentation.ClienteRecyclerAdapter;
+import com.tecnologiasintech.argussonora.presentation.ClienteAdapter;
 import com.tecnologiasintech.argussonora.presentation.adapter.GuardiaAdapter;
 
 import java.util.ArrayList;
@@ -61,7 +58,7 @@ public class ClienteActivity extends LoggingActivity {
         ButterKnife.inject(this);
 
         Intent intent = getIntent();
-        mClienteName = intent.getStringExtra(ClienteRecyclerAdapter.EXTRA_CLIENTE);
+        mClienteName = intent.getStringExtra(MainActivity.EXTRA_REFERENCE_CLIENTE);
 
         mActionBar = getSupportActionBar();
         mActionBar.setDisplayHomeAsUpEnabled(true);
@@ -71,15 +68,12 @@ public class ClienteActivity extends LoggingActivity {
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
 
+        getCliente();
+
 
         Log.i(TAG, "Main UI Code is running");
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        getCliente();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -133,7 +127,7 @@ public class ClienteActivity extends LoggingActivity {
 
         FirebaseDatabase firebase = FirebaseDatabase.getInstance();
 
-        // TODO: Replace "All" wih Client that was selected
+
         DatabaseReference reference = firebase.getReference("Argus/Clientes")
                 .child(mClienteName);
 

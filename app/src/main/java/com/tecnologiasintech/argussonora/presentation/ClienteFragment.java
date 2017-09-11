@@ -1,7 +1,5 @@
 package com.tecnologiasintech.argussonora.presentation;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,141 +11,60 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
-import com.tecnologiasintech.argussonora.domain.ModelObjects.supervisores;
-import com.tecnologiasintech.argussonora.presentation.activity.SignInActivity;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
+
 
 import java.util.ArrayList;
 
 
 /**
- * Created by Legible on 2/17/2017.
+ * Created by Legible on 2/17/2017. // Edited by Sergio on 09/11/2017.
  */
 
 public class ClienteFragment extends Fragment {
 
-    private ClienteRecyclerAdapter mAdapter;
-    private String zonaSupervisorRef, zonaRef;
-    private RecyclerView recyclerView;
-    private View view;
-    private Context context;
-    //Test it out on here
-    private static final String TAG = ClienteFragment.class.getSimpleName();
+    public static final String ARG_SUPERVISOR = "ARG_SUPERVISOR";
 
+    private ClienteAdapter mAdapter;
+    private Supervisor mSupervisor;
 
-    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    public static ClienteFragment newInstance(Supervisor supervisor){
+        Bundle args = new Bundle();
+        args.putParcelable(ARG_SUPERVISOR, supervisor);
+        ClienteFragment fragment = new ClienteFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
-    //Get Firebase Reference
-    private DatabaseReference mDatabaseReference =
-            FirebaseDatabase.getInstance().getReference()
-                    .child("Argus")
-                    .child("supervisores");
-
-    public ClienteFragment() {
-        // Required empty public constructor
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mSupervisor = getArguments().getParcelable(ARG_SUPERVISOR);
+        setHasOptionsMenu(true);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        View view = inflater.inflate(R.layout.fragment_cliente, container, false);
 
-        //Inflates the layout for this fragment
+        //Create the Adapter
+        mAdapter = new ClienteAdapter(ClienteFragment.this.getContext(), mSupervisor);
 
-        view = inflater.inflate(R.layout.fragment_cliente, container, false);
-
-//        //Capture the recyclerView
-//
-//        recyclerView = (RecyclerView)
-//                view.findViewById(R.id.recyclerView);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-//        recyclerView.setHasFixedSize(true);
-
-
-        mDatabaseReference.addListenerForSingleValueEvent(new ZonaReferenceEventListener());
-
+        //Capture the recyclerView
+        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(ClienteFragment.this.getContext()));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(mAdapter);
 
         return view;
-
     }
 
-    class ZonaReferenceEventListener implements ValueEventListener{
-
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-
-            boolean isSupervisor = false;
-
-            for(DataSnapshot data: dataSnapshot.getChildren()){
-
-                supervisores supervisor = data.getValue(supervisores.class);
-
-                if(user.getEmail().equals(supervisor.getUsuarioEmail())){
-
-                    isSupervisor = true;
-                    zonaSupervisorRef = supervisor.getUsuarioNombre();
-                    zonaRef = supervisor.getUsuarioZona();
-                    ClienteRecyclerAdapter.mySupervisorKey = data.getKey();
-                    //Create the Adapter
-                    mAdapter = new ClienteRecyclerAdapter(ClienteFragment.this.getContext(), zonaRef, zonaSupervisorRef);
-                    //Binding
-
-                    //Capture the recyclerView
-
-                    recyclerView = (RecyclerView)
-                            view.findViewById(R.id.recyclerView);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                    recyclerView.setHasFixedSize(true);
-
-                    recyclerView.setAdapter(mAdapter);
-
-                    return;
-
-                }
-            }
-
-            if (!isSupervisor){
-                signOut();
-            }
-
-
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-
-        }
-    }
-
-    public void signOut () {
-
-        FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(getActivity(),SignInActivity.class);
-
-        //Todo: String recource
-        Toast.makeText(getContext(),"Error, Solo los Supervisores tiene acceso al Sistema Movil",Toast.LENGTH_LONG).show();
-        startActivity(intent);
-        getActivity().finish();
-
-        getActivity().finish();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
 
     public void onPrepareOptionsMenu(Menu menu) {
         MenuItem mSearchMenuItem = menu.findItem(R.id.action_search);
@@ -165,7 +82,7 @@ public class ClienteFragment extends Fragment {
                 newText = newText.toLowerCase();
                 ArrayList<Cliente> newList = new ArrayList<>();
 
-                for(Cliente cliente : ClienteRecyclerAdapter.filterClientes){
+                for(Cliente cliente : ClienteAdapter.filterClientes){
                     String name = cliente.getClienteNombre().toLowerCase();
 
                     if (name.contains(newText)){

@@ -30,7 +30,7 @@
                 android:layout_width="48dp"/>
 
             <TextView
-                android:id="@+id/textViewZonaName"
+                android:id="@+id/TEXT_VIEW_CLIENTE_NAME"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"

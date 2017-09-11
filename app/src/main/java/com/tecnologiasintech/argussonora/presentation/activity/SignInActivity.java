@@ -20,14 +20,24 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.tecnologiasintech.argussonora.domain.FirebaseExceptionConstants;
 import com.tecnologiasintech.argussonora.R;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
 
 /**
  * Created by sergiosilva on 8/16/17.
  */
 
 public class SignInActivity extends AppCompatActivity{
+
+    public static final String EXTRA_SUPERVISOR = "ARG_SUPERVISOR";
+
     private String email;
     private String password;
     private EditText inputEmail, inputPassword;
@@ -123,8 +133,7 @@ public class SignInActivity extends AppCompatActivity{
         // Log In User Directly if already Signed In
 
         if(auth.getCurrentUser() != null){
-            startActivity(new Intent(SignInActivity.this, MainActivity.class));
-            finish();
+            getSupervisor();
         }
     }
     private void authenticateUser(String email, String password){
@@ -145,10 +154,7 @@ public class SignInActivity extends AppCompatActivity{
                         // signed in user can be handled in the listener.
                         progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
-                            Intent intent = new Intent(
-                                    SignInActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
+                            getSupervisor();
                         }
                     }
                 })
@@ -192,6 +198,33 @@ public class SignInActivity extends AppCompatActivity{
                     }
                 });
     }
+
+    private void getSupervisor(){
+
+        DatabaseReference mref = FirebaseDatabase.getInstance().getReference("Argus/supervisores");
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        mref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot data: dataSnapshot.getChildren()){
+                    Supervisor supervisor = data.getValue(Supervisor.class);
+                    if (firebaseUser.getEmail().equals(supervisor.getUsuarioEmail())){
+                        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                        intent.putExtra(EXTRA_SUPERVISOR, supervisor);
+                        startActivity(intent);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
     private void signIn(){
 
         // Get the email from user input

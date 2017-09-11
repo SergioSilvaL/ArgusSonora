@@ -16,12 +16,14 @@ import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.tecnologiasintech.argussonora.R;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    public static final String EXTRA_REFERENCE_CLIENTE = "EXTRA_REFERENCE_CLIENTE";
 
     private Adapter_ViewPagerMain mAdapter_viewPagerMain;
     private ViewPager mViewPager;
@@ -35,13 +37,15 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Intent intent = getIntent();
+        Supervisor supervisor = intent.getParcelableExtra(SignInActivity.EXTRA_SUPERVISOR);
 
 
         //Create costume TabLayour for our main view.
         setTabLayoutMain();
 
         //Create Costum Adapter for our View Pager in Main.
-        setViewPagerMain();
+        setViewPagerMain(supervisor);
 
         Log.d("DEBUG", "Terminamos onCreate");
     }
@@ -107,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void setViewPagerMain(){
+    public void setViewPagerMain(Supervisor supervisor){
 
         //Instantiate a View Pager
         mViewPager = (ViewPager) findViewById(R.id.viewPagerMain);
@@ -122,7 +126,8 @@ public class MainActivity extends AppCompatActivity {
                 new Adapter_ViewPagerMain(
                         getSupportFragmentManager(),
                         mTabLayout.getTabCount(),
-                        this);
+                        this,
+                        supervisor);
 
         //Bind View Pager to the Adapter we just created.
 
