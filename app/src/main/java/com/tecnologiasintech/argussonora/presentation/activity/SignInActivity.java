@@ -134,6 +134,7 @@ public class SignInActivity extends AppCompatActivity{
 
         if(auth.getCurrentUser() != null){
             getSupervisor();
+            finish();
         }
     }
     private void authenticateUser(String email, String password){
@@ -155,6 +156,7 @@ public class SignInActivity extends AppCompatActivity{
                         progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
                             getSupervisor();
+                            finish();
                         }
                     }
                 })
