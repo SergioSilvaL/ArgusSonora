@@ -57,6 +57,7 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ViewHold
                     try{
                         Cliente cliente = data.getValue(Cliente.class);
                         mClienteList.add(cliente);
+                        notifyDataSetChanged();
                     }catch (Exception e){
 
                     }
