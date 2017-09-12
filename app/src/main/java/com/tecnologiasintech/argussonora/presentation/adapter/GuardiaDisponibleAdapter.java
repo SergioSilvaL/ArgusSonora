@@ -1,4 +1,4 @@
-package com.tecnologiasintech.argussonora.presentation.activity;
+package com.tecnologiasintech.argussonora.presentation.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,15 +18,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tecnologiasintech.argussonora.R;
-import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
-import com.tecnologiasintech.argussonora.presentation.GuardiaDisponibleFragment;
-import com.tecnologiasintech.argussonora.presentation.activity.ClienteActivity;
-import com.tecnologiasintech.argussonora.presentation.activity.MainActivity;
 import com.tecnologiasintech.argussonora.presentation.activity.MoveGuardiaActivity;
+import com.tecnologiasintech.argussonora.presentation.fragment.GuardiaDisponibleFragment;
 
-import java.security.Guard;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

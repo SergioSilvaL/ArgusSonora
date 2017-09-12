@@ -20,8 +20,8 @@ import com.tecnologiasintech.argussonora.domain.ModelObjects.BitacoraSimple;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.DatePost;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
-import com.tecnologiasintech.argussonora.presentation.ClienteAdapter;
 import com.tecnologiasintech.argussonora.presentation.adapter.GuardiaAdapter;
+import com.tecnologiasintech.argussonora.presentation.dialog.TutorialViewDialogFragment;
 
 import java.util.ArrayList;
 import java.util.List;

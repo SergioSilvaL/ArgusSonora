@@ -1,4 +1,4 @@
-package com.tecnologiasintech.argussonora.presentation;
+package com.tecnologiasintech.argussonora.presentation.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
+import com.tecnologiasintech.argussonora.presentation.adapter.ClienteAdapter;
 
 
 import java.util.ArrayList;

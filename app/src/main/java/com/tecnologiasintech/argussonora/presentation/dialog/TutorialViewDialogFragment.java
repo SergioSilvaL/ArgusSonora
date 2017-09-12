@@ -1,4 +1,4 @@
-package com.tecnologiasintech.argussonora.presentation.activity;
+package com.tecnologiasintech.argussonora.presentation.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

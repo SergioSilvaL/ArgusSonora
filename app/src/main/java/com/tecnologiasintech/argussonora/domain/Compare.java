@@ -1,4 +1,4 @@
-package com.tecnologiasintech.argussonora.presentation.activity;
+package com.tecnologiasintech.argussonora.domain;
 
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;

@@ -1,4 +1,4 @@
-package com.tecnologiasintech.argussonora.presentation;
+package com.tecnologiasintech.argussonora.presentation.adapter;
 
 import android.app.Activity;
 import android.content.Context;

@@ -1,13 +1,12 @@
-package com.tecnologiasintech.argussonora.presentation.activity;
+package com.tecnologiasintech.argussonora.presentation.adapter;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
-import com.tecnologiasintech.argussonora.presentation.ClienteFragment;
-import com.tecnologiasintech.argussonora.presentation.GuardiaDisponibleFragment;
+import com.tecnologiasintech.argussonora.presentation.fragment.ClienteFragment;
+import com.tecnologiasintech.argussonora.presentation.fragment.GuardiaDisponibleFragment;
 
 
 /**

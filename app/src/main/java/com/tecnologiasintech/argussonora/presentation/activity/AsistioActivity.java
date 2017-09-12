@@ -6,17 +6,10 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.ThemedSpinnerAdapter;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +20,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.tecnologiasintech.argussonora.R;
@@ -36,21 +28,14 @@ import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.DatePost;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
-import com.tecnologiasintech.argussonora.domain.costumSignaturePad;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
-import java.util.IllegalFormatCodePointException;
 import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-
-import static android.R.attr.data;
-import static com.tecnologiasintech.argussonora.R.id.nameLabel;
-import static com.tecnologiasintech.argussonora.R.id.progressBar;
-import static com.tecnologiasintech.argussonora.R.id.time;
 
 public class AsistioActivity extends LoggingActivity {
 
