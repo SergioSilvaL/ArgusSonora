@@ -126,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
                 new Adapter_ViewPagerMain(
                         getSupportFragmentManager(),
                         mTabLayout.getTabCount(),
-                        this,
                         supervisor);
 
         //Bind View Pager to the Adapter we just created.

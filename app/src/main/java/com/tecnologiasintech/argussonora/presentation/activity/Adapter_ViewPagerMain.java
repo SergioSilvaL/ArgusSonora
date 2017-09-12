@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
 import com.tecnologiasintech.argussonora.presentation.ClienteFragment;
+import com.tecnologiasintech.argussonora.presentation.GuardiaDisponibleFragment;
 
 
 /**
@@ -16,14 +17,12 @@ import com.tecnologiasintech.argussonora.presentation.ClienteFragment;
 public class Adapter_ViewPagerMain extends FragmentPagerAdapter {
 
     int mNumberOfTabs;
-    private Context mContext;
     private Supervisor mSupervisor;
 
 
-    public Adapter_ViewPagerMain(FragmentManager fm, int numberOfTabs, Context mContext, Supervisor supervisor) {
+    public Adapter_ViewPagerMain(FragmentManager fm, int numberOfTabs, Supervisor supervisor) {
         super(fm);
         this.mNumberOfTabs = numberOfTabs;
-        this.mContext = mContext;
         mSupervisor = supervisor;
     }
     /**
@@ -45,7 +44,7 @@ public class Adapter_ViewPagerMain extends FragmentPagerAdapter {
 
 
             case 1:
-                return new GuardiaFragment();
+                return GuardiaDisponibleFragment.newInstance(mSupervisor);
 
             default:
                 return null;
