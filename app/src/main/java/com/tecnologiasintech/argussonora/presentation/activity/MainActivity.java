@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     public static final String EXTRA_REFERENCE_CLIENTE = "EXTRA_REFERENCE_CLIENTE";
+    public static final String EXTRA_SUPERVISOR = "EXTRA_SUPERVISOR";
 
     private Adapter_ViewPagerMain mAdapter_viewPagerMain;
     private ViewPager mViewPager;

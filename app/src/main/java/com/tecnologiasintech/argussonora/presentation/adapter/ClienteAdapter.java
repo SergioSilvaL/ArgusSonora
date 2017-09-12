@@ -21,6 +21,7 @@ import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
 import com.tecnologiasintech.argussonora.presentation.activity.ClienteActivity;
 import com.tecnologiasintech.argussonora.presentation.activity.MainActivity;
+import com.tecnologiasintech.argussonora.presentation.activity.SignInActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,12 +35,14 @@ import java.util.List;
 public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ViewHolder> {
 
     private Context mContext;
+    private Supervisor mSupervisor;
     private List<Cliente> mClienteList;
     public static List<Cliente> filterClientes;
 
 
     public ClienteAdapter(Context context, Supervisor supervisor) {
         mContext = context;
+        mSupervisor = supervisor;
         setClientList(supervisor.getUsuarioZona());
     }
 
@@ -128,6 +131,7 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ViewHold
         public void onClick(View v) {
             Intent intent = new Intent(mContext, ClienteActivity.class);
             intent.putExtra(MainActivity.EXTRA_REFERENCE_CLIENTE,mClienteList.get(getAdapterPosition()).getClienteNombre());
+            intent.putExtra(MainActivity.EXTRA_SUPERVISOR, mSupervisor);
             ((Activity)mContext).startActivity(intent);
         }
     }

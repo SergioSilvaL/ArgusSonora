@@ -1,6 +1,7 @@
 package com.tecnologiasintech.argussonora.presentation.activity;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,7 +21,9 @@ import com.tecnologiasintech.argussonora.domain.ModelObjects.BitacoraSimple;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.DatePost;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
 import com.tecnologiasintech.argussonora.presentation.adapter.GuardiaAdapter;
+import com.tecnologiasintech.argussonora.presentation.dialog.AddGuardiaTemporalDialogFragment;
 import com.tecnologiasintech.argussonora.presentation.dialog.TutorialViewDialogFragment;
 
 import java.util.ArrayList;
@@ -41,6 +44,7 @@ public class ClienteActivity extends LoggingActivity {
 
     private GuardiaAdapter mAdapter;
     private Cliente mCliente;
+    private Supervisor mSupervisor;
     private String mClienteName;
     private List<GuardiaBitacora> mGuardiaBitacora;
 
@@ -58,7 +62,10 @@ public class ClienteActivity extends LoggingActivity {
         ButterKnife.inject(this);
 
         Intent intent = getIntent();
+
         mClienteName = intent.getStringExtra(MainActivity.EXTRA_REFERENCE_CLIENTE);
+        mSupervisor = intent.getParcelableExtra(MainActivity.EXTRA_SUPERVISOR);
+
 
         mActionBar = getSupportActionBar();
         mActionBar.setDisplayHomeAsUpEnabled(true);
@@ -74,6 +81,12 @@ public class ClienteActivity extends LoggingActivity {
         Log.i(TAG, "Main UI Code is running");
     }
 
+    private void showGuardiaTemporalDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        AddGuardiaTemporalDialogFragment addGuardiaTemporalDialogFragment =
+                AddGuardiaTemporalDialogFragment.newInstance(mSupervisor, mCliente);
+        addGuardiaTemporalDialogFragment.show(fm, "fragment_edit_name");
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -92,7 +105,7 @@ public class ClienteActivity extends LoggingActivity {
                 return true;
 
             case R.id.action_add_guardia:
-                addGuardiaTemporal();
+                showGuardiaTemporalDialog();
                 return true;
 
             case R.id.action_consigna:
@@ -112,9 +125,6 @@ public class ClienteActivity extends LoggingActivity {
         TutorialViewDialogFragment df = new TutorialViewDialogFragment();
 
         df.show(getSupportFragmentManager(),"dialog_fragment_tutorial");
-    }
-
-    private void addGuardiaTemporal() {
     }
 
     private void openConsigna(){

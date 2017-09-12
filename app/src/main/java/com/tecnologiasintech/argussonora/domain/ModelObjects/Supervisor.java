@@ -18,7 +18,7 @@ public class Supervisor implements Parcelable{
     private String usuarioTipo;
     private String usuarioTurno;
     private String usuarioZona;
-    private String key;
+    private String usuarioKey;
 
     public Supervisor(){}
 
@@ -40,7 +40,7 @@ public class Supervisor implements Parcelable{
         usuarioTipo = in.readString();
         usuarioTurno = in.readString();
         usuarioZona = in.readString();
-        key = in.readString();
+        usuarioKey = in.readString();
     }
 
     public static final Creator<Supervisor> CREATOR = new Creator<Supervisor>() {
@@ -55,13 +55,14 @@ public class Supervisor implements Parcelable{
         }
     };
 
-    @Exclude
-    public String getKey() {
-        return key;
+
+    public String getUsuarioKey() {
+
+        return usuarioKey;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setUsuarioKey(String usuarioKey) {
+        this.usuarioKey = usuarioKey;
     }
 
     public String getUsuarioContrasena() {
@@ -134,6 +135,6 @@ public class Supervisor implements Parcelable{
         dest.writeString(usuarioTipo);
         dest.writeString(usuarioTurno);
         dest.writeString(usuarioZona);
-        dest.writeString(key);
+        dest.writeString(usuarioKey);
     }
 }
