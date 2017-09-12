@@ -65,7 +65,7 @@ public class ClienteFragment extends Fragment {
         return view;
     }
 
-
+    @Override
     public void onPrepareOptionsMenu(Menu menu) {
         MenuItem mSearchMenuItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) mSearchMenuItem.getActionView();
