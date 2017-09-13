@@ -27,14 +27,15 @@ android:layout_marginBottom="5dp">
         android:layout_alignParentStart="true">
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/imageView"
             android:adjustViewBounds="false"
             android:cropToPadding="false"
             android:layout_gravity="center"
             android:layout_margin="12dp"
-            app:srcCompat="@drawable/ic_filter_center_focus_black_24dp"/>
+            app:srcCompat="@drawable/ic_account_circle_black_36dp"
+            android:tint="@color/colorPrimary"/>
 
         <TextView
             android:text="ZEPEDA MIRAMONTES FRANCISCA LORENA"
@@ -44,15 +45,16 @@ android:layout_marginBottom="5dp">
             android:id="@+id/guardia_disponible_textView"
             android:paddingLeft="10dp"
             android:textSize="16sp"
-            android:textStyle="normal|bold"/>
+            android:textStyle="normal"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="center_vertical"
 
             android:id="@+id/imageViewDisponibleStatus"
-            app:srcCompat="@drawable/asistio"/>
+            app:srcCompat="@drawable/ic_check_circle_black_36dp"
+            android:tint="@android:color/holo_green_light"/>
 
     </LinearLayout>
 
