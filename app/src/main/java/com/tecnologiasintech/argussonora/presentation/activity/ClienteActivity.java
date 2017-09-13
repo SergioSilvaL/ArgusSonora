@@ -39,6 +39,7 @@ public class ClienteActivity extends LoggingActivity {
 
     public static final String EXTRA_CLIENTE = "EXTRA_CLIENTE";
     public static final String EXTRA_GUARDIA_BITACORA = "EXTRA_GUARDIA_BITACORA";
+    public static final String EXTRA_CLIENTE_NAME = "EXTRA_CLIENTE_NAME";
     public static final String EXTRA_LIST_POSITION = "EXTRA_LIST_POSITION";
     public static final int REQUEST_FAVORITE = 0;
 
@@ -128,7 +129,9 @@ public class ClienteActivity extends LoggingActivity {
     }
 
     private void openConsigna(){
-
+        Intent intent = new Intent(this, ConsignasActivity.class);
+        intent.putExtra(EXTRA_CLIENTE_NAME, mClienteName);
+        startActivity(intent);
     }
 
     public void getCliente(){
