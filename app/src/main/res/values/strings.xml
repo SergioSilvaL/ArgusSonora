@@ -18,4 +18,7 @@
     <string name="action_sign_out">Cerrar Session</string>
     <string name="action_bitacora">Bitacora</string>
     <string name="title_activity_consignas">ConsignasActivity</string>
+    <string name="title_activity_bitacora_registro">Bitacora</string>
+    <string name="dialog_bitacora_registro_add_title">Añadir Bitacora</string>
+    <string name="dialog_bitacora_registro_edit_title">Editar Bitacora</string>
 </resources>

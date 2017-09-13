@@ -65,8 +65,14 @@
         <activity
             android:name=".presentation.activity.ConsignasActivity"
             android:label="@string/title_activity_consignas"
+            android:parentActivityName=".presentation.activity.ClienteActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".presentation.activity.BitacoraRegistroActivity"
+            android:label="@string/title_activity_bitacora_registro"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".presentation.activity.ClienteActivity">
+            android:parentActivityName=".presentation.activity.MainActivity">
         </activity>
     </application>
 

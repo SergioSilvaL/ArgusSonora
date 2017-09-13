@@ -23,9 +23,12 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_REFERENCE_CLIENTE = "EXTRA_REFERENCE_CLIENTE";
     public static final String EXTRA_SUPERVISOR = "EXTRA_SUPERVISOR";
 
+    public static final String KEY_SUPERVISOR = "KEY_SUPERVISOR";
+
     private Adapter_ViewPagerMain mAdapter_viewPagerMain;
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
+    private Supervisor mSupervisor;
 
 
     @Override
@@ -36,14 +39,14 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
-        Supervisor supervisor = intent.getParcelableExtra(SignInActivity.EXTRA_SUPERVISOR);
+        mSupervisor = intent.getParcelableExtra(SignInActivity.EXTRA_SUPERVISOR);
 
 
         //Create costume TabLayour for our main view.
         setTabLayoutMain();
 
         //Create Costum Adapter for our View Pager in Main.
-        setViewPagerMain(supervisor);
+        setViewPagerMain(mSupervisor);
 
         Log.d("DEBUG", "Terminamos onCreate");
     }
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
             case R.id.action_bitacora:
-                //openBitacora();
+                openBitacora();
                 return true;
 
             case R.id.action_sign_out:
@@ -84,9 +87,14 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-//    public void openBitacora(){
-//        startActivity(new Intent(this, BitacoraRegistroActivity.class));
-//    }
+    public void openBitacora(){
+
+
+        Intent intent = new Intent(this, BitacoraRegistroActivity.class);
+
+        intent.putExtra(EXTRA_SUPERVISOR, mSupervisor);
+        startActivity(intent);
+    }
 
     public void setTabLayoutMain(){
 
@@ -141,5 +149,18 @@ public class MainActivity extends AppCompatActivity {
         moveTaskToBack(true);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
 
+        outState.putParcelable(KEY_SUPERVISOR, mSupervisor);
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        mSupervisor = savedInstanceState.getParcelable(KEY_SUPERVISOR);
+    }
 }
