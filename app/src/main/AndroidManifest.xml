@@ -36,7 +36,10 @@
         </activity>
         <activity android:name=".presentation.activity.GuardiaActivity">
         </activity>
-        <activity android:name=".presentation.activity.MoveGuardiaActivity"/>
+        <activity
+            android:name=".presentation.activity.MoveGuardiaActivity"
+            android:label="Mover a Guardia"
+            />
         <activity
             android:name=".presentation.activity.AsistioActivity"
             android:parentActivityName=".presentation.activity.GuardiaActivity"
