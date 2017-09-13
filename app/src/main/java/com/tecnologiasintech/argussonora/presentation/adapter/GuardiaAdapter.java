@@ -104,7 +104,7 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
 
             mGuardianameDisplay.setText(guardia.getUsuarioNombre());
 
-            if (guardia.getBitacoraSimple() != null){
+            if (guardia.getBitacoraSimple() != null && guardia.getBitacoraSimple().getFecha() != null){
                 if (guardia.getBitacoraSimple().getFecha().equals(new DatePost().getDateKey()) ){
                     // Bind
 
