@@ -21,7 +21,6 @@ import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
 import com.tecnologiasintech.argussonora.presentation.activity.ClienteActivity;
 import com.tecnologiasintech.argussonora.presentation.activity.MainActivity;
-import com.tecnologiasintech.argussonora.presentation.activity.SignInActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -85,7 +84,7 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.view_cliente, parent, false);
+                .inflate(R.layout.list_item_cliente, parent, false);
 
         return new ViewHolder(itemView);
     }

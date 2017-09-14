@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+
+android:layout_marginTop="5dp"
+app:cardBackgroundColor="@android:color/white"
+android:layout_marginStart="10dp"
+android:layout_marginEnd="10dp"
+android:layout_marginBottom="5dp">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:adjustViewBounds="false"
+            android:cropToPadding="false"
+            android:layout_gravity="center"
+            android:layout_margin="12dp"
+            app:srcCompat="@drawable/ic_account_balance_black_36dp"
+            android:tint="@android:color/darker_gray"/>
+
+        <TextView
+            android:text="StarBucks"
+            android:layout_width="230dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:id="@+id/TEXT_VIEW_CLIENTE_NAME"
+            android:paddingLeft="10dp"
+            android:textSize="16sp"
+            android:textStyle="normal"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>
+
+</android.support.v7.widget.CardView>
