@@ -1,52 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_guardia"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:app="http://schemas.android.com/apk/res-auto"
+   xmlns:tools="http://schemas.android.com/tools"
+   android:id="@+id/activity_guardia"
+   tools:context="com.tecnologiasintech.argussonora.presentation.activity.GuardiaActivity"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+    >
+    <LinearLayout
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tecnologiasintech.argussonora.presentation.activity.GuardiaActivity"
-              android:background="@android:color/white"
+    android:background="@android:color/white"
     android:orientation="vertical">
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
+        app:cardCornerRadius="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp">
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/nameLabel"
-            android:text="TextView"/>
+            android:layout_height="match_parent"
+            android:layout_margin="20dp">
 
-        <TextView
-            android:text="TextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/phoneValue" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_account_box_black_36dp"
+                android:id="@+id/imageView2"
+                android:tint="@color/colorPrimary"
+                android:layout_marginRight="7dp"/>
 
-        <TextView
-            android:text="TextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/domicilioLabel" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <TextView
-            android:text="TextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/turnoLabel"/>
-    </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/nameLabel"
+                    android:text="Cargando....."
+                    android:textSize="18sp"
+                    android:layout_margin="2dp"/>
 
-    <Button
+                <TextView
+                    android:text="Cargando....."
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/phoneValue"
+                    android:textSize="18sp"
+                    android:layout_margin="2dp"/>
+
+                <TextView
+                    android:text="Cargando....."
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/domicilioLabel"
+                    android:textSize="18sp"
+                    android:layout_margin="2dp"/>
+
+                <TextView
+                    android:text="Cargando....."
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/turnoLabel"
+                    android:textSize="18sp"
+                    android:layout_margin="2dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/moveButton"
-        android:text="Mover Guardia"
-        android:textColor="@color/editTextColorWhite"
-        android:background="@android:color/holo_orange_light"
-        android:layout_margin="22dp"/>
+        app:cardCornerRadius="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp">
 
-    <include layout="@layout/view_selecione_tipo_captura"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/moveButton"
+            android:text="Mover Guardia"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimary"
+            android:layout_margin="10dp"/>
+    </android.support.v7.widget.CardView>
+
+
+
+    <include layout="@layout/content_selecione_tipo_captura"/>
 
 </LinearLayout>
+</ScrollView>
