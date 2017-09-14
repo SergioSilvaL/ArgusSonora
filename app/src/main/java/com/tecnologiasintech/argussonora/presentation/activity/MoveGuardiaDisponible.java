@@ -81,6 +81,8 @@ public class MoveGuardiaDisponible extends AppCompatActivity {
 
                 updateInformation(client);
 
+                Intent resultIntent = new Intent();
+                setResult(RESULT_OK, resultIntent);
                 finish();
 
                 return false;

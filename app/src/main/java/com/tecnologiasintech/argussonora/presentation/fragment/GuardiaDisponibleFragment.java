@@ -30,7 +30,7 @@ public class GuardiaDisponibleFragment extends Fragment {
     public static final String TAG = GuardiaDisponibleFragment.class.getSimpleName();
     public static final String ARG_SUPERVISOR = "ARG_SUPERVISOR";
 
-    private GuardiaDisponibleAdapter mAdapter;
+    public GuardiaDisponibleAdapter mAdapter;
     private Supervisor mSupervisor;
 
     public static GuardiaDisponibleFragment newInstance(Supervisor supervisor){

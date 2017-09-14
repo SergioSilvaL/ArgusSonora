@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_SUPERVISOR = "EXTRA_SUPERVISOR";
     public static final String EXTRA_GUARDIA_DISPONIBLE = "EXTRA_GUARDIA_DISPONIBLE";
     public static final String KEY_SUPERVISOR = "KEY_SUPERVISOR";
+    public static final int REQUEST_GUARDIA_DISPONIBLE = 0;
 
     private Adapter_ViewPagerMain mAdapter_viewPagerMain;
     private ViewPager mViewPager;
@@ -152,7 +153,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        if (requestCode == REQUEST_GUARDIA_DISPONIBLE){
+            if (requestCode == requestCode){
+                mAdapter_viewPagerMain.mGuardiaDisponibleFragment.mAdapter.setGuardiaDisponibles();
+            }
+        }
     }
 
     @Override

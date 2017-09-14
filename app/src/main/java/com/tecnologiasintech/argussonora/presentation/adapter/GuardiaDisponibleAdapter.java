@@ -78,6 +78,7 @@ public class GuardiaDisponibleAdapter extends RecyclerView.Adapter<GuardiaDispon
 
             }
         });
+        notifyDataSetChanged();
     }
 
     public void setFilter(ArrayList<Guardia> newList){
@@ -133,7 +134,7 @@ public class GuardiaDisponibleAdapter extends RecyclerView.Adapter<GuardiaDispon
         public void onClick(View v) {
             Intent intent = new Intent(mContext, MoveGuardiaDisponible.class);
             intent.putExtra(MainActivity.EXTRA_GUARDIA_DISPONIBLE, mGuardiaList.get(getAdapterPosition()));
-            ((Activity)mContext).startActivity(intent);
+            ((Activity)mContext).startActivityForResult(intent, MainActivity.REQUEST_GUARDIA_DISPONIBLE);
         }
     }
 }

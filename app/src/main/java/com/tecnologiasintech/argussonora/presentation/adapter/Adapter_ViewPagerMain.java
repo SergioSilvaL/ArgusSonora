@@ -17,6 +17,7 @@ public class Adapter_ViewPagerMain extends FragmentPagerAdapter {
 
     int mNumberOfTabs;
     private Supervisor mSupervisor;
+    public GuardiaDisponibleFragment mGuardiaDisponibleFragment;
 
 
     public Adapter_ViewPagerMain(FragmentManager fm, int numberOfTabs, Supervisor supervisor) {
@@ -43,7 +44,8 @@ public class Adapter_ViewPagerMain extends FragmentPagerAdapter {
 
 
             case 1:
-                return GuardiaDisponibleFragment.newInstance(mSupervisor);
+                mGuardiaDisponibleFragment = mGuardiaDisponibleFragment.newInstance(mSupervisor);
+                return mGuardiaDisponibleFragment;
 
             default:
                 return null;
