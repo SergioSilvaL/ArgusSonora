@@ -20,7 +20,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
-import com.tecnologiasintech.argussonora.presentation.activity.MoveGuardiaActivity;
+import com.tecnologiasintech.argussonora.presentation.activity.MainActivity;
+import com.tecnologiasintech.argussonora.presentation.activity.MoveGuardiaDisponible;
 import com.tecnologiasintech.argussonora.presentation.fragment.GuardiaDisponibleFragment;
 
 import java.util.ArrayList;
@@ -130,9 +131,8 @@ public class GuardiaDisponibleAdapter extends RecyclerView.Adapter<GuardiaDispon
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(mContext, MoveGuardiaActivity.class);
-
-            // SEND SUPERVISOR INTENT
+            Intent intent = new Intent(mContext, MoveGuardiaDisponible.class);
+            intent.putExtra(MainActivity.EXTRA_GUARDIA_DISPONIBLE, mGuardiaList.get(getAdapterPosition()));
             ((Activity)mContext).startActivity(intent);
         }
     }

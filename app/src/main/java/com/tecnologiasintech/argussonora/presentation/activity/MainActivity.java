@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_REFERENCE_CLIENTE = "EXTRA_REFERENCE_CLIENTE";
     public static final String EXTRA_SUPERVISOR = "EXTRA_SUPERVISOR";
-
+    public static final String EXTRA_GUARDIA_DISPONIBLE = "EXTRA_GUARDIA_DISPONIBLE";
     public static final String KEY_SUPERVISOR = "KEY_SUPERVISOR";
 
     private Adapter_ViewPagerMain mAdapter_viewPagerMain;
@@ -147,6 +147,12 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         moveTaskToBack(true);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
     }
 
     @Override

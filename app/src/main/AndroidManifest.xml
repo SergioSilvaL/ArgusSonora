@@ -40,6 +40,8 @@
             android:name=".presentation.activity.MoveGuardiaActivity"
             android:label="Mover a Guardia"
             />
+        <activity android:name=".presentation.activity.MoveGuardiaDisponible"
+                    android:label="Mover Guardia Disponible"/>
         <activity
             android:name=".presentation.activity.AsistioActivity"
             android:parentActivityName=".presentation.activity.GuardiaActivity"
