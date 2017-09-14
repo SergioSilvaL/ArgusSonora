@@ -3,6 +3,9 @@ package com.tecnologiasintech.argussonora.domain.ModelObjects;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by sergiosilva on 8/17/17.
  */
@@ -20,6 +23,7 @@ public class Guardia implements Parcelable{
     private String usuarioTipoGuardia;
     private String usuarioTurno;
     private String usuarioKey;
+    private long diaDescanso;
 
 
     private com.tecnologiasintech.argussonora.domain.ModelObjects.BitacoraSimple BitacoraSimple;
@@ -122,6 +126,29 @@ public class Guardia implements Parcelable{
         BitacoraSimple = bitacoraSimple;
     }
 
+    public long getDiaDescanso() {
+        return diaDescanso;
+    }
+
+    public void setDiaDescanso(long diaDescanso) {
+        this.diaDescanso = diaDescanso;
+    }
+
+    public boolean isDiaDescanso(long otherDiaDescanso){
+
+        // Get the current Day of week in number
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+        // Compare
+        if (dayOfWeek == otherDiaDescanso){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
     public String toString() {
         return "Cliente Asignado: " + usuarioClienteAsignado + "\n" +
                 "Disponible: " + usuarioDisponible + "\n" +
@@ -133,7 +160,8 @@ public class Guardia implements Parcelable{
                 "Tipo: " + usuarioTipo + "\n" +
                 "Tipo Guardia: " + usuarioTipoGuardia + "\n" +
                 "Turno: " + usuarioTurno + "\n" +
-                "Key: " + usuarioKey + "\n";
+                "Key: " + usuarioKey + "\n" +
+                "Dia Descanso: " + diaDescanso + "\n";
     }
 
 
@@ -156,6 +184,7 @@ public class Guardia implements Parcelable{
         dest.writeString(usuarioTipoGuardia);
         dest.writeString(usuarioTurno);
         dest.writeString(usuarioKey);
+        dest.writeLong(diaDescanso);
     }
 
     private Guardia(Parcel in) {
@@ -170,6 +199,7 @@ public class Guardia implements Parcelable{
         usuarioTipoGuardia = in.readString();
         usuarioTurno = in.readString();
         usuarioKey = in.readString();
+        diaDescanso = in.readLong();
     }
 
     public static final Creator<Guardia> CREATOR = new Creator<Guardia>() {

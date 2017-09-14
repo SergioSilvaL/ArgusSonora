@@ -1,9 +1,14 @@
 package com.tecnologiasintech.argussonora.presentation.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +60,15 @@ public class GuardiaActivity extends LoggingActivity implements ValueEventListen
     @InjectView(R.id.phoneValue) TextView mPhoneValue;
     @InjectView(R.id.domicilioLabel) TextView mDomicilioLabel;
     @InjectView(R.id.turnoLabel) TextView mTurnoLabel;
+    @InjectView(R.id.btnCapturaAsistencia) LinearLayout mAsistenciaButton;
+    @InjectView(R.id.btnCapturaInAsistencia) LinearLayout mInAsistenciaButton;
+    @InjectView(R.id.btnCapturaCubreDescanso) LinearLayout mCubreDescansoButton;
+    @InjectView(R.id.btnCapturaDobleTurno) LinearLayout mDobleTurnoButton;
+    @InjectView(R.id.btnCapturaHorasExtra) LinearLayout mHorasExtraButton;
+    @InjectView(R.id.cdvCapturarAsistencia) CardView mAsistenciaCardView;
+    @InjectView(R.id.cdvCapturarInasistencia) CardView mInAsistenciaCardView;
+    @InjectView(R.id.cdvCapturarCubreDescanso) CardView mCubreDescansoCardView;
+
 
 
     public GuardiaActivity(){
@@ -185,6 +199,20 @@ public class GuardiaActivity extends LoggingActivity implements ValueEventListen
         mDomicilioLabel.setText(mGuardia.getUsuarioDomicilio());
         if (mGuardia.getUsuarioTurno()!= null) {
             mTurnoLabel.setText(mGuardia.getUsuarioTurno());
+        }
+
+        if (mGuardia.isDiaDescanso(mGuardia.getDiaDescanso())){
+            Log.v(TAG, "Hoy descansa " + mGuardia.getUsuarioNombre());
+            // Disable Asistio y InAsistencia
+            mAsistenciaButton.setVisibility(View.GONE);
+            mAsistenciaCardView.setVisibility(View.GONE);
+            mInAsistenciaButton.setVisibility(View.GONE);
+            mInAsistenciaCardView.setVisibility(View.GONE);
+        }else{
+            Log.v(TAG, "Hoy NO descansa " + mGuardia.getUsuarioNombre());
+            // Disable Cubre Descanso
+            mCubreDescansoButton.setVisibility(View.GONE);
+            mCubreDescansoCardView.setVisibility(View.GONE);
         }
 
     }
