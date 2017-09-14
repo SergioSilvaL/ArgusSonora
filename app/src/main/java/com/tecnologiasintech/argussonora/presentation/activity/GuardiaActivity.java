@@ -54,6 +54,7 @@ public class GuardiaActivity extends LoggingActivity implements ValueEventListen
     @InjectView(R.id.nameLabel) TextView mNameLabel;
     @InjectView(R.id.phoneValue) TextView mPhoneValue;
     @InjectView(R.id.domicilioLabel) TextView mDomicilioLabel;
+    @InjectView(R.id.turnoLabel) TextView mTurnoLabel;
 
 
     public GuardiaActivity(){
@@ -182,6 +183,9 @@ public class GuardiaActivity extends LoggingActivity implements ValueEventListen
         mNameLabel.setText(mGuardia.getUsuarioNombre());
         mPhoneValue.setText(mGuardia.getUsuarioTelefono() + "");
         mDomicilioLabel.setText(mGuardia.getUsuarioDomicilio());
+        if (mGuardia.getUsuarioTurno()!= null) {
+            mTurnoLabel.setText(mGuardia.getUsuarioTurno());
+        }
 
     }
 
