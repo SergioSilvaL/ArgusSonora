@@ -3,11 +3,14 @@ package com.tecnologiasintech.argussonora.presentation.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +25,9 @@ import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
 import com.tecnologiasintech.argussonora.presentation.activity.MainActivity;
 import com.tecnologiasintech.argussonora.presentation.activity.MoveGuardiaDisponible;
+import com.tecnologiasintech.argussonora.presentation.dialog.AddGuardiaTemporalDialogFragment;
+import com.tecnologiasintech.argussonora.presentation.dialog.GuardiaDisponibleInfoDialogFragment;
+import com.tecnologiasintech.argussonora.presentation.dialog.TutorialViewDialogFragment;
 import com.tecnologiasintech.argussonora.presentation.fragment.GuardiaDisponibleFragment;
 
 import java.util.ArrayList;
@@ -116,19 +122,31 @@ public class GuardiaDisponibleAdapter extends RecyclerView.Adapter<GuardiaDispon
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView textviewGuardia;
+        private ImageButton imageButtonInfo;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             textviewGuardia = (TextView) itemView.findViewById(R.id.guardia_disponible_textView);
+            imageButtonInfo = (ImageButton) itemView.findViewById(R.id.guardia_disponible_info_imageButton);
 
             itemView.setOnClickListener(this);
         }
 
-        public void bindToView(Guardia guardia) {
+        public void bindToView(final Guardia guardia) {
             textviewGuardia.setText(guardia.getUsuarioNombre());
             Log.v(GuardiaDisponibleFragment.class.getSimpleName(), guardia.getUsuarioNombre());
+
+            imageButtonInfo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Show Image Button
+                    showGuardiaInfoDialog(guardia);
+                }
+            });
         }
+
+
 
         @Override
         public void onClick(View v) {
@@ -137,4 +155,12 @@ public class GuardiaDisponibleAdapter extends RecyclerView.Adapter<GuardiaDispon
             ((Activity)mContext).startActivityForResult(intent, MainActivity.REQUEST_GUARDIA_DISPONIBLE);
         }
     }
+
+    private void showGuardiaInfoDialog(Guardia guardia) {
+        FragmentManager manager = ((AppCompatActivity) mContext).getSupportFragmentManager();
+        GuardiaDisponibleInfoDialogFragment guardiaDisponibleInfoDialogFragment =
+                GuardiaDisponibleInfoDialogFragment.newInstance(guardia);
+        guardiaDisponibleInfoDialogFragment.show(manager,"dialog_fragment_guardia_disponible_info");
+    }
+
 }
