@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -115,6 +116,11 @@ public class ClienteActivity extends LoggingActivity {
 
             case R.id.action_tutorial:
                 openTutorial();
+                return true;
+
+            case R.id.action_refresh:
+                getCliente();
+                Toast.makeText(this, "Actualizando", Toast.LENGTH_SHORT).show();
                 return true;
 
         }
