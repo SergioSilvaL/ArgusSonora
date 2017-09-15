@@ -3,20 +3,20 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical" android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_marginBottom="15dp"
-              android:layout_marginRight="15dp"
-              android:layout_marginLeft="15dp"
-              android:layout_marginTop="15dp">
+              android:layout_margin="30dp">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/asistio"
+            app:srcCompat="@drawable/ic_check_circle_black_36dp"
+            android:tint="@android:color/holo_green_light"
+            android:layout_marginRight="35dp"
             android:id="@+id/imageView3" />
 
         <TextView
@@ -26,43 +26,46 @@
             android:id="@+id/textView"
             android:fontFamily="sans-serif"
             android:textSize="18sp"
-            android:textStyle="normal|bold"
-
+            android:textStyle="normal"
             android:gravity="center" />
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/noasistio"
+            app:srcCompat="@drawable/ic_check_circle_black_36dp"
+            android:tint="@android:color/holo_red_light"
+            android:layout_marginRight="35dp"
             />
 
         <TextView
             android:text="Inasistencia"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-
             android:fontFamily="sans-serif"
             android:textSize="18sp"
-            android:textStyle="normal|bold"
-            android:textAlignment="viewStart"
+            android:textStyle="normal"
             android:gravity="center" />
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/dobleturno" />
+            app:srcCompat="@drawable/ic_check_circle_black_36dp"
+            android:tint="@android:color/holo_orange_light"
+            android:layout_marginRight="35dp"/>
 
         <TextView
             android:text="Doble Turno"
@@ -70,29 +73,30 @@
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
             android:textSize="18sp"
-            android:textStyle="normal|bold"
-
+            android:textStyle="normal"
             android:gravity="center" />
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/descansoelaborado"
+            app:srcCompat="@drawable/ic_check_circle_black_36dp"
+            android:tint="@android:color/holo_blue_dark"
+            android:layout_marginRight="35dp"
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-
             android:fontFamily="sans-serif"
             android:textSize="18sp"
-            android:textStyle="normal|bold"
+            android:textStyle="normal"
             android:gravity="center"
             android:text="Descanso Laborado" />
     </LinearLayout>
@@ -100,22 +104,23 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/horasextra"
-            />
+            app:srcCompat="@drawable/ic_check_circle_black_36dp"
+            android:tint="@android:color/holo_purple"
+            android:layout_marginRight="35dp"/>
 
         <TextView
             android:text="Horas Extra"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-
             android:fontFamily="sans-serif"
             android:textSize="18sp"
-            android:textStyle="normal|bold"
+            android:textStyle="normal"
             android:gravity="center" />
     </LinearLayout>
 

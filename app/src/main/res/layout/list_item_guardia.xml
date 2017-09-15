@@ -50,56 +50,63 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/asistioIcon"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/asistio"
+                android:src="@drawable/ic_check_circle_black_36dp"
+                android:tint="@android:color/holo_green_light"
                 android:visibility="invisible"/>
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/inasistioIcon"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/noasistio"
+                android:src="@drawable/ic_check_circle_black_36dp"
+                android:tint="@android:color/holo_red_light"
                 android:visibility="invisible"/>
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/descansoElaboradoIcon"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/descansoelaborado"
+                android:src="@drawable/ic_check_circle_black_36dp"
+                android:tint="@android:color/holo_blue_dark"
                 android:visibility="invisible"/>
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/dobleTurnoIcon"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/dobleturno"
+                android:src="@drawable/ic_check_circle_black_36dp"
+                android:tint="@android:color/holo_orange_light"
                 android:visibility="invisible"/>
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/horasExtraIcon"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/horasextra"
+                android:src="@drawable/ic_check_circle_black_36dp"
+                android:tint="@android:color/holo_purple"
                 android:visibility="invisible"/>
 
 
