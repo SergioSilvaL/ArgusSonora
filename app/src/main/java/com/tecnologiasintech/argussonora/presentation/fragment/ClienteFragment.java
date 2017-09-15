@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
 import com.tecnologiasintech.argussonora.R;
@@ -69,6 +70,8 @@ public class ClienteFragment extends Fragment {
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         MenuItem mSearchMenuItem = menu.findItem(R.id.action_search);
+        MenuItem mRefreshMenuItem = menu.findItem(R.id.action_refresh);
+
         SearchView searchView = (SearchView) mSearchMenuItem.getActionView();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
@@ -92,6 +95,16 @@ public class ClienteFragment extends Fragment {
                 }
 
                 mAdapter.setFilter(newList);
+                return false;
+            }
+        });
+
+
+        mRefreshMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                mAdapter.setClientList(mSupervisor.getUsuarioZona());
+                Toast.makeText(getContext(),"Actualizado",Toast.LENGTH_SHORT).show();
                 return false;
             }
         });

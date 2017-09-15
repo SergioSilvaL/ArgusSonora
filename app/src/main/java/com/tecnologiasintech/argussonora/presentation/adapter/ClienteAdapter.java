@@ -45,7 +45,7 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ViewHold
         setClientList(supervisor.getUsuarioZona());
     }
 
-    private void setClientList(String usuarioZona) {
+    public void setClientList(String usuarioZona) {
 
         mClienteList = new ArrayList<>();
 
