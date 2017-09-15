@@ -207,7 +207,7 @@ public class DobleTurnoActivity extends LoggingActivity {
 
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/firmaDobleTurno",s);
+        childUpdates.put("/capturaDobleTurno",s);
         reference.updateChildren(childUpdates);
     }
 
@@ -305,7 +305,7 @@ public class DobleTurnoActivity extends LoggingActivity {
                 .child("Bitacora")
                 .child(new DatePost().getDateKey())
                 .child(mGuardia.getUsuarioKey())
-                .child("dobleturnoCaptura");
+                .child("capturaDobleTurno");
     }
 
     private void updateFechaInfo(){

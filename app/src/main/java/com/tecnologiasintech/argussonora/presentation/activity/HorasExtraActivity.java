@@ -213,7 +213,7 @@ public class HorasExtraActivity extends LoggingActivity {
 
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/firmaHorasExtra",s);
+        childUpdates.put("/capturaHorasExtra",s);
         reference.updateChildren(childUpdates);
     }
 
@@ -313,7 +313,7 @@ public class HorasExtraActivity extends LoggingActivity {
                 .child("Bitacora")
                 .child(new DatePost().getDateKey())
                 .child(mGuardia.getUsuarioKey())
-                .child("horasextraCaptura");
+                .child("capturaHorasExtra");
     }
 
     private void setHorasExtra() {

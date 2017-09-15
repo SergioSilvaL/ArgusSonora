@@ -211,7 +211,7 @@ public class AsistioActivity extends LoggingActivity {
 
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/firmaAsistio",s);
+        childUpdates.put("/capturaAsistio",s);
         reference.updateChildren(childUpdates);
     }
 
@@ -308,7 +308,7 @@ public class AsistioActivity extends LoggingActivity {
                 .child("Bitacora")
                 .child(new DatePost().getDateKey())
                 .child(mGuardia.getUsuarioKey())
-                .child("asistioCaptura");
+                .child("capturaAsistio");
     }
 
     private void updateFechaInfo(){

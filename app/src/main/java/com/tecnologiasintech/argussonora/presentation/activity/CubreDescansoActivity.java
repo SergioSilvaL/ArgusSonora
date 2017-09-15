@@ -225,7 +225,7 @@ public class CubreDescansoActivity extends LoggingActivity {
 
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/firmaCubreDescanso",s);
+        childUpdates.put("/capturaCubreDescanso",s);
         reference.updateChildren(childUpdates);
     }
 
@@ -303,7 +303,7 @@ public class CubreDescansoActivity extends LoggingActivity {
                 .child("Bitacora")
                 .child(new DatePost().getDateKey())
                 .child(mGuardia.getUsuarioKey())
-                .child("cubredescansoCaptura");
+                .child("capturaCubreDescanso");
     }
 
     private void updateFechaInfo(){
