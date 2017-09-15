@@ -111,12 +111,18 @@ public class AsistioActivity extends LoggingActivity {
             if (data != null){
 
                 // Upload Image(s) and data to Firebase Database
-
-
+                disableViews();
                 Uri imageUri = data.getData();
                 uploadData(imageUri);
             }
         }
+    }
+
+    private void disableViews() {
+        mSignaturePad.setEnabled(false);
+        mCloseBtn.setEnabled(false);
+        mContinuarBtn.setEnabled(false);
+        mLimpiarBtn.setEnabled(false);
     }
 
     @OnClick(R.id.CloseBtn)
@@ -231,7 +237,6 @@ public class AsistioActivity extends LoggingActivity {
     }
 
     private void pushBitacoraSimple(){
-        // TODO: replace Clientes with Cliente Object
         DatabaseReference reference =
                 firebase.getReference(
                         "Argus/Clientes/" +
