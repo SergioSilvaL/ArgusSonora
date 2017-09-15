@@ -22,16 +22,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="1">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.6">
-            <!--<ImageView-->
-                <!--android:layout_width="@dimen/ancho_logo"-->
-                <!--android:layout_height="@dimen/ancho_logo"-->
-                <!--android:src="@drawable/logo_argus"-->
-                <!--android:layout_centerInParent="true" />-->
-        </RelativeLayout>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -42,6 +33,14 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="@dimen/padding_horizontal_login">
+                <ImageView
+                    app:srcCompat="@drawable/logo_argus"
+                    android:id="@+id/imageView4"
+                    android:layout_gravity="center"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:layout_marginBottom="80dp"
+                    android:layout_marginTop="30dp"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
