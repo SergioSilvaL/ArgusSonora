@@ -1,6 +1,7 @@
 package com.tecnologiasintech.argussonora.presentation.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -19,6 +20,8 @@ import com.tecnologiasintech.argussonora.presentation.adapter.Adapter_ViewPagerM
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+
+    private static final String LINK_PRIVACY_POLICY = "https://argusseguridad-41e35.firebaseapp.com/%23/Privacy&sa=D&usg=AFQjCNF1SdrM3ODzXfSrtH0KQ7Iul20Zyg";
 
     public static final String EXTRA_REFERENCE_CLIENTE = "EXTRA_REFERENCE_CLIENTE";
     public static final String EXTRA_SUPERVISOR = "EXTRA_SUPERVISOR";
@@ -75,10 +78,21 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.action_sign_out:
                 signOut();
+                signOut();
+                return true;
+            
+            case R.id.action_privacy_Policy:
+                openPrivacyPolicy();
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openPrivacyPolicy() {
+        // opening a URL in a Browser in Android:
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(LINK_PRIVACY_POLICY));
+                startActivity(browserIntent);
     }
 
     private void signOut() {
