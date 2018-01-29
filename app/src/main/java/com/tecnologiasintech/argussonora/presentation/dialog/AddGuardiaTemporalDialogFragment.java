@@ -175,9 +175,27 @@ public class AddGuardiaTemporalDialogFragment extends DialogFragment {
         //Set the Guardia data model
         Guardia guardia = new Guardia();
         guardia.setUsuarioNombre(mGuardiaNombreEditText.getText().toString());
-        guardia.setUsuarioDomicilio(mGuardiaDomicillioEditText.getText().toString());
+
+        // Get Domicillio Input
+
+        String domicillio = mGuardiaDomicillioEditText.getText().toString();
+
+        if (domicillio != null) {
+            guardia.setUsuarioDomicilio(domicillio);
+        }else{
+            guardia.setUsuarioDomicilio("");
+        }
+
+        // Get Phone Number Input
+
         String telefono = mGuardiaTelefonoEditText.getText().toString();
-        guardia.setUsuarioTelefono(Long.valueOf(telefono));
+
+        if (telefono != null){
+            guardia.setUsuarioTelefono(Long.valueOf(telefono));
+        }else {
+            guardia.setUsuarioTelefono(0);
+        }
+
 
         // TODO: Get Client
         guardia.setUsuarioClienteAsignado(mCliente.getClienteNombre());// TODO:
