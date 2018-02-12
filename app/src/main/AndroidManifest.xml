@@ -24,11 +24,11 @@
         <activity
             android:name=".presentation.activity.SignInActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".presentation.activity.ClienteActivity"
@@ -38,10 +38,10 @@
         </activity>
         <activity
             android:name=".presentation.activity.MoveGuardiaActivity"
-            android:label="Mover a Guardia"
-            />
-        <activity android:name=".presentation.activity.MoveGuardiaDisponible"
-                    android:label="Mover Guardia Disponible"/>
+            android:label="Mover a Guardia"/>
+        <activity
+            android:name=".presentation.activity.MoveGuardiaDisponible"
+            android:label="Mover Guardia Disponible"/>
         <activity
             android:name=".presentation.activity.AsistioActivity"
             android:parentActivityName=".presentation.activity.GuardiaActivity"
@@ -76,8 +76,17 @@
         <activity
             android:name=".presentation.activity.BitacoraRegistroActivity"
             android:label="@string/title_activity_bitacora_registro"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".presentation.activity.MainActivity">
+            android:parentActivityName=".presentation.activity.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".Login.LoginActivity">
+            <!--intent filter-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+
         </activity>
     </application>
 
