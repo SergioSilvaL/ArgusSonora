@@ -43,7 +43,7 @@
             android:name=".presentation.activity.MoveGuardiaDisponible"
             android:label="Mover Guardia Disponible"/>
         <activity
-            android:name=".presentation.activity.AsistioActivity"
+            android:name=".Asistio.AsistioActivity"
             android:parentActivityName=".presentation.activity.GuardiaActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar">
