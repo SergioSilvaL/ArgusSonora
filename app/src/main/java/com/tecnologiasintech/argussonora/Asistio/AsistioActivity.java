@@ -1,5 +1,5 @@
 
-package com.tecnologiasintech.argussonora.presentation.activity;
+package com.tecnologiasintech.argussonora.Asistio;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -28,6 +28,9 @@ import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.DatePost;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
+import com.tecnologiasintech.argussonora.presentation.activity.ClienteActivity;
+import com.tecnologiasintech.argussonora.presentation.activity.GuardiaActivity;
+import com.tecnologiasintech.argussonora.presentation.activity.LoggingActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;

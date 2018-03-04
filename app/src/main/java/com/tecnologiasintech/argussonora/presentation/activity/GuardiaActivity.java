@@ -1,13 +1,10 @@
 package com.tecnologiasintech.argussonora.presentation.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,11 +14,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.tecnologiasintech.argussonora.Asistio.AsistioActivity;
 import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
-import com.tecnologiasintech.argussonora.presentation.adapter.GuardiaAdapter;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -190,6 +187,7 @@ public class GuardiaActivity extends LoggingActivity implements ValueEventListen
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
+        // TODO: Add Try Clause to handle Json Parsing
         mGuardia = dataSnapshot.getValue(Guardia.class);
         Log.i(TAG, mGuardia.toString());
 
