@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.tecnologiasintech.argussonora.Login.LoginActivity;
 import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
 import com.tecnologiasintech.argussonora.presentation.adapter.Adapter_ViewPagerMain;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
-        mSupervisor = intent.getParcelableExtra(SignInActivity.EXTRA_SUPERVISOR);
+        mSupervisor = intent.getParcelableExtra(LoginActivity.EXTRA_SUPERVISOR);
 
 
         //Create costume TabLayour for our main view.
