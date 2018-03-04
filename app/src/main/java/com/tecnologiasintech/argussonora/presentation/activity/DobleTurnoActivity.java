@@ -44,7 +44,7 @@ public class DobleTurnoActivity extends LoggingActivity {
 
     private FirebaseDatabase firebase = FirebaseDatabase.getInstance();
 
-    public static final String TAG = AsistioActivity.class.getSimpleName();
+    public static final String TAG = DobleTurnoActivity.class.getSimpleName();
 
     public static final int REQUEST_TAKE_PICTURE = 0;
 
@@ -63,7 +63,7 @@ public class DobleTurnoActivity extends LoggingActivity {
     @InjectView(R.id.progressBar) ProgressBar mProgressBar;
 
     public DobleTurnoActivity(){
-        setActivityName(AsistioActivity.class.getSimpleName());
+        setActivityName(DobleTurnoActivity.class.getSimpleName());
     }
 
     @Override
