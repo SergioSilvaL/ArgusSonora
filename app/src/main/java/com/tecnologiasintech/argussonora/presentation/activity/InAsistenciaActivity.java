@@ -1,7 +1,6 @@
 package com.tecnologiasintech.argussonora.presentation.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -28,7 +27,7 @@ public class InAsistenciaActivity extends LoggingActivity {
 
     private FirebaseDatabase firebase = FirebaseDatabase.getInstance();
 
-    public static final String TAG = AsistioActivity.class.getSimpleName();
+    public static final String TAG = InAsistenciaActivity.class.getSimpleName();
 
     private Guardia mGuardia;
     private Cliente mCliente;
