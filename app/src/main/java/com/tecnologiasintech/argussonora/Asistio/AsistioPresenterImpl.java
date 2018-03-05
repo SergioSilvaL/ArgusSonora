@@ -28,6 +28,7 @@ public class AsistioPresenterImpl implements AsistioPresenter{
         // Validate and upload Image
 
         // get Image storage URL
+        mInteractor.setImageCapture(imageCapture);
 
         //  upload data to storage
     }
@@ -38,6 +39,7 @@ public class AsistioPresenterImpl implements AsistioPresenter{
         // Validate and upload Image
 
         // get Image storage URL
+        mInteractor.setSignatureCapture(signatureCapture);
 
         //  take picture from camera
     }
