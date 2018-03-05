@@ -5,4 +5,13 @@ package com.tecnologiasintech.argussonora.Asistio;
  */
 
 public interface AsistioPresenter {
+
+    boolean validateSignature();
+
+    boolean validateImageCapture();
+
+    void onImageCapture(byte[] imageCapture);
+
+    void onSignatureCapture(byte[] signatureCapture);
+
 }
