@@ -33,6 +33,7 @@ public class AsistioActivity extends LoggingActivity implements AsistioView {
 
     private static final int REQUEST_IMAGE_CAPTURE = 0;
 
+    // TODO: Move to Interactor
     private Guardia mGuardia;
     private Cliente mCliente;
     private GuardiaBitacora mBitacora;
@@ -63,6 +64,8 @@ public class AsistioActivity extends LoggingActivity implements AsistioView {
 
         mPresenter = new AsistioPresenterImpl(this, new AsistioInteractorImpl());
     }
+
+    // TODO: Move to Interactor
 
     private void getDataFromIntent(){
         // Get Data From intent
