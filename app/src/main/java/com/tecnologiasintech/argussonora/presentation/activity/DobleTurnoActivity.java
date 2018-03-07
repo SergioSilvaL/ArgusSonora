@@ -1,12 +1,16 @@
 package com.tecnologiasintech.argussonora.presentation.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -47,6 +51,7 @@ public class DobleTurnoActivity extends LoggingActivity {
     public static final String TAG = DobleTurnoActivity.class.getSimpleName();
 
     public static final int REQUEST_TAKE_PICTURE = 0;
+    public static final int PERMISSIONS_REQUEST_CODE = 11;
 
     private Guardia mGuardia;
     private Cliente mCliente;
@@ -105,6 +110,11 @@ public class DobleTurnoActivity extends LoggingActivity {
 
     }
 
+
+    /**
+     * Called When the picture is taken
+     * **/
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -113,12 +123,18 @@ public class DobleTurnoActivity extends LoggingActivity {
             if (data != null){
 
                 // Upload Image(s) and data to Firebase Database
-
-
+                disableViews();
                 Uri imageUri = data.getData();
                 uploadData(imageUri);
             }
         }
+    }
+
+    private void disableViews() {
+        mSignaturePad.setEnabled(false);
+        mCloseBtn.setEnabled(false);
+        mContinuarBtn.setVisibility(View.GONE);
+        mLimpiarBtn.setVisibility(View.GONE);
     }
 
     @OnClick(R.id.CloseBtn)
@@ -134,12 +150,36 @@ public class DobleTurnoActivity extends LoggingActivity {
         if (mSignaturePad.isEmpty()){
             Toast.makeText(this, "Favor, de Firmar antes de continuar", Toast.LENGTH_LONG).show();
         }else {
-
-            // take photo using intent
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING", 1);
-            startActivityForResult(takePictureIntent, REQUEST_TAKE_PICTURE);
+            takePicture();
         }
+    }
+
+    private void takePicture(){
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+                requestPermissions(new String[]{Manifest.permission.CAMERA}, PERMISSIONS_REQUEST_CODE);
+            }else {
+                takePictureUsingIntent();
+            }
+        }else {
+            takePictureUsingIntent();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == PERMISSIONS_REQUEST_CODE){
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                takePictureUsingIntent();
+            }
+        }
+    }
+
+    private void takePictureUsingIntent(){
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING", 1);
+        startActivityForResult(takePictureIntent, REQUEST_TAKE_PICTURE);
     }
 
     @OnClick(R.id.LimpiarBtn)
@@ -150,16 +190,19 @@ public class DobleTurnoActivity extends LoggingActivity {
     public void uploadData(Uri imageUri){
 
         final UploadTask uploadTask = getStorageReference().putBytes(getDataFromSignaturePadAsBytes());
-        UploadTask uploadSelfieTask = getStorageSelfieReference().putFile(imageUri);
 
-        uploadSelfieTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                pushSelfieUrl(taskSnapshot.getDownloadUrl().toString());
-                mProgressBar.setProgress(40);
-            }
-        });
+        if (imageUri != null){
 
+            UploadTask uploadSelfieTask = getStorageSelfieReference().putFile(imageUri);
+
+            uploadSelfieTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    pushSelfieUrl(taskSnapshot.getDownloadUrl().toString());
+                    mProgressBar.setProgress(40);
+                }
+            });
+        }
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
 
