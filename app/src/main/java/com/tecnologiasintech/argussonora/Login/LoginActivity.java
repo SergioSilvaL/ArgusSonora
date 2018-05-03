@@ -13,7 +13,7 @@ import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
 import com.tecnologiasintech.argussonora.presentation.activity.MainActivity;
 
-public class LoginActivity extends AppCompatActivity implements LoginView, View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements LoginViewPresenterContract.View, View.OnClickListener{
 
     public static final String EXTRA_SUPERVISOR = "EXTRA_SUPERVISOR";
 
@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView, View.
     private EditText inputPassword;
     private Button buttonLogin;
 
-    private LoginPresenter presenter;
+    private LoginViewPresenterContract.Presenter presenter;
 
 
     @Override

@@ -19,9 +19,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.tecnologiasintech.argussonora.domain.FirebaseExceptionConstants;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
 
-/**
- * Created by sergiosilva on 2/5/18.
- */
 
 public class LoginInteractorImpl implements LoginInteractor{
 
@@ -36,7 +33,7 @@ public class LoginInteractorImpl implements LoginInteractor{
     }
 
     @Override
-    public void login(String username, String password, final OnLoginFinishedListener listener, final LoginView view) {
+    public void login(String username, String password, final OnLoginFinishedListener listener, final LoginViewPresenterContract.View view) {
         auth.signInWithEmailAndPassword(username, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override

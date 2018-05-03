@@ -33,7 +33,7 @@ public interface LoginInteractor {
     void validateAuthentication(LoginInteractor listener);
 
 
-    void login(String username, String password, OnLoginFinishedListener listener, LoginView view);
+    void login(String username, String password, OnLoginFinishedListener listener, LoginViewPresenterContract.View view);
 
 
 

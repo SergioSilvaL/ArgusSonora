@@ -7,15 +7,15 @@ import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
  * Created by sergiosilva on 2/5/18.
  */
 
-public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLoginFinishedListener {
+public class LoginPresenterImpl implements LoginViewPresenterContract.Presenter, LoginInteractor.OnLoginFinishedListener {
 
-    private LoginView loginView;
+    private LoginViewPresenterContract.View loginView;
     private LoginInteractor loginInteractor;
 
     // Presenter BoilerPlate
 
 
-    public LoginPresenterImpl(LoginView loginView, LoginInteractorImpl loginInteractor) {
+    public LoginPresenterImpl(LoginViewPresenterContract.View loginView, LoginInteractorImpl loginInteractor) {
         this.loginView = loginView;
         this.loginInteractor = loginInteractor;
     }
