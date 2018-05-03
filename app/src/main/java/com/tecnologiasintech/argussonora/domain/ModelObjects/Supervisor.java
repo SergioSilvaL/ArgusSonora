@@ -3,44 +3,124 @@ package com.tecnologiasintech.argussonora.domain.ModelObjects;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.firebase.database.Exclude;
+import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.database.PropertyName;
 
-/**
- * Created by sergiosilva on 9/11/17.
- */
 
+@IgnoreExtraProperties
 public class Supervisor implements Parcelable{
 
-    private String usuarioContrasena;
-    private String usuarioDomicilio;
-    private String usuarioEmail;
-    private String usuarioNombre;
-    private String usuarioTipo;
-    private String usuarioTurno;
-    private String usuarioZona;
-    private String usuarioKey;
+    @PropertyName("usuarioKey")
+    public String id;
+
+    @PropertyName("usuarioEmail")
+    public String email;
+
+    @PropertyName("usuarioNombre")
+    public String fullName;
+
+    @PropertyName("usuarioDomicilio")
+    public String homeAddress;
+
+    @PropertyName("usuarioContrasena")
+    public String password;
+
+    @PropertyName("usuarioTurno")
+    public String shift;
+
+    @PropertyName("usuarioTipo")
+    public String type;
+
+    @PropertyName("usuarioZona")
+    public String zone;
+
 
     public Supervisor(){}
 
-    public Supervisor(String usuarioContrasena, String usuarioDomicilio, String usuarioEmail, String usuarioNombre, String usuarioTipo, String usuarioTurno, String usuarioZona) {
-        this.usuarioContrasena = usuarioContrasena;
-        this.usuarioDomicilio = usuarioDomicilio;
-        this.usuarioEmail = usuarioEmail;
-        this.usuarioNombre = usuarioNombre;
-        this.usuarioTipo = usuarioTipo;
-        this.usuarioTurno = usuarioTurno;
-        this.usuarioZona = usuarioZona;
+    // TODO: Implement Builder Pattern
+    public Supervisor(String password, String homeAddress, String email, String fullName, String type, String shift, String zone) {
+        this.password = password;
+        this.homeAddress = homeAddress;
+        this.email = email;
+        this.fullName = fullName;
+        this.type = type;
+        this.shift = shift;
+        this.zone = zone;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getHomeAddress() {
+        return homeAddress;
+    }
+
+    public void setHomeAddress(String homeAddress) {
+        this.homeAddress = homeAddress;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getShift() {
+        return shift;
+    }
+
+    public void setShift(String shift) {
+        this.shift = shift;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getZone() {
+        return zone;
+    }
+
+    public void setZone(String zone) {
+        this.zone = zone;
     }
 
     protected Supervisor(Parcel in) {
-        usuarioContrasena = in.readString();
-        usuarioDomicilio = in.readString();
-        usuarioEmail = in.readString();
-        usuarioNombre = in.readString();
-        usuarioTipo = in.readString();
-        usuarioTurno = in.readString();
-        usuarioZona = in.readString();
-        usuarioKey = in.readString();
+        password = in.readString();
+        homeAddress = in.readString();
+        email = in.readString();
+        fullName = in.readString();
+        type = in.readString();
+        shift = in.readString();
+        zone = in.readString();
+        id = in.readString();
     }
 
     public static final Creator<Supervisor> CREATOR = new Creator<Supervisor>() {
@@ -55,72 +135,6 @@ public class Supervisor implements Parcelable{
         }
     };
 
-
-    public String getUsuarioKey() {
-
-        return usuarioKey;
-    }
-
-    public void setUsuarioKey(String usuarioKey) {
-        this.usuarioKey = usuarioKey;
-    }
-
-    public String getUsuarioContrasena() {
-        return usuarioContrasena;
-    }
-
-    public void setUsuarioContrasena(String usuarioContrasena) {
-        this.usuarioContrasena = usuarioContrasena;
-    }
-
-    public String getUsuarioDomicilio() {
-        return usuarioDomicilio;
-    }
-
-    public void setUsuarioDomicilio(String usuarioDomicilio) {
-        this.usuarioDomicilio = usuarioDomicilio;
-    }
-
-    public String getUsuarioEmail() {
-        return usuarioEmail;
-    }
-
-    public void setUsuarioEmail(String usuarioEmail) {
-        this.usuarioEmail = usuarioEmail;
-    }
-
-    public String getUsuarioNombre() {
-        return usuarioNombre;
-    }
-
-    public void setUsuarioNombre(String usuarioNombre) {
-        this.usuarioNombre = usuarioNombre;
-    }
-
-    public String getUsuarioTipo() {
-        return usuarioTipo;
-    }
-
-    public void setUsuarioTipo(String usuarioTipo) {
-        this.usuarioTipo = usuarioTipo;
-    }
-
-    public String getUsuarioTurno() {
-        return usuarioTurno;
-    }
-
-    public void setUsuarioTurno(String usuarioTurno) {
-        this.usuarioTurno = usuarioTurno;
-    }
-
-    public String getUsuarioZona() {
-        return usuarioZona;
-    }
-
-    public void setUsuarioZona(String usuarioZona) {
-        this.usuarioZona = usuarioZona;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -128,13 +142,13 @@ public class Supervisor implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(usuarioContrasena);
-        dest.writeString(usuarioDomicilio);
-        dest.writeString(usuarioEmail);
-        dest.writeString(usuarioNombre);
-        dest.writeString(usuarioTipo);
-        dest.writeString(usuarioTurno);
-        dest.writeString(usuarioZona);
-        dest.writeString(usuarioKey);
+        dest.writeString(password);
+        dest.writeString(homeAddress);
+        dest.writeString(email);
+        dest.writeString(fullName);
+        dest.writeString(type);
+        dest.writeString(shift);
+        dest.writeString(zone);
+        dest.writeString(id);
     }
 }

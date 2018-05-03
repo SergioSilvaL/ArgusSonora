@@ -51,7 +51,7 @@ public class BitacoraRegistroNoResueltoAdapter
         mBitacoraRegistroNRref = FirebaseDatabase.getInstance().getReference()
                 .child("Argus")
                 .child("BitacoraRegistroNoResuelto")
-                .child(mSupervisor.getUsuarioKey());
+                .child(mSupervisor.getId());
         mBitacoraRegistroNRref.addChildEventListener(new BitacoraRegistroNRChildListener());
 
     }
@@ -126,7 +126,7 @@ public class BitacoraRegistroNoResueltoAdapter
                             .child("Argus")
                             .child("BitacoraRegistro")
                             .child(new DatePost().getDateKey())
-                            .child(mSupervisor.getUsuarioKey())
+                            .child(mSupervisor.getId())
                             .child(bitacoraRegistro.getObservacionKey());
 
                     bitacoraRegistroNRRef.setValue(bitacoraRegistro);

@@ -67,7 +67,7 @@ public class LoginInteractorImpl implements LoginInteractor{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot data: dataSnapshot.getChildren()){
                     Supervisor supervisor = data.getValue(Supervisor.class);
-                    if (firebaseUser.getEmail().equals(supervisor.getUsuarioEmail())){
+                    if (firebaseUser.getEmail().equals(supervisor.getEmail())){
                         listener.onSuccess(supervisor);
                     }
                 }
