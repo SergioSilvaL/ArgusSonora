@@ -1,63 +1,85 @@
 package com.tecnologiasintech.argussonora.Login;
 
 
-import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
+import android.support.annotation.NonNull;
+import android.util.Log;
 
-/**
- * Created by sergiosilva on 2/5/18.
- */
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.tecnologiasintech.argussonora.data.DataRepositoryImpl;
+import com.tecnologiasintech.argussonora.domain.FirebaseExceptionConstants;
 
-public class LoginPresenterImpl implements LoginViewPresenterContract.Presenter, LoginInteractor.OnLoginFinishedListener {
+
+
+public class LoginPresenter implements LoginViewPresenterContract.Presenter {
 
     private LoginViewPresenterContract.View loginView;
-    private LoginInteractor loginInteractor;
 
-    // Presenter BoilerPlate
+    private static FirebaseAuth authentication;
+    private static DataRepositoryImpl dataRepository;
+
+    static {
+        authentication = FirebaseAuth.getInstance();
+        dataRepository = new DataRepositoryImpl();
+    }
 
 
-    public LoginPresenterImpl(LoginViewPresenterContract.View loginView, LoginInteractorImpl loginInteractor) {
+    public LoginPresenter(LoginViewPresenterContract.View loginView) {
         this.loginView = loginView;
-        this.loginInteractor = loginInteractor;
     }
 
     @Override
-    public void validateCredentials(String username, String password) {
+    public void launchFirebaseLogin(String username, String password) {
 
-        if(loginView != null){
-            loginView.showProgress();
-        }
+        loginView.showProgress();
 
-        if(isValidEmail(username) && isValidPassword(password)){
-            loginInteractor.login(username, password, this, loginView);
-        }
+        authentication.signInWithEmailAndPassword(username, password)
+            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()){
+                        String supervisorEmail = task.getResult().getUser().getEmail();
 
+                        submitSupervsior(supervisorEmail);
+
+                    }
+                }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    if (e instanceof FirebaseException){
+                        loginView.setError(FirebaseExceptionConstants
+                                .getFirebaseExceptionConstants(((FirebaseAuthException) e).getErrorCode()));
+                    }
+                }
+            }).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                loginView.hideProgress();
+            }
+        });
     }
 
-    @Override
-    public void onDestroy() {
-        loginView.hideProgress();
+    private void submitSupervsior(String supervisorEmail) {
+
+        dataRepository.getSupervisorFromEmail(supervisorEmail)
+                .subscribe(supervisor -> {
+                    supervisor.toString();
+                }, error -> Log.v("RxFirebase", error.getMessage()));
     }
 
     @Override
     public void getAuthListener() {
-        loginInteractor.validateAuthentication(loginInteractor);
-    }
-
-
-    @Override
-    public void onUsernameError() {
 
     }
 
-    @Override
-    public void onPasswordError() {
-
-    }
-
-    @Override
-    public void onSuccess(Supervisor supervisor) {
-        loginView.navigateToHome(supervisor);
-    }
+    // Create email helper class
 
     private boolean isValidEmail(String email){
 

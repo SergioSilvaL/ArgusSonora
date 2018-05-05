@@ -21,9 +21,7 @@ public interface LoginViewPresenterContract {
 
     interface Presenter {
 
-        void validateCredentials(String username, String password);
-
-        void onDestroy();
+        void launchFirebaseLogin(String username, String password);
 
         void getAuthListener();
 

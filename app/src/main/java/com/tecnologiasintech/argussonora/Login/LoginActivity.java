@@ -37,14 +37,13 @@ public class LoginActivity extends AppCompatActivity implements LoginViewPresent
 
         buttonLogin.setOnClickListener(this);
 
-        presenter = new LoginPresenterImpl(this, new LoginInteractorImpl());
+        presenter = new LoginPresenter(this);
     }
 
 
 
     @Override
     protected void onDestroy() {
-        presenter.onDestroy();
         super.onDestroy();
     }
 
@@ -82,7 +81,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewPresent
 
     @Override
     public void onClick(View v) {
-        presenter.validateCredentials(inputEmail.getText().toString(), inputPassword.getText().toString());
+        presenter.launchFirebaseLogin(inputEmail.getText().toString(), inputPassword.getText().toString());
     }
 
 //    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
