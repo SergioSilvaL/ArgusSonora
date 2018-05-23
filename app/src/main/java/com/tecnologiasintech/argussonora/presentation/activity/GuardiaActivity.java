@@ -20,8 +20,8 @@ import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class GuardiaActivity extends LoggingActivity implements ValueEventListener{
@@ -53,18 +53,18 @@ public class GuardiaActivity extends LoggingActivity implements ValueEventListen
     private GuardiaBitacora mBitacora;
     private int listPosition;
 
-    @InjectView(R.id.nameLabel) TextView mNameLabel;
-    @InjectView(R.id.phoneValue) TextView mPhoneValue;
-    @InjectView(R.id.domicilioLabel) TextView mDomicilioLabel;
-    @InjectView(R.id.turnoLabel) TextView mTurnoLabel;
-    @InjectView(R.id.btnCapturaAsistencia) LinearLayout mAsistenciaButton;
-    @InjectView(R.id.btnCapturaInAsistencia) LinearLayout mInAsistenciaButton;
-    @InjectView(R.id.btnCapturaCubreDescanso) LinearLayout mCubreDescansoButton;
-    @InjectView(R.id.btnCapturaDobleTurno) LinearLayout mDobleTurnoButton;
-    @InjectView(R.id.btnCapturaHorasExtra) LinearLayout mHorasExtraButton;
-    @InjectView(R.id.cdvCapturarAsistencia) CardView mAsistenciaCardView;
-    @InjectView(R.id.cdvCapturarInasistencia) CardView mInAsistenciaCardView;
-    @InjectView(R.id.cdvCapturarCubreDescanso) CardView mCubreDescansoCardView;
+    @BindView(R.id.nameLabel) TextView mNameLabel;
+    @BindView(R.id.phoneValue) TextView mPhoneValue;
+    @BindView(R.id.domicilioLabel) TextView mDomicilioLabel;
+    @BindView(R.id.turnoLabel) TextView mTurnoLabel;
+    @BindView(R.id.btnCapturaAsistencia) LinearLayout mAsistenciaButton;
+    @BindView(R.id.btnCapturaInAsistencia) LinearLayout mInAsistenciaButton;
+    @BindView(R.id.btnCapturaCubreDescanso) LinearLayout mCubreDescansoButton;
+    @BindView(R.id.btnCapturaDobleTurno) LinearLayout mDobleTurnoButton;
+    @BindView(R.id.btnCapturaHorasExtra) LinearLayout mHorasExtraButton;
+    @BindView(R.id.cdvCapturarAsistencia) CardView mAsistenciaCardView;
+    @BindView(R.id.cdvCapturarInasistencia) CardView mInAsistenciaCardView;
+    @BindView(R.id.cdvCapturarCubreDescanso) CardView mCubreDescansoCardView;
 
 
 
@@ -76,7 +76,7 @@ public class GuardiaActivity extends LoggingActivity implements ValueEventListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guardia);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         // Use Butterknife to set the views with fewer set of lines
 

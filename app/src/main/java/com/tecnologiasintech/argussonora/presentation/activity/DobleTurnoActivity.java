@@ -36,8 +36,8 @@ import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 
 /**
@@ -59,13 +59,13 @@ public class DobleTurnoActivity extends LoggingActivity {
 
     private int listPosition;
 
-    @InjectView(R.id.CloseBtn) ImageButton mCloseBtn;
-    @InjectView(R.id.ContinuarBtn) Button mContinuarBtn;
-    @InjectView(R.id.LimpiarBtn) Button mLimpiarBtn;
-    @InjectView(R.id.nameLabel) TextView mNameLabel;
-    @InjectView(R.id.clientLabel) TextView mClientLabel;
-    @InjectView(R.id.signaturePad) SignaturePad mSignaturePad;
-    @InjectView(R.id.progressBar) ProgressBar mProgressBar;
+    @BindView(R.id.CloseBtn) ImageButton mCloseBtn;
+    @BindView(R.id.ContinuarBtn) Button mContinuarBtn;
+    @BindView(R.id.LimpiarBtn) Button mLimpiarBtn;
+    @BindView(R.id.nameLabel) TextView mNameLabel;
+    @BindView(R.id.clientLabel) TextView mClientLabel;
+    @BindView(R.id.signaturePad) SignaturePad mSignaturePad;
+    @BindView(R.id.progressBar) ProgressBar mProgressBar;
 
     public DobleTurnoActivity(){
         setActivityName(DobleTurnoActivity.class.getSimpleName());
@@ -75,7 +75,7 @@ public class DobleTurnoActivity extends LoggingActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_asistio);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         // Get Data From intent
 

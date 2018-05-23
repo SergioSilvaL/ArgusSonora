@@ -30,8 +30,8 @@ import com.tecnologiasintech.argussonora.presentation.dialog.TutorialViewDialogF
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class ClienteActivity extends LoggingActivity {
 
@@ -51,7 +51,7 @@ public class ClienteActivity extends LoggingActivity {
     private List<GuardiaBitacora> mGuardiaBitacora;
 
     private ActionBar mActionBar;
-    @InjectView(R.id.recyclerView) RecyclerView mRecyclerView;
+    @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
 
     public ClienteActivity(){
         setActivityName(ClienteActivity.class.getSimpleName());
@@ -61,7 +61,7 @@ public class ClienteActivity extends LoggingActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cliente_guardia);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         Intent intent = getIntent();
 
