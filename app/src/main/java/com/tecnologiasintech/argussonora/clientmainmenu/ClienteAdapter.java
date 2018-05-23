@@ -1,4 +1,4 @@
-package com.tecnologiasintech.argussonora.presentation.adapter;
+package com.tecnologiasintech.argussonora.clientmainmenu;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,8 +19,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
+import com.tecnologiasintech.argussonora.mainmenu.MainActivity;
 import com.tecnologiasintech.argussonora.presentation.activity.ClienteActivity;
-import com.tecnologiasintech.argussonora.presentation.activity.MainActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;

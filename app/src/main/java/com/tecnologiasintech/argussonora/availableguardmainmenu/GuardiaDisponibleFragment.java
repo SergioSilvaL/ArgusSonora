@@ -1,4 +1,4 @@
-package com.tecnologiasintech.argussonora.presentation.fragment;
+package com.tecnologiasintech.argussonora.availableguardmainmenu;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,31 +13,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-
 import com.tecnologiasintech.argussonora.R;
-import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
-import com.tecnologiasintech.argussonora.presentation.adapter.ClienteAdapter;
 
 
 import java.util.ArrayList;
 
 
 /**
- * Created by Legible on 2/17/2017. // Edited by Sergio on 09/11/2017.
+ * Created by sergiosilva on 9/12/17.
  */
 
-public class ClienteFragment extends Fragment {
+public class GuardiaDisponibleFragment extends Fragment {
 
+    public static final String TAG = GuardiaDisponibleFragment.class.getSimpleName();
     public static final String ARG_SUPERVISOR = "ARG_SUPERVISOR";
 
-    private ClienteAdapter mAdapter;
+    public GuardiaDisponibleAdapter mAdapter;
     private Supervisor mSupervisor;
 
-    public static ClienteFragment newInstance(Supervisor supervisor){
+    public static GuardiaDisponibleFragment newInstance(Supervisor supervisor){
         Bundle args = new Bundle();
         args.putParcelable(ARG_SUPERVISOR, supervisor);
-        ClienteFragment fragment = new ClienteFragment();
+        GuardiaDisponibleFragment fragment = new GuardiaDisponibleFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,16 +50,17 @@ public class ClienteFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_cliente, container, false);
+        View view = inflater.inflate(R.layout.fragment_guardia_disponible, container, false);
 
-        //Create the Adapter
-        mAdapter = new ClienteAdapter(ClienteFragment.this.getContext(), mSupervisor);
+        // Create the adapter
+        mAdapter = new GuardiaDisponibleAdapter(getContext(),mSupervisor);
 
         //Capture the recyclerView
         RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(ClienteFragment.this.getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(GuardiaDisponibleFragment.this.getContext()));
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(mAdapter);
 
@@ -74,7 +74,7 @@ public class ClienteFragment extends Fragment {
 
         SearchView searchView = (SearchView) mSearchMenuItem.getActionView();
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 //Perform final Search
@@ -83,27 +83,28 @@ public class ClienteFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                newText = newText.toLowerCase();
-                ArrayList<Cliente> newList = new ArrayList<>();
 
-                for(Cliente cliente : ClienteAdapter.filterClientes){
-                    String name = cliente.getClienteNombre().toLowerCase();
+                newText = newText.toLowerCase();
+                ArrayList<Guardia> newList = new ArrayList<Guardia>();
+
+                for (Guardia guardia: GuardiaDisponibleAdapter.filterGuardias){
+                    String name = guardia.getUsuarioNombre().toLowerCase();
 
                     if (name.contains(newText)){
-                        newList.add(cliente);
+                        newList.add(guardia);
                     }
                 }
 
                 mAdapter.setFilter(newList);
+
                 return false;
             }
         });
 
-
         mRefreshMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                mAdapter.setClientList(mSupervisor.getZone());
+                mAdapter.setGuardiaDisponibles();
                 Toast.makeText(getContext(),"Actualizado",Toast.LENGTH_SHORT).show();
                 return false;
             }

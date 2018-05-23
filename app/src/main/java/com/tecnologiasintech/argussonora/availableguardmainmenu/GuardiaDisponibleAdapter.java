@@ -1,4 +1,4 @@
-package com.tecnologiasintech.argussonora.presentation.adapter;
+package com.tecnologiasintech.argussonora.availableguardmainmenu;
 
 import android.app.Activity;
 import android.content.Context;
@@ -23,12 +23,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
-import com.tecnologiasintech.argussonora.presentation.activity.MainActivity;
+import com.tecnologiasintech.argussonora.mainmenu.MainActivity;
 import com.tecnologiasintech.argussonora.presentation.activity.MoveGuardiaDisponible;
-import com.tecnologiasintech.argussonora.presentation.dialog.AddGuardiaTemporalDialogFragment;
 import com.tecnologiasintech.argussonora.presentation.dialog.GuardiaDisponibleInfoDialogFragment;
-import com.tecnologiasintech.argussonora.presentation.dialog.TutorialViewDialogFragment;
-import com.tecnologiasintech.argussonora.presentation.fragment.GuardiaDisponibleFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
