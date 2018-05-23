@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
-import com.tecnologiasintech.argussonora.clientmainmenu.ClienteFragment;
+import com.tecnologiasintech.argussonora.clientmainmenu.ClientMenuView;
 import com.tecnologiasintech.argussonora.availableguardmainmenu.GuardiaDisponibleFragment;
 
 public class Adapter_ViewPagerMain extends FragmentPagerAdapter {
@@ -25,7 +25,7 @@ public class Adapter_ViewPagerMain extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-            return ClienteFragment.newInstance(mSupervisor);
+            return ClientMenuView.newInstance(mSupervisor);
 
             case 1:
                 mGuardiaDisponibleFragment = mGuardiaDisponibleFragment.newInstance(mSupervisor);

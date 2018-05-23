@@ -49,9 +49,8 @@ public class LoginPresenter implements LoginViewPresenterContract.Presenter {
 
     private void submitSupervsior(String supervisorEmail) {
         dataRepository.getSupervisorFromEmail(supervisorEmail)
-                .subscribe(supervisor -> {
-                    loginView.navigateToHome(supervisor);
-                }, error -> Log.v("RxFirebase", error.getMessage()));
+                .subscribe(supervisor -> loginView.navigateToHome(supervisor)
+                , error -> Log.v("RxFirebase", error.getMessage()));
     }
 
     // TODO: Create email helper class

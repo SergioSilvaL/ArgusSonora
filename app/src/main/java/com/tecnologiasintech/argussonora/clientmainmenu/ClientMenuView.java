@@ -11,55 +11,37 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 
 import com.tecnologiasintech.argussonora.R;
+import com.tecnologiasintech.argussonora.clientmainmenu.adapter.ClientAdapter;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
-import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
+public class ClientMenuView extends Fragment implements ClientMenuViewPresenterContract.View{
 
-/**
- * Created by Legible on 2/17/2017. // Edited by Sergio on 09/11/2017.
- */
-
-public class ClienteFragment extends Fragment {
-
-    public static final String ARG_SUPERVISOR = "ARG_SUPERVISOR";
-
-    private ClienteAdapter mAdapter;
-    private Supervisor mSupervisor;
-
-    public static ClienteFragment newInstance(Supervisor supervisor){
-        Bundle args = new Bundle();
-        args.putParcelable(ARG_SUPERVISOR, supervisor);
-        ClienteFragment fragment = new ClienteFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private ClientAdapter mAdapter;
+    private ClientMenuViewPresenterContract.Presenter presenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSupervisor = getArguments().getParcelable(ARG_SUPERVISOR);
         setHasOptionsMenu(true);
+        presenter = new ClientMenuPresenter();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_cliente, container, false);
 
-        //Create the Adapter
-        mAdapter = new ClienteAdapter(ClienteFragment.this.getContext(), mSupervisor);
+        mAdapter = new ClientAdapter(getContext());
 
-        //Capture the recyclerView
         RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(ClienteFragment.this.getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(mAdapter);
 
@@ -76,7 +58,6 @@ public class ClienteFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //Perform final Search
                 return false;
             }
 
@@ -85,7 +66,7 @@ public class ClienteFragment extends Fragment {
                 newText = newText.toLowerCase();
                 ArrayList<Cliente> newList = new ArrayList<>();
 
-                for(Cliente cliente : ClienteAdapter.filterClientes){
+                for(Cliente cliente : ClientAdapter.filterClientes){
                     String name = cliente.getClienteNombre().toLowerCase();
 
                     if (name.contains(newText)){
@@ -93,19 +74,24 @@ public class ClienteFragment extends Fragment {
                     }
                 }
 
-                mAdapter.setFilter(newList);
+                mAdapter.loadClientSearch(newList);
                 return false;
             }
         });
 
-
-        mRefreshMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                mAdapter.setClientList(mSupervisor.getZone());
-                Toast.makeText(getContext(),"Actualizado",Toast.LENGTH_SHORT).show();
-                return false;
-            }
+        mRefreshMenuItem.setOnMenuItemClickListener(item -> {
+            presenter.loadClients();
+            return false;
         });
+
+    }
+
+    @Override
+    public void onSuccessload(List<Cliente> clients) {
+    }
+
+    @Override
+    public void onErrorLoad() {
+        // TODO:
     }
 }
