@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     private void signOut() {
         FirebaseAuth.getInstance().signOut();
         //TODO if finish() is better practice replace
-        startActivity(new Intent(this,SignInActivity.class));
+        startActivity(new Intent(this,LoginActivity.class));
         finish();
     }
 
