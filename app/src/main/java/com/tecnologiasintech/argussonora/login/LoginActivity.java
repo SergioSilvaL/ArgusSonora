@@ -1,4 +1,4 @@
-package com.tecnologiasintech.argussonora.Login;
+package com.tecnologiasintech.argussonora.login;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -24,12 +24,12 @@ public class LoginActivity extends AppCompatActivity implements LoginViewPresent
 
     private LoginViewPresenterContract.Presenter presenter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
+        // TODO: Use Butterknife
         inputEmail = (EditText) findViewById(R.id.input_email);
         inputPassword = (EditText) findViewById(R.id.input_password);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -38,13 +38,6 @@ public class LoginActivity extends AppCompatActivity implements LoginViewPresent
         buttonLogin.setOnClickListener(this);
 
         presenter = new LoginPresenter(this);
-    }
-
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 
     @Override
@@ -83,21 +76,5 @@ public class LoginActivity extends AppCompatActivity implements LoginViewPresent
     public void onClick(View v) {
         presenter.launchFirebaseLogin(inputEmail.getText().toString(), inputPassword.getText().toString());
     }
-
-//    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-//
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        mAuth.addAuthStateListener(presenter.getAuthListener());
-//    }
-//
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//        if (presenter.getAuthListener() != null) {
-//            mAuth.removeAuthStateListener(presenter.getAuthListener());
-//        }
-//    }
 
 }

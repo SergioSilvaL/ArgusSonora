@@ -12,7 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.tecnologiasintech.argussonora.Login.LoginActivity;
+import com.tecnologiasintech.argussonora.login.LoginActivity;
 import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
 import com.tecnologiasintech.argussonora.presentation.adapter.Adapter_ViewPagerMain;

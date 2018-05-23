@@ -1,4 +1,4 @@
-package com.tecnologiasintech.argussonora.Login;
+package com.tecnologiasintech.argussonora.login;
 
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
 
@@ -22,8 +22,6 @@ public interface LoginViewPresenterContract {
     interface Presenter {
 
         void launchFirebaseLogin(String username, String password);
-
-        void getAuthListener();
 
     }
 
