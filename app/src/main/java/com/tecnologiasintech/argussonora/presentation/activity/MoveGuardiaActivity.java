@@ -25,8 +25,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class MoveGuardiaActivity extends AppCompatActivity {
 
@@ -37,14 +37,14 @@ public class MoveGuardiaActivity extends AppCompatActivity {
     ExpandableListAdapter listAdapter;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
-    @InjectView(R.id.lvExp) ExpandableListView expListView;
+    @BindView(R.id.lvExp) ExpandableListView expListView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_move_guardia);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         getData();
 
