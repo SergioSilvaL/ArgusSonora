@@ -103,7 +103,7 @@ public class ClienteFragment extends Fragment {
         mRefreshMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                mAdapter.setClientList(mSupervisor.getUsuarioZona());
+                mAdapter.setClientList(mSupervisor.getZone());
                 Toast.makeText(getContext(),"Actualizado",Toast.LENGTH_SHORT).show();
                 return false;
             }
