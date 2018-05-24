@@ -1,5 +1,5 @@
 
-package com.tecnologiasintech.argussonora.Asistio;
+package com.tecnologiasintech.argussonora.asistio;
 
 import android.Manifest;
 import android.content.Intent;

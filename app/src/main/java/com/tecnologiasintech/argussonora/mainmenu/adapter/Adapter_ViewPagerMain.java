@@ -10,7 +10,7 @@ import com.tecnologiasintech.argussonora.availableguardmainmenu.GuardiaDisponibl
 
 public class Adapter_ViewPagerMain extends FragmentPagerAdapter {
 
-    int mNumberOfTabs;
+    private int mNumberOfTabs;
     private Supervisor mSupervisor;
     public GuardiaDisponibleFragment mGuardiaDisponibleFragment;
 
