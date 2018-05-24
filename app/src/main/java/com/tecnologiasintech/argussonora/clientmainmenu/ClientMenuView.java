@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.tecnologiasintech.argussonora.ArgusSonoraApp;
 import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.clientmainmenu.adapter.ClientAdapter;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
@@ -21,31 +22,48 @@ import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class ClientMenuView extends Fragment implements ClientMenuViewPresenterContract.View{
 
     private ClientAdapter mAdapter;
-    private ClientMenuViewPresenterContract.Presenter presenter;
+    @Inject
+    ClientMenuViewPresenterContract.Presenter presenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        presenter = new ClientMenuPresenter();
+        doDagger();
+    }
+
+    private void doDagger() {
+        ArgusSonoraApp.component
+                .provideClientMenuComponent()
+                .inject(this);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        presenter.setView(this);
+
         View view = inflater.inflate(R.layout.fragment_cliente, container, false);
 
         mAdapter = new ClientAdapter(getContext());
 
-        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(mAdapter);
 
         return view;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        presenter.dropView();
     }
 
     @Override
@@ -79,7 +97,7 @@ public class ClientMenuView extends Fragment implements ClientMenuViewPresenterC
             }
         });
 
-        mRefreshMenuItem.setOnMenuItemClickListener(item -> {
+        mRefreshMenuItem.setOnMenuItemClickListener(___-> {
             presenter.loadClients();
             return false;
         });
@@ -88,10 +106,21 @@ public class ClientMenuView extends Fragment implements ClientMenuViewPresenterC
 
     @Override
     public void onSuccessload(List<Cliente> clients) {
+        mAdapter.loadClients(clients);
     }
 
     @Override
     public void onErrorLoad() {
         // TODO:
+    }
+
+    @Override
+    public void showProgressBar() {
+
+    }
+
+    @Override
+    public void dismissProgressBar() {
+
     }
 }

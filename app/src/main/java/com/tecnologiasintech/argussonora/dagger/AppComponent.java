@@ -1,5 +1,6 @@
 package com.tecnologiasintech.argussonora.dagger;
 
+import com.tecnologiasintech.argussonora.clientmainmenu.dagger.ClientMenuComponent;
 import com.tecnologiasintech.argussonora.dagger.applicationmodules.AppModule;
 import com.tecnologiasintech.argussonora.dagger.applicationmodules.DataModule;
 import com.tecnologiasintech.argussonora.dagger.applicationmodules.NetworkModule;
@@ -17,4 +18,6 @@ import dagger.Component;
 })
 public interface AppComponent {
     LoginComponent provideLoginComponent();
+
+    ClientMenuComponent provideClientMenuComponent();
 }

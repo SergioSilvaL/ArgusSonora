@@ -8,6 +8,7 @@ import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import rx.Observable;
@@ -36,6 +37,11 @@ public class DataRepository implements IDataRepository{
                             clients.add(client);
                         } catch (NullPointerException npe) {}
                     }
+
+                    // Order before Returning
+                    Collections.sort(clients, (left, right) ->
+                            left.getClienteNombre().compareTo(right.toString()));
+
                     return clients;
 
                 }).doOnError(throwable -> {

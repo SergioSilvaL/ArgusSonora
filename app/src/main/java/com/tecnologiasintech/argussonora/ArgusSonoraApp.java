@@ -3,7 +3,6 @@ package com.tecnologiasintech.argussonora;
 import android.app.Application;
 
 import com.tecnologiasintech.argussonora.dagger.AppComponent;
-import com.tecnologiasintech.argussonora.dagger.DaggerAppComponent;
 import com.tecnologiasintech.argussonora.dagger.applicationmodules.AppModule;
 
 public class ArgusSonoraApp extends Application{

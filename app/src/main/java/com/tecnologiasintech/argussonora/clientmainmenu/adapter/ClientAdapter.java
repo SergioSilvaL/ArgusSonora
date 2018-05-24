@@ -65,7 +65,7 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder
 
         public ViewHolder(View itemView) {
             super(itemView);
-            textViewCliente = (TextView) itemView.findViewById(R.id.TEXT_VIEW_CLIENTE_NAME);
+            textViewCliente = itemView.findViewById(R.id.TEXT_VIEW_CLIENTE_NAME);
             itemView.setOnClickListener(this);
         }
 
