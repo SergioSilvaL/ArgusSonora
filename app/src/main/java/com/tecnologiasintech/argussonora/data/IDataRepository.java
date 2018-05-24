@@ -1,6 +1,6 @@
 package com.tecnologiasintech.argussonora.data;
 
-import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.Client;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import rx.Single;
 
 public interface IDataRepository {
 
-    Observable<List<Cliente>> getClientFromZone(String zone);
+    Observable<List<Client>> getClientFromZone(String zone);
 
     Observable<Supervisor> getSupervisorFromEmail(String email);
 

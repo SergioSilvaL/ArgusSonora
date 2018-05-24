@@ -3,18 +3,14 @@ package com.tecnologiasintech.argussonora.domain.ModelObjects;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by sergiosilva on 8/22/17.
- */
-
-public class Cliente implements Parcelable{
+public class Client implements Parcelable{
 
     private boolean clienteDisponible;
     private String clienteDomicilio;
     private String clienteNombre;
     private String clienteZonaAsignada;
 
-    public Cliente(){}
+    public Client(){}
 
     public boolean isClienteDisponible() {
         return clienteDisponible;
@@ -68,22 +64,22 @@ public class Cliente implements Parcelable{
         dest.writeString(clienteZonaAsignada);
     }
 
-    private Cliente(Parcel in) {
+    private Client(Parcel in) {
         clienteDisponible = in.readInt() != 0;
         clienteDomicilio = in.readString();
         clienteNombre = in.readString();
         clienteZonaAsignada = in.readString();
     }
 
-    public static final Creator<Cliente> CREATOR = new Creator<Cliente>() {
+    public static final Creator<Client> CREATOR = new Creator<Client>() {
         @Override
-        public Cliente createFromParcel(Parcel in) {
-            return new Cliente(in);
+        public Client createFromParcel(Parcel in) {
+            return new Client(in);
         }
 
         @Override
-        public Cliente[] newArray(int size) {
-            return new Cliente[size];
+        public Client[] newArray(int size) {
+            return new Client[size];
         }
     };
 

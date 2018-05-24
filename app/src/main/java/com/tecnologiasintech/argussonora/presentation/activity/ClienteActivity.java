@@ -19,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.BitacoraSimple;
-import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.Client;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.DatePost;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
@@ -46,7 +46,7 @@ public class ClienteActivity extends LoggingActivity {
     public static final int REQUEST_FAVORITE = 0;
 
     private GuardiaAdapter mAdapter;
-    private Cliente mCliente;
+    private Client mClient;
     private Supervisor mSupervisor;
     private String mClienteName;
     private List<GuardiaBitacora> mGuardiaBitacora;
@@ -87,7 +87,7 @@ public class ClienteActivity extends LoggingActivity {
     private void showGuardiaTemporalDialog() {
         FragmentManager fm = getSupportFragmentManager();
         AddGuardiaTemporalDialogFragment addGuardiaTemporalDialogFragment =
-                AddGuardiaTemporalDialogFragment.newInstance(mSupervisor, mCliente);
+                AddGuardiaTemporalDialogFragment.newInstance(mSupervisor, mClient);
         addGuardiaTemporalDialogFragment.show(fm, "fragment_edit_name");
     }
 
@@ -155,12 +155,12 @@ public class ClienteActivity extends LoggingActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                mCliente = dataSnapshot.getValue(Cliente.class);
-                Log.i(TAG, mCliente.toString());
+                mClient = dataSnapshot.getValue(Client.class);
+                Log.i(TAG, mClient.toString());
 
                 // Set Titlebar
                 if (mActionBar != null)
-                mActionBar.setTitle(mCliente.getClienteNombre());
+                mActionBar.setTitle(mClient.getClienteNombre());
 
                 // Get Guardia Bitacora
                 // TODO: Create method and Test!
@@ -185,7 +185,7 @@ public class ClienteActivity extends LoggingActivity {
                     }
                 }
 
-                updateAdapter(mCliente, mGuardiaBitacora);
+                updateAdapter(mClient, mGuardiaBitacora);
             }
 
             @Override
@@ -197,8 +197,8 @@ public class ClienteActivity extends LoggingActivity {
 
     }
 
-    private void updateAdapter(Cliente cliente, List<GuardiaBitacora> guardiaBitacora) {
-        mAdapter = new GuardiaAdapter(this, cliente, guardiaBitacora);
+    private void updateAdapter(Client client, List<GuardiaBitacora> guardiaBitacora) {
+        mAdapter = new GuardiaAdapter(this, client, guardiaBitacora);
         mRecyclerView.setAdapter(mAdapter);
     }
 

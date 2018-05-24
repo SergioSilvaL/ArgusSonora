@@ -28,7 +28,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.BitacoraSimple;
-import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.Client;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.DatePost;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
@@ -54,7 +54,7 @@ public class AsistioActivity extends LoggingActivity {
     public static final int PERMISSIONS_REQUEST_CODE = 11;
 
     private Guardia mGuardia;
-    private Cliente mCliente;
+    private Client mClient;
     private GuardiaBitacora mBitacora;
 
     private int listPosition;
@@ -93,9 +93,9 @@ public class AsistioActivity extends LoggingActivity {
         }
 
         if (intent.getParcelableExtra(GuardiaActivity.EXTRA_CLIENTE) != null){
-            mCliente = intent.getParcelableExtra(GuardiaActivity.EXTRA_CLIENTE);
-            Log.i(TAG, mCliente.toString());
-            mClientLabel.setText(mCliente.getClienteNombre());
+            mClient = intent.getParcelableExtra(GuardiaActivity.EXTRA_CLIENTE);
+            Log.i(TAG, mClient.toString());
+            mClientLabel.setText(mClient.getClienteNombre());
         }
 
         if (intent.getParcelableExtra(GuardiaActivity.EXTRA_GUARDIA_BITACORA) != null){
@@ -264,13 +264,13 @@ public class AsistioActivity extends LoggingActivity {
 
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/asistio",true);
-        childUpdates.put("/cliente",mCliente.getClienteNombre());
+        childUpdates.put("/cliente", mClient.getClienteNombre());
         String currentDate = new DatePost().getDatePost();
         childUpdates.put("/fecha",currentDate);
         childUpdates.put("/firmaAsistio",urlPicture);
         childUpdates.put("/guardiaNombre",mGuardia.getUsuarioNombre());
         childUpdates.put("/turno",mGuardia.getUsuarioTurno());
-        childUpdates.put("/zona",mCliente.getClienteZonaAsignada());
+        childUpdates.put("/zona", mClient.getClienteZonaAsignada());
         reference.updateChildren(childUpdates);
 
 
@@ -280,7 +280,7 @@ public class AsistioActivity extends LoggingActivity {
         DatabaseReference reference =
                 firebase.getReference(
                         "Argus/Clientes/" +
-                                mCliente.getClienteNombre() + "/clienteGuardias")
+                                mClient.getClienteNombre() + "/clienteGuardias")
                         .child(mGuardia.getUsuarioKey())
                         .child("BitacoraSimple")
                         .child(new DatePost().getDateKey());

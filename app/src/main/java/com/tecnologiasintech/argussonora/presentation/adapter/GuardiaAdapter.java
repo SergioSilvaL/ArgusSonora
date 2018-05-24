@@ -4,27 +4,20 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.BitacoraSimple;
-import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.Client;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.DatePost;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
 import com.tecnologiasintech.argussonora.presentation.activity.ClienteActivity;
 import com.tecnologiasintech.argussonora.presentation.activity.GuardiaActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,14 +27,14 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
 
 
     private Context mContext;
-    private Cliente mCliente;
+    private Client mClient;
     private List<GuardiaBitacora> mGuardiaBitacoraList;
     public static final String TAG = GuardiaAdapter.class.getSimpleName();
 
 
-    public GuardiaAdapter(Context context, Cliente cliente, List<GuardiaBitacora> guardiaBitacora){
+    public GuardiaAdapter(Context context, Client client, List<GuardiaBitacora> guardiaBitacora){
         mContext = context;
-        mCliente = cliente;
+        mClient = client;
         mGuardiaBitacoraList = guardiaBitacora;
     }
 
@@ -141,7 +134,7 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(mContext, GuardiaActivity.class);
-            intent.putExtra(ClienteActivity.EXTRA_CLIENTE, mCliente);
+            intent.putExtra(ClienteActivity.EXTRA_CLIENTE, mClient);
             intent.putExtra(ClienteActivity.EXTRA_GUARDIA_BITACORA , mGuardiaBitacoraList.get(getAdapterPosition()));
             intent.putExtra(ClienteActivity.EXTRA_LIST_POSITION, getAdapterPosition());
             ((Activity)mContext).startActivityForResult(intent, ClienteActivity.REQUEST_FAVORITE);

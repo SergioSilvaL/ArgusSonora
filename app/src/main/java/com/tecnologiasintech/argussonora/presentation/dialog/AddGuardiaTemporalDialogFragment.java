@@ -15,7 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.BitacoraRegistro;
-import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.Client;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.DatePost;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Notificacion;
@@ -36,7 +36,7 @@ public class AddGuardiaTemporalDialogFragment extends DialogFragment {
     public static final String ARG_CLIENTE = "ARG_CLIENTE";
     public static final String ARG_SUPERVISOR = "ARG_SUPERVISOR";
 
-    private Cliente mCliente;
+    private Client mClient;
     private Supervisor mSupervisor;
 
     private EditText mGuardiaDomicillioEditText;
@@ -47,11 +47,11 @@ public class AddGuardiaTemporalDialogFragment extends DialogFragment {
     }
 
     public static AddGuardiaTemporalDialogFragment
-        newInstance(Supervisor supervisor, Cliente cliente){
+        newInstance(Supervisor supervisor, Client client){
 
         AddGuardiaTemporalDialogFragment frag = new AddGuardiaTemporalDialogFragment();
         Bundle args = new Bundle();
-        args.putParcelable(ARG_CLIENTE, cliente);
+        args.putParcelable(ARG_CLIENTE, client);
         args.putParcelable(ARG_SUPERVISOR, supervisor);
         frag.setArguments(args);
         return frag;
@@ -63,7 +63,7 @@ public class AddGuardiaTemporalDialogFragment extends DialogFragment {
 
         // Get arguments
 
-        mCliente = getArguments().getParcelable(ARG_CLIENTE);
+        mClient = getArguments().getParcelable(ARG_CLIENTE);
         mSupervisor = getArguments().getParcelable(ARG_SUPERVISOR);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -117,7 +117,7 @@ public class AddGuardiaTemporalDialogFragment extends DialogFragment {
                 descripcion,
                 3,
                 mSupervisor.getFullName(),
-                mCliente.getClienteZonaAsignada(),
+                mClient.getClienteZonaAsignada(),
                 new DatePost().get24HourFormat());
 
         bitacoraRegistro.setObservacionKey(bitacoraRegistroNRKey);
@@ -192,7 +192,7 @@ public class AddGuardiaTemporalDialogFragment extends DialogFragment {
 
 
         // TODO: Get Client
-        guardia.setUsuarioClienteAsignado(mCliente.getClienteNombre());// TODO:
+        guardia.setUsuarioClienteAsignado(mClient.getClienteNombre());// TODO:
 
 
         DatabaseReference notificacionTmpRef =

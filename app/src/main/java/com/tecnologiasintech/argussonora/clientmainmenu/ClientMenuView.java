@@ -16,10 +16,9 @@ import android.view.ViewGroup;
 import com.tecnologiasintech.argussonora.ArgusSonoraApp;
 import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.clientmainmenu.adapter.ClientAdapter;
-import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.Client;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -82,9 +81,9 @@ public class ClientMenuView extends Fragment implements ClientMenuViewPresenterC
             @Override
             public boolean onQueryTextChange(String newText) {
 //                newText = newText.toLowerCase();
-//                ArrayList<Cliente> newList = new ArrayList<>();
+//                ArrayList<Client> newList = new ArrayList<>();
 //
-//                for(Cliente cliente : mAdapter.filterClientes){
+//                for(Client cliente : mAdapter.filterClientes){
 //                    String name = cliente.getClienteNombre().toLowerCase();
 //
 //                    if (name.contains(newText)){
@@ -105,7 +104,7 @@ public class ClientMenuView extends Fragment implements ClientMenuViewPresenterC
     }
 
     @Override
-    public void onSuccessload(List<Cliente> clients) {
+    public void onSuccessload(List<Client> clients) {
         mAdapter.loadClients(clients);
     }
 

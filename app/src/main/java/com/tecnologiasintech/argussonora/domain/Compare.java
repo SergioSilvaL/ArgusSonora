@@ -1,6 +1,6 @@
 package com.tecnologiasintech.argussonora.domain;
 
-import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.Client;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
 
 import java.util.Comparator;
@@ -18,10 +18,10 @@ class CompareGuard implements Comparator<Guardia> {
 }
 
 
-class CompareServices implements Comparator<Cliente> {
+class CompareServices implements Comparator<Client> {
 
     @Override
-    public int compare(Cliente o1, Cliente o2) {
+    public int compare(Client o1, Client o2) {
         return o1.getClienteNombre().compareTo(o2.getClienteNombre());
     }
 }

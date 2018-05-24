@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.tecnologiasintech.argussonora.R;
-import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.Client;
 import com.tecnologiasintech.argussonora.mainmenu.MainActivity;
 import com.tecnologiasintech.argussonora.presentation.activity.ClienteActivity;
 
@@ -21,20 +21,20 @@ import java.util.List;
 public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<Cliente> clients;
+    private List<Client> clients;
 
 
     public ClientAdapter(Context context) {
         mContext = context;
     }
 
-    public void loadClients(List<Cliente> clients) {
+    public void loadClients(List<Client> clients) {
         this.clients.clear();
         this.clients.addAll(clients);
         notifyDataSetChanged();
     }
 
-    public void loadClientSearch(ArrayList<Cliente> newList){
+    public void loadClientSearch(ArrayList<Client> newList){
         clients.clear();
         clients.addAll(newList);
         notifyDataSetChanged();
@@ -50,8 +50,8 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final Cliente currentCliente = clients.get(position);
-        holder.bindToView(currentCliente, position );
+        final Client currentClient = clients.get(position);
+        holder.bindToView(currentClient, position );
     }
 
     @Override
@@ -69,7 +69,7 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder
             itemView.setOnClickListener(this);
         }
 
-        public void bindToView(Cliente client, int position) {
+        public void bindToView(Client client, int position) {
             textViewCliente.setText((position + 1) + ". " + client.getClienteNombre());
         }
 

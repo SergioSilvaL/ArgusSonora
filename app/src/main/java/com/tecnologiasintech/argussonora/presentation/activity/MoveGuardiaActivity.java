@@ -1,11 +1,9 @@
 package com.tecnologiasintech.argussonora.presentation.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.SparseArray;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
@@ -16,7 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tecnologiasintech.argussonora.R;
-import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.Client;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
 import com.tecnologiasintech.argussonora.presentation.adapter.ExpandableListAdapter;
@@ -33,7 +31,7 @@ public class MoveGuardiaActivity extends AppCompatActivity {
     private static final String TAG = MoveGuardiaActivity.class.getSimpleName();
     private Guardia mGuardia;
     private GuardiaBitacora mGuardiaBitacora;
-    private Cliente mCliente;
+    private Client mClient;
     ExpandableListAdapter listAdapter;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
@@ -65,10 +63,10 @@ public class MoveGuardiaActivity extends AppCompatActivity {
             mGuardiaBitacora = intent.getParcelableExtra(GuardiaActivity.EXTRA_GUARDIA_BITACORA);
             //Log.i(TAG, mGuardiaBitacora.toString());
         }
-        // Get Cliente from Intent
+        // Get Client from Intent
         if (intent.getParcelableExtra(GuardiaActivity.EXTRA_CLIENTE)!= null){
-            mCliente = intent.getParcelableExtra(GuardiaActivity.EXTRA_CLIENTE);
-            //Log.i(TAG, mCliente.toString());
+            mClient = intent.getParcelableExtra(GuardiaActivity.EXTRA_CLIENTE);
+            //Log.i(TAG, mClient.toString());
         }
 
 
@@ -125,7 +123,7 @@ public class MoveGuardiaActivity extends AppCompatActivity {
 
     private void DeleteFromCurrentClient() {
         DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("Argus/Clientes").child(mCliente.getClienteNombre()).child("clienteGuardias")
+                .getReference("Argus/Clientes").child(mClient.getClienteNombre()).child("clienteGuardias")
                 .child(mGuardia.getUsuarioKey());
 
         reference.setValue(null);
@@ -168,7 +166,7 @@ public class MoveGuardiaActivity extends AppCompatActivity {
 
 
                     for (DataSnapshot snapshot1 : snapshot.child("zonaClientes").getChildren()){
-                        Log.i(TAG, "Cliente : " + snapshot1.getKey());
+                        Log.i(TAG, "Client : " + snapshot1.getKey());
                         list.add(snapshot1.getKey());
                     }
 

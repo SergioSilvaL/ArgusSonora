@@ -40,7 +40,7 @@ public class Adapter_ViewPagerMain extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "Servicios";//TODO: mContext.getString(R.string.Cliente);
+                return "Servicios";//TODO: mContext.getString(R.string.Client);
             case 1:
                 return "Guardias";//TODO: mContext.getString(R.string.guardias);
 

@@ -14,7 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tecnologiasintech.argussonora.R;
-import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.Client;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
 import com.tecnologiasintech.argussonora.mainmenu.MainActivity;
@@ -37,7 +37,7 @@ public class MoveGuardiaDisponible extends AppCompatActivity {
     private static final String TAG = MoveGuardiaActivity.class.getSimpleName();
     private Guardia mGuardia;
     private GuardiaBitacora mGuardiaBitacora;
-    private Cliente mCliente;
+    private Client mClient;
     private ExpandableListAdapter listAdapter;
     private List <String> listDataHeader;
     private HashMap <String, List<String>> listDataChild;
@@ -154,7 +154,7 @@ public class MoveGuardiaDisponible extends AppCompatActivity {
 
 
                     for (DataSnapshot snapshot1 : snapshot.child("zonaClientes").getChildren()){
-                        Log.i(TAG, "Cliente : " + snapshot1.getKey());
+                        Log.i(TAG, "Client : " + snapshot1.getKey());
                         list.add(snapshot1.getKey());
                     }
 

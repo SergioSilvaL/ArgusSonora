@@ -11,7 +11,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.BitacoraSimple;
-import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.Client;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.DatePost;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
@@ -30,7 +30,7 @@ public class InAsistenciaActivity extends LoggingActivity {
     public static final String TAG = InAsistenciaActivity.class.getSimpleName();
 
     private Guardia mGuardia;
-    private Cliente mCliente;
+    private Client mClient;
     private GuardiaBitacora mBitacora;
 
     private int listPosition;
@@ -64,9 +64,9 @@ public class InAsistenciaActivity extends LoggingActivity {
         }
 
         if (intent.getParcelableExtra(GuardiaActivity.EXTRA_CLIENTE) != null){
-            mCliente = intent.getParcelableExtra(GuardiaActivity.EXTRA_CLIENTE);
-            Log.i(TAG, mCliente.toString());
-            mClienteTextView.setText(mCliente.getClienteNombre());
+            mClient = intent.getParcelableExtra(GuardiaActivity.EXTRA_CLIENTE);
+            Log.i(TAG, mClient.toString());
+            mClienteTextView.setText(mClient.getClienteNombre());
         }
 
         if (intent.getParcelableExtra(GuardiaActivity.EXTRA_GUARDIA_BITACORA) != null){
@@ -93,7 +93,7 @@ public class InAsistenciaActivity extends LoggingActivity {
         // Upload to Bitacora
         pushBitacora(mEditText.getText().toString());
 
-        // Upload to Cliente Bitacora
+        // Upload to Client Bitacora
         pushBitacoraSimple();
 
         // Update List
@@ -138,7 +138,7 @@ public class InAsistenciaActivity extends LoggingActivity {
 
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/asistio",false);
-        childUpdates.put("/cliente",mCliente.getClienteNombre());
+        childUpdates.put("/cliente", mClient.getClienteNombre());
         childUpdates.put("/cubredescanso",null);
         childUpdates.put("/dobleturno",null);
         childUpdates.put("/firmaAsistio",null);
@@ -156,7 +156,7 @@ public class InAsistenciaActivity extends LoggingActivity {
         childUpdates.put("/guardiaNombre",mGuardia.getUsuarioNombre());
         childUpdates.put("/horasextra",null);
         childUpdates.put("/turno",mGuardia.getUsuarioTurno());
-        childUpdates.put("/zona",mCliente.getClienteZonaAsignada());
+        childUpdates.put("/zona", mClient.getClienteZonaAsignada());
         reference.updateChildren(childUpdates);
     }
 
@@ -164,7 +164,7 @@ public class InAsistenciaActivity extends LoggingActivity {
         DatabaseReference reference =
                 firebase.getReference(
                         "Argus/Clientes/" +
-                                mCliente.getClienteNombre() + "/clienteGuardias")
+                                mClient.getClienteNombre() + "/clienteGuardias")
                         .child(mGuardia.getUsuarioKey())
                         .child("BitacoraSimple")
                         .child(new DatePost().getDateKey());

@@ -150,7 +150,7 @@ public class Guardia implements Parcelable{
     }
 
     public String toString() {
-        return "Cliente Asignado: " + usuarioClienteAsignado + "\n" +
+        return "Client Asignado: " + usuarioClienteAsignado + "\n" +
                 "Disponible: " + usuarioDisponible + "\n" +
                 "Domicilio: " + usuarioDomicilio + "\n" +
                 "Nombre: " + usuarioNombre + "\n" +

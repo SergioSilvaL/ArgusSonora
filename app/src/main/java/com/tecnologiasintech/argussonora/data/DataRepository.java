@@ -4,7 +4,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.kelvinapps.rxfirebase.RxFirebaseDatabase;
 import com.tecnologiasintech.argussonora.data.local.IUserPrefs;
-import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.Client;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
 
 import java.util.ArrayList;
@@ -25,15 +25,15 @@ public class DataRepository implements IDataRepository{
     }
 
     @Override
-    public Observable<List<Cliente>> getClientFromZone(String zone) {
-        List<Cliente> clients = new ArrayList<>();
+    public Observable<List<Client>> getClientFromZone(String zone) {
+        List<Client> clients = new ArrayList<>();
 
         return RxFirebaseDatabase.observeSingleValueEvent(
                 databaseReference.child("Zonas").child(zone).child("zonaClientes"),
                 dataSnapshot -> {
                     for (DataSnapshot data: dataSnapshot.getChildren()){
                         try {
-                            Cliente client = data.getValue(Cliente.class);
+                            Client client = data.getValue(Client.class);
                             clients.add(client);
                         } catch (NullPointerException npe) {}
                     }

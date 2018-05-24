@@ -16,7 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tecnologiasintech.argussonora.asistio.AsistioActivity;
 import com.tecnologiasintech.argussonora.R;
-import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
+import com.tecnologiasintech.argussonora.domain.ModelObjects.Client;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Guardia;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
 
@@ -49,7 +49,7 @@ public class GuardiaActivity extends LoggingActivity implements ValueEventListen
     public static final String EXTRA_GUARDIA_BITACORA = "EXTRA_GUARDIA_BITACORA";
 
     private Guardia mGuardia;
-    private Cliente mCliente;
+    private Client mClient;
     private GuardiaBitacora mBitacora;
     private int listPosition;
 
@@ -83,8 +83,8 @@ public class GuardiaActivity extends LoggingActivity implements ValueEventListen
         Intent intent = getIntent();
 
         if (intent.getParcelableExtra(ClienteActivity.EXTRA_CLIENTE) != null){
-            mCliente = intent.getParcelableExtra(ClienteActivity.EXTRA_CLIENTE);
-            Log.i(TAG, mCliente.toString());
+            mClient = intent.getParcelableExtra(ClienteActivity.EXTRA_CLIENTE);
+            Log.i(TAG, mClient.toString());
         }
 
         if (intent.getParcelableExtra(ClienteActivity.EXTRA_GUARDIA_BITACORA) != null){
@@ -106,7 +106,7 @@ public class GuardiaActivity extends LoggingActivity implements ValueEventListen
 
         Intent intent = new Intent(this, MoveGuardiaActivity.class);
         intent.putExtra(EXTRA_GUARDIA, mGuardia);
-        intent.putExtra(EXTRA_CLIENTE, mCliente);
+        intent.putExtra(EXTRA_CLIENTE, mClient);
         intent.putExtra(EXTRA_GUARDIA_BITACORA, mBitacora);
         // Send Line position ?
 
@@ -120,7 +120,7 @@ public class GuardiaActivity extends LoggingActivity implements ValueEventListen
 
         Intent intent = new Intent(this, AsistioActivity.class);
         intent.putExtra(EXTRA_GUARDIA, mGuardia);
-        intent.putExtra(EXTRA_CLIENTE, mCliente);
+        intent.putExtra(EXTRA_CLIENTE, mClient);
         intent.putExtra(EXTRA_GUARDIA_BITACORA, mBitacora);
         intent.putExtra(EXTRA_LIST_POSITION, listPosition);
         intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
@@ -135,7 +135,7 @@ public class GuardiaActivity extends LoggingActivity implements ValueEventListen
 
         Intent intent = new Intent(this, InAsistenciaActivity.class);
         intent.putExtra(EXTRA_GUARDIA, mGuardia);
-        intent.putExtra(EXTRA_CLIENTE, mCliente);
+        intent.putExtra(EXTRA_CLIENTE, mClient);
         intent.putExtra(EXTRA_GUARDIA_BITACORA, mBitacora);
         intent.putExtra(EXTRA_LIST_POSITION, listPosition);
         intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
@@ -149,7 +149,7 @@ public class GuardiaActivity extends LoggingActivity implements ValueEventListen
 
         Intent intent = new Intent(this, DobleTurnoActivity.class);
         intent.putExtra(EXTRA_GUARDIA, mGuardia);
-        intent.putExtra(EXTRA_CLIENTE, mCliente);
+        intent.putExtra(EXTRA_CLIENTE, mClient);
         intent.putExtra(EXTRA_GUARDIA_BITACORA, mBitacora);
         intent.putExtra(EXTRA_LIST_POSITION, listPosition);
         intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
@@ -163,7 +163,7 @@ public class GuardiaActivity extends LoggingActivity implements ValueEventListen
 
         Intent intent = new Intent(this, CubreDescansoActivity.class);
         intent.putExtra(EXTRA_GUARDIA, mGuardia);
-        intent.putExtra(EXTRA_CLIENTE, mCliente);
+        intent.putExtra(EXTRA_CLIENTE, mClient);
         intent.putExtra(EXTRA_GUARDIA_BITACORA, mBitacora);
         intent.putExtra(EXTRA_LIST_POSITION, listPosition);
         intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
@@ -176,7 +176,7 @@ public class GuardiaActivity extends LoggingActivity implements ValueEventListen
         Log.i(TAG, "Captura Horas Extra");
         Intent intent = new Intent(this, HorasExtraActivity.class);
         intent.putExtra(EXTRA_GUARDIA, mGuardia);
-        intent.putExtra(EXTRA_CLIENTE, mCliente);
+        intent.putExtra(EXTRA_CLIENTE, mClient);
         intent.putExtra(EXTRA_GUARDIA_BITACORA, mBitacora);
         intent.putExtra(EXTRA_LIST_POSITION, listPosition);
         intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
