@@ -25,7 +25,7 @@ public class Adapter_ViewPagerMain extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-            return ClientMenuView.newInstance(mSupervisor);
+            return new ClientMenuView();
 
             case 1:
                 mGuardiaDisponibleFragment = mGuardiaDisponibleFragment.newInstance(mSupervisor);

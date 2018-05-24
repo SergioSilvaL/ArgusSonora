@@ -63,18 +63,18 @@ public class ClientMenuView extends Fragment implements ClientMenuViewPresenterC
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                newText = newText.toLowerCase();
-                ArrayList<Cliente> newList = new ArrayList<>();
-
-                for(Cliente cliente : ClientAdapter.filterClientes){
-                    String name = cliente.getClienteNombre().toLowerCase();
-
-                    if (name.contains(newText)){
-                        newList.add(cliente);
-                    }
-                }
-
-                mAdapter.loadClientSearch(newList);
+//                newText = newText.toLowerCase();
+//                ArrayList<Cliente> newList = new ArrayList<>();
+//
+//                for(Cliente cliente : mAdapter.filterClientes){
+//                    String name = cliente.getClienteNombre().toLowerCase();
+//
+//                    if (name.contains(newText)){
+//                        newList.add(cliente);
+//                    }
+//                }
+//
+//                mAdapter.loadClientSearch(newList);
                 return false;
             }
         });

@@ -14,7 +14,13 @@ public interface IDataRepository {
 
     Observable<Supervisor> getSupervisorFromEmail(String email);
 
-    void saveSupervisorIntoPreferences(Supervisor supervisor);
+    void saveSupervisorEmailIntoPreferences(String email);
 
-    Single<Supervisor> getSupervisorFromPreferences();
+    Single<String> getSupervisorEmailFromPreferences();
+
+    void saveSupervisorZoneIntoPreferences(String zone);
+
+    Single<String> getSupervisorZoneFromPreferences();
+
+
 }

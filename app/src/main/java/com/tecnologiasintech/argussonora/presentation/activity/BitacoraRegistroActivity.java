@@ -18,6 +18,7 @@ import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.BitacoraRegistro;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.DatePost;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
+import com.tecnologiasintech.argussonora.mainmenu.MainActivity;
 import com.tecnologiasintech.argussonora.presentation.adapter.BitacoraRegistroAdapter;
 import com.tecnologiasintech.argussonora.presentation.adapter.BitacoraRegistroNoResueltoAdapter;
 

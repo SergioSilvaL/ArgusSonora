@@ -1,14 +1,11 @@
 package com.tecnologiasintech.argussonora.login;
 
+import com.tecnologiasintech.argussonora.common.BaseViewPresenterContract;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
 
 public interface LoginViewPresenterContract {
 
-    interface View {
-
-        void showProgress();
-
-        void hideProgress();
+    interface View extends BaseViewPresenterContract.View{
 
         void setUsernameError(String error);
 
@@ -23,6 +20,9 @@ public interface LoginViewPresenterContract {
 
         void launchFirebaseLogin(String username, String password);
 
+        void setView(LoginViewPresenterContract.View view);
+
+        void dropView();
     }
 
 }
