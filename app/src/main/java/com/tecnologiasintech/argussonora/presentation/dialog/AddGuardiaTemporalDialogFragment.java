@@ -174,17 +174,17 @@ public class AddGuardiaTemporalDialogFragment extends DialogFragment {
 
         String domicillio = mGuardiaDomicillioEditText.getText().toString();
 
-        if (domicillio != null) {
+        if (!domicillio.isEmpty()) {
             guardia.setUsuarioDomicilio(domicillio);
         }else{
-            guardia.setUsuarioDomicilio("");
+            guardia.setUsuarioDomicilio("domicilio no proporcionado");
         }
 
         // Get Phone Number Input
 
         String telefono = mGuardiaTelefonoEditText.getText().toString();
 
-        if (telefono != null){
+        if (!telefono.isEmpty()){
             guardia.setUsuarioTelefono(Long.valueOf(telefono));
         }else {
             guardia.setUsuarioTelefono(0);
