@@ -12,7 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.tecnologiasintech.argussonora.Login.LoginActivity;
+import com.tecnologiasintech.argussonora.login.LoginActivity;
 import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
 import com.tecnologiasintech.argussonora.presentation.adapter.Adapter_ViewPagerMain;
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     private void signOut() {
         FirebaseAuth.getInstance().signOut();
         //TODO if finish() is better practice replace
-        startActivity(new Intent(this,SignInActivity.class));
+        startActivity(new Intent(this,LoginActivity.class));
         finish();
     }
 

@@ -1,4 +1,4 @@
-package com.tecnologiasintech.argussonora.Login;
+package com.tecnologiasintech.argussonora.login;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +13,7 @@ import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
 import com.tecnologiasintech.argussonora.presentation.activity.MainActivity;
 
-public class LoginActivity extends AppCompatActivity implements LoginView, View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements LoginViewPresenterContract.View, View.OnClickListener{
 
     public static final String EXTRA_SUPERVISOR = "EXTRA_SUPERVISOR";
 
@@ -22,14 +22,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView, View.
     private EditText inputPassword;
     private Button buttonLogin;
 
-    private LoginPresenter presenter;
-
+    private LoginViewPresenterContract.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
+        // TODO: Use Butterknife
         inputEmail = (EditText) findViewById(R.id.input_email);
         inputPassword = (EditText) findViewById(R.id.input_password);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -37,15 +37,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView, View.
 
         buttonLogin.setOnClickListener(this);
 
-        presenter = new LoginPresenterImpl(this, new LoginInteractorImpl());
-    }
-
-
-
-    @Override
-    protected void onDestroy() {
-        presenter.onDestroy();
-        super.onDestroy();
+        presenter = new LoginPresenter(this);
     }
 
     @Override
@@ -82,23 +74,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView, View.
 
     @Override
     public void onClick(View v) {
-        presenter.validateCredentials(inputEmail.getText().toString(), inputPassword.getText().toString());
+        presenter.launchFirebaseLogin(inputEmail.getText().toString(), inputPassword.getText().toString());
     }
-
-//    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-//
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        mAuth.addAuthStateListener(presenter.getAuthListener());
-//    }
-//
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//        if (presenter.getAuthListener() != null) {
-//            mAuth.removeAuthStateListener(presenter.getAuthListener());
-//        }
-//    }
 
 }

@@ -1,18 +1,19 @@
 package com.tecnologiasintech.argussonora.presentation.activity;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
@@ -38,8 +39,8 @@ import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class HorasExtraActivity extends LoggingActivity {
@@ -49,6 +50,7 @@ public class HorasExtraActivity extends LoggingActivity {
     public static final String TAG = HorasExtraActivity.class.getSimpleName();
 
     public static final int REQUEST_TAKE_PICTURE = 0;
+    public static final int PERMISSIONS_REQUEST_CODE = 11;
 
     private Guardia mGuardia;
     private Cliente mCliente;
@@ -57,13 +59,13 @@ public class HorasExtraActivity extends LoggingActivity {
     private int listPosition;
     private long horasExtra = 0;
 
-    @InjectView(R.id.CloseBtn) ImageButton mCloseBtn;
-    @InjectView(R.id.ContinuarBtn) Button mContinuarBtn;
-    @InjectView(R.id.LimpiarBtn) Button mLimpiarBtn;
-    @InjectView(R.id.nameLabel) TextView mNameLabel;
-    @InjectView(R.id.clientLabel) TextView mClientLabel;
-    @InjectView(R.id.signaturePad) SignaturePad mSignaturePad;
-    @InjectView(R.id.progressBar) ProgressBar mProgressBar;
+    @BindView(R.id.CloseBtn) ImageButton mCloseBtn;
+    @BindView(R.id.ContinuarBtn) Button mContinuarBtn;
+    @BindView(R.id.LimpiarBtn) Button mLimpiarBtn;
+    @BindView(R.id.nameLabel) TextView mNameLabel;
+    @BindView(R.id.clientLabel) TextView mClientLabel;
+    @BindView(R.id.signaturePad) SignaturePad mSignaturePad;
+    @BindView(R.id.progressBar) ProgressBar mProgressBar;
 
     public HorasExtraActivity() {
         setActivityName(HorasExtraActivity.class.getSimpleName());
@@ -74,7 +76,7 @@ public class HorasExtraActivity extends LoggingActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_asistio);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         // Get Data From intent
 
@@ -110,7 +112,13 @@ public class HorasExtraActivity extends LoggingActivity {
         Log.i(TAG, "-------------------------");
 
 
+
     }
+
+
+    /**
+     * Called When the picture is taken
+     * **/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -128,6 +136,13 @@ public class HorasExtraActivity extends LoggingActivity {
         }
     }
 
+    private void disableViews() {
+        mSignaturePad.setEnabled(false);
+        mCloseBtn.setEnabled(false);
+        mContinuarBtn.setVisibility(View.GONE);
+        mLimpiarBtn.setVisibility(View.GONE);
+    }
+
     @OnClick(R.id.CloseBtn)
     public void close(){
         Log.i(TAG, "Close Button Clicked");
@@ -141,12 +156,36 @@ public class HorasExtraActivity extends LoggingActivity {
         if (mSignaturePad.isEmpty()){
             Toast.makeText(this, "Favor, de Firmar antes de continuar", Toast.LENGTH_LONG).show();
         }else {
-
-            // take photo using intent
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING", 1);
-            startActivityForResult(takePictureIntent, REQUEST_TAKE_PICTURE);
+            takePicture();
         }
+    }
+
+    private void takePicture(){
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+                requestPermissions(new String[]{Manifest.permission.CAMERA}, PERMISSIONS_REQUEST_CODE);
+            }else {
+                takePictureUsingIntent();
+            }
+        }else {
+            takePictureUsingIntent();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == PERMISSIONS_REQUEST_CODE){
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                takePictureUsingIntent();
+            }
+        }
+    }
+
+    private void takePictureUsingIntent(){
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING", 1);
+        startActivityForResult(takePictureIntent, REQUEST_TAKE_PICTURE);
     }
 
     @OnClick(R.id.LimpiarBtn)
@@ -157,16 +196,19 @@ public class HorasExtraActivity extends LoggingActivity {
     public void uploadData(Uri imageUri){
 
         final UploadTask uploadTask = getStorageReference().putBytes(getDataFromSignaturePadAsBytes());
-        UploadTask uploadSelfieTask = getStorageSelfieReference().putFile(imageUri);
 
-        uploadSelfieTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                pushSelfieUrl(taskSnapshot.getDownloadUrl().toString());
-                mProgressBar.setProgress(40);
-            }
-        });
+        if (imageUri != null){
 
+            UploadTask uploadSelfieTask = getStorageSelfieReference().putFile(imageUri);
+
+            uploadSelfieTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    pushSelfieUrl(taskSnapshot.getDownloadUrl().toString());
+                    mProgressBar.setProgress(40);
+                }
+            });
+        }
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
 
@@ -197,6 +239,7 @@ public class HorasExtraActivity extends LoggingActivity {
                 updateGuardiaArrayList();
                 mProgressBar.setProgress(100);
 
+                // update fecha
                 updateFechaInfo();
 
                 finish();

@@ -24,8 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * Created by sergiosilva on 9/14/17.
@@ -40,13 +40,13 @@ public class MoveGuardiaDisponible extends AppCompatActivity {
     private ExpandableListAdapter listAdapter;
     private List <String> listDataHeader;
     private HashMap <String, List<String>> listDataChild;
-    @InjectView(R.id.lvExp) ExpandableListView expListView;
+    @BindView(R.id.lvExp) ExpandableListView expListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_move_guardia);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         getData();
 

@@ -49,12 +49,12 @@ public class BitacoraRegistroAdapter extends RecyclerView.Adapter<BitacoraRegist
         mRegistro = new ArrayList<>();
         mBitacoraRegistroFechaRef = FirebaseDatabase.getInstance().getReference().child("Argus").child("BitacoraRegistro").child(new DatePost().getDateKey());
         mBitacoraRegistroRef = FirebaseDatabase.getInstance().getReference().child("Argus").child("BitacoraRegistro").child(new DatePost().getDateKey())
-                .child(mSupervisor.getUsuarioKey());
+                .child(mSupervisor.getId());
         mBitacoraRegistroRef.addChildEventListener(new bitacoraRegistroChildEventListener());
         mBitacoraRegistroNRRef = FirebaseDatabase.getInstance().getReference()
                 .child("Argus")
                 .child("BitacoraRegistroNoResuelto")
-                .child(mSupervisor.getUsuarioKey());
+                .child(mSupervisor.getId());
     }
 
     private class bitacoraRegistroChildEventListener implements ChildEventListener {
@@ -161,8 +161,8 @@ public class BitacoraRegistroAdapter extends RecyclerView.Adapter<BitacoraRegist
 
         bitacoraRegistro.setHora(new DatePost().get24HourFormat());
 
-        updateSupervisorInfo(mSupervisor.getUsuarioNombre(),
-                mSupervisor.getUsuarioZona());
+        updateSupervisorInfo(mSupervisor.getFullName(),
+                mSupervisor.getZone());
         updateFechaInfo();
         addEditNotification(bitacoraRegistro.getSemaforo(), bitacoraRegistro.getDescripcion());
 
@@ -237,7 +237,7 @@ public class BitacoraRegistroAdapter extends RecyclerView.Adapter<BitacoraRegist
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
                 .child("Argus")
                 .child("BitacoraRegistroNoResuelto")
-                .child(mSupervisor.getUsuarioKey());
+                .child(mSupervisor.getId());
 
         Map<String, Object> childUpdate = new HashMap<>();
         childUpdate.put("/supervisor", supervisor);

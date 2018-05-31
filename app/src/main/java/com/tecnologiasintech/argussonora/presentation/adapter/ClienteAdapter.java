@@ -42,7 +42,7 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ViewHold
     public ClienteAdapter(Context context, Supervisor supervisor) {
         mContext = context;
         mSupervisor = supervisor;
-        setClientList(supervisor.getUsuarioZona());
+        setClientList(supervisor.getZone());
     }
 
     public void setClientList(String usuarioZona) {

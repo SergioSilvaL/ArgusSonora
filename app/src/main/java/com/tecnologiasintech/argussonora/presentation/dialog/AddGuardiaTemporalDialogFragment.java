@@ -5,13 +5,9 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -27,8 +23,6 @@ import com.tecnologiasintech.argussonora.domain.ModelObjects.Supervisor;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import butterknife.ButterKnife;
 
 /**
  * Created by sergiosilva on 9/12/17.
@@ -117,12 +111,12 @@ public class AddGuardiaTemporalDialogFragment extends DialogFragment {
         String bitacoraRegistroNRKey = new DatePost().getTimeCompletetKey();
 
         //Set Descripcion
-        String descripcion = mSupervisor.getUsuarioNombre() + " agrego a un nuevo guardia";
+        String descripcion = mSupervisor.getFullName() + " agrego a un nuevo guardia";
 
         BitacoraRegistro bitacoraRegistro = new BitacoraRegistro(
                 descripcion,
                 3,
-                mSupervisor.getUsuarioNombre(),
+                mSupervisor.getFullName(),
                 mCliente.getClienteZonaAsignada(),
                 new DatePost().get24HourFormat());
 
@@ -132,7 +126,7 @@ public class AddGuardiaTemporalDialogFragment extends DialogFragment {
 
 
         // Todo: Send info to Bitacora
-        mBitacoraRegistroNRRef.child(mSupervisor.getUsuarioKey()).child(bitacoraRegistroNRKey).setValue(bitacoraRegistro);
+        mBitacoraRegistroNRRef.child(mSupervisor.getId()).child(bitacoraRegistroNRKey).setValue(bitacoraRegistro);
 
 
 
@@ -143,10 +137,10 @@ public class AddGuardiaTemporalDialogFragment extends DialogFragment {
 
         notificacionTmpRef.child(key).child("bitacoraInformacion")
                 .setValue(new BitacoraRegistro(new DatePost().getDateKey(),
-                        mSupervisor.getUsuarioKey(),// TODO:
+                        mSupervisor.getId(),// TODO:
                         bitacoraRegistroNRKey));
 
-        updateBitacoraRegistroNRSupervisorInfo(mSupervisor.getUsuarioNombre()); // TODO:
+        updateBitacoraRegistroNRSupervisorInfo(mSupervisor.getFullName()); // TODO:
 
         Toast.makeText(getContext(),"Se envio una solicitud con exito",Toast.LENGTH_LONG).show();
 
@@ -155,7 +149,7 @@ public class AddGuardiaTemporalDialogFragment extends DialogFragment {
     private void updateBitacoraRegistroNRSupervisorInfo(String supervisor){
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/supervisor", supervisor);
-        mBitacoraRegistroNRRef.child(mSupervisor.getUsuarioKey()).updateChildren(childUpdates);
+        mBitacoraRegistroNRRef.child(mSupervisor.getId()).updateChildren(childUpdates);
     }
 
     private void pushNotificacionTemporal() {
@@ -166,7 +160,7 @@ public class AddGuardiaTemporalDialogFragment extends DialogFragment {
         String fecha = datePost.getDatePost();
 
         //Set Descripcion
-        String descripcion = mSupervisor.getUsuarioNombre() + " agrego a un nuevo guardia";
+        String descripcion = mSupervisor.getFullName() + " agrego a un nuevo guardia";
 
 
         // Get the current notificition
@@ -180,17 +174,17 @@ public class AddGuardiaTemporalDialogFragment extends DialogFragment {
 
         String domicillio = mGuardiaDomicillioEditText.getText().toString();
 
-        if (domicillio != null) {
+        if (!domicillio.isEmpty()) {
             guardia.setUsuarioDomicilio(domicillio);
         }else{
-            guardia.setUsuarioDomicilio("");
+            guardia.setUsuarioDomicilio("domicilio no proporcionado");
         }
 
         // Get Phone Number Input
 
         String telefono = mGuardiaTelefonoEditText.getText().toString();
 
-        if (telefono != null){
+        if (!telefono.isEmpty()){
             guardia.setUsuarioTelefono(Long.valueOf(telefono));
         }else {
             guardia.setUsuarioTelefono(0);

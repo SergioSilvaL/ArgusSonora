@@ -106,8 +106,8 @@ public class BitacoraRegistroActivity extends AppCompatActivity implements Bitac
                 if (bitacoraRegistro == null) {
                     String observacion = observacionEditText.getText().toString();
                     mBitacoraRegistroAdapter.add(new BitacoraRegistro(observacion, semaforoStatus,
-                            mSupervisor.getUsuarioNombre(),
-                            mSupervisor.getUsuarioZona(),
+                            mSupervisor.getFullName(),
+                            mSupervisor.getZone(),
                             new DatePost().getDatePost()));
                 } else {
                     if (isBitacoraRegistro) {

@@ -19,8 +19,8 @@ import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class InAsistenciaActivity extends LoggingActivity {
@@ -35,11 +35,11 @@ public class InAsistenciaActivity extends LoggingActivity {
 
     private int listPosition;
 
-    @InjectView(R.id.CancelarBtn) Button mCancelarButton;
-    @InjectView(R.id.AceptarBtn)Button mAcpetarButton;
-    @InjectView(R.id.editText) EditText mEditText;
-    @InjectView(R.id.GuardiatextView) TextView mGuardiaTextView;
-    @InjectView(R.id.ClientetextView) TextView mClienteTextView;
+    @BindView(R.id.CancelarBtn) Button mCancelarButton;
+    @BindView(R.id.AceptarBtn)Button mAcpetarButton;
+    @BindView(R.id.editText) EditText mEditText;
+    @BindView(R.id.GuardiatextView) TextView mGuardiaTextView;
+    @BindView(R.id.ClientetextView) TextView mClienteTextView;
 
     public InAsistenciaActivity(){
         setActivityName(InAsistenciaActivity.class.getSimpleName());
@@ -49,7 +49,7 @@ public class InAsistenciaActivity extends LoggingActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_in_asistencia);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         Intent intent = getIntent();
 
