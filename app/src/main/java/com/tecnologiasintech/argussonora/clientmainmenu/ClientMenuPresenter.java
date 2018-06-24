@@ -17,7 +17,7 @@ public class ClientMenuPresenter implements ClientMenuViewPresenterContract.Pres
     @Override
     public void loadClients() {
         dataRepository.getClientFromZone(dataRepository.getSupervisorZoneFromPreferences().toString())
-                .subscribe(clientes -> view.onSuccessload(clientes),
+                .subscribe(clients -> view.onSuccessload(clients),
                         error -> view.onErrorLoad());
     }
 
