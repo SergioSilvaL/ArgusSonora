@@ -1,10 +1,13 @@
 package com.tecnologiasintech.argussonora.clientmainmenu;
 
 
+import com.tecnologiasintech.argussonora.common.RxBasePresenter;
 import com.tecnologiasintech.argussonora.data.IDataRepository;
 
+import io.reactivex.disposables.Disposable;
 
-public class ClientMenuPresenter implements ClientMenuViewPresenterContract.Presenter{
+
+public class ClientMenuPresenter extends RxBasePresenter implements ClientMenuViewPresenterContract.Presenter{
 
     private IDataRepository dataRepository;
     private ClientMenuViewPresenterContract.View view;
@@ -17,8 +20,17 @@ public class ClientMenuPresenter implements ClientMenuViewPresenterContract.Pres
     @Override
     public void loadClients() {
         dataRepository.getClientFromZone(dataRepository.getSupervisorZoneFromPreferences().toString())
-                .subscribe(clients -> view.onSuccessload(clients),
+                .subscribe(clients -> view.onSuccessLoad(clients),
                         error -> view.onErrorLoad());
+    }
+
+    @Override
+    public void loadClientSelected() {
+
+        Disposable subscription = view.getItemClientObservable()
+                .subscribe(clientName -> view.onItemSelected(clientName));
+
+        subscribe(subscription);
     }
 
     @Override

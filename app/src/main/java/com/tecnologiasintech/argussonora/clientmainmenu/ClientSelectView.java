@@ -1,5 +1,6 @@
 package com.tecnologiasintech.argussonora.clientmainmenu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,13 +18,18 @@ import com.tecnologiasintech.argussonora.ArgusSonoraApp;
 import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.clientmainmenu.adapter.ClientAdapter;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Client;
+import com.tecnologiasintech.argussonora.mainmenu.MainActivity;
+import com.tecnologiasintech.argussonora.presentation.activity.ClienteActivity;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class ClientMenuView extends Fragment implements ClientMenuViewPresenterContract.View{
+import io.reactivex.Observable;
+
+public class ClientSelectView extends Fragment implements ClientMenuViewPresenterContract.View{
 
     private ClientAdapter mAdapter;
     @Inject
@@ -45,18 +51,23 @@ public class ClientMenuView extends Fragment implements ClientMenuViewPresenterC
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        presenter.setView(this);
+
+        mAdapter = new ClientAdapter();
 
         View view = inflater.inflate(R.layout.fragment_cliente, container, false);
-
-        mAdapter = new ClientAdapter(getContext());
-
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(mAdapter);
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        presenter.setView(this);
+        setItemClickedSubject();
     }
 
     @Override
@@ -79,19 +90,20 @@ public class ClientMenuView extends Fragment implements ClientMenuViewPresenterC
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-//                newText = newText.toLowerCase();
-//                ArrayList<Client> newList = new ArrayList<>();
-//
-//                for(Client cliente : mAdapter.filterClientes){
-//                    String name = cliente.getClienteNombre().toLowerCase();
-//
-//                    if (name.contains(newText)){
-//                        newList.add(cliente);
-//                    }
-//                }
-//
-//                mAdapter.loadClientSearch(newList);
+            public boolean onQueryTextChange(String query) {
+                List<Client> newList=  new ArrayList<>();
+                query = query.toLowerCase();
+                String clientName;
+
+                for (Client client: mAdapter.getClients()) {
+                    clientName = client.getClienteNombre().toLowerCase();
+                    if (clientName.contains(query)) {
+                        newList.add(client);
+                    }
+                }
+
+                mAdapter.loadClients(newList);
+
                 return false;
             }
         });
@@ -100,11 +112,10 @@ public class ClientMenuView extends Fragment implements ClientMenuViewPresenterC
             presenter.loadClients();
             return false;
         });
-
     }
 
     @Override
-    public void onSuccessload(List<Client> clients) {
+    public void onSuccessLoad(List<Client> clients) {
         mAdapter.loadClients(clients);
     }
 
@@ -121,5 +132,21 @@ public class ClientMenuView extends Fragment implements ClientMenuViewPresenterC
     @Override
     public void dismissProgressBar() {
 
+    }
+
+    private void setItemClickedSubject() {
+        presenter.loadClientSelected();
+    }
+
+    @Override
+    public Observable<String> getItemClientObservable() {
+        return mAdapter.getItemCickSubject();
+    }
+
+    @Override
+    public void onItemSelected(String client) {
+        Intent intent = new Intent(getActivity(), ClienteActivity.class);
+        intent.putExtra(MainActivity.EXTRA_REFERENCE_CLIENTE, client);
+        startActivity(intent);
     }
 }

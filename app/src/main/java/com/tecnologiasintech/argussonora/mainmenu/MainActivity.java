@@ -7,7 +7,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -21,7 +20,7 @@ import com.tecnologiasintech.argussonora.mainmenu.adapter.Adapter_ViewPagerMain;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     private static final String LINK_PRIVACY_POLICY = "https://argusseguridad-41e35.firebaseapp.com/%23/Privacy&sa=D&usg=AFQjCNF1SdrM3ODzXfSrtH0KQ7Iul20Zyg";
 

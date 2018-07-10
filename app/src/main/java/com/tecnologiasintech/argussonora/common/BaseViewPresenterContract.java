@@ -1,5 +1,7 @@
 package com.tecnologiasintech.argussonora.common;
 
+import io.reactivex.disposables.Disposable;
+
 public interface BaseViewPresenterContract {
 
     interface View {
@@ -9,8 +11,9 @@ public interface BaseViewPresenterContract {
     }
 
     interface Presenter {
-        // TODO: subscribe
 
-        // TODO: unSubscribe
+        void subscribe(Disposable disposable);
+
+        void unSubscribe();
     }
 }

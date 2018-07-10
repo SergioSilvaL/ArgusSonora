@@ -23,6 +23,7 @@ allprojects {
 
     project.ext {
         daggerLibrariesVersion = '2.14.1'
+        rxJavaVersion = '2.0.8'
     }
 }
 
