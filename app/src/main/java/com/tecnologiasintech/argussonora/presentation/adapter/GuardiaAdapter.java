@@ -4,18 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.tecnologiasintech.argussonora.R;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.BitacoraSimple;
 import com.tecnologiasintech.argussonora.domain.ModelObjects.Cliente;
@@ -24,13 +18,10 @@ import com.tecnologiasintech.argussonora.domain.ModelObjects.GuardiaBitacora;
 import com.tecnologiasintech.argussonora.presentation.activity.ClienteActivity;
 import com.tecnologiasintech.argussonora.presentation.activity.GuardiaActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sergiosilva on 8/16/17.
- */
-public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaViewHolder>{
+
+public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaViewHolder> {
 
 
     private Context mContext;
@@ -39,7 +30,7 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
     public static final String TAG = GuardiaAdapter.class.getSimpleName();
 
 
-    public GuardiaAdapter(Context context, Cliente cliente, List<GuardiaBitacora> guardiaBitacora){
+    public GuardiaAdapter(Context context, Cliente cliente, List<GuardiaBitacora> guardiaBitacora) {
         mContext = context;
         mCliente = cliente;
         mGuardiaBitacoraList = guardiaBitacora;
@@ -64,24 +55,24 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
         return mGuardiaBitacoraList.size();
     }
 
-    public void updateBitacoraSimple(BitacoraSimple bitacoraSimple, int pos){
+    public void updateBitacoraSimple(BitacoraSimple bitacoraSimple, int pos) {
         // TODO: set Correct status
 
         // Create route if does not exist
-        if (mGuardiaBitacoraList.get(pos).getBitacoraSimple() == null){
+        if (mGuardiaBitacoraList.get(pos).getBitacoraSimple() == null) {
             BitacoraSimple newBitacoraSimple = new BitacoraSimple();
             mGuardiaBitacoraList.get(pos).setBitacoraSimple(newBitacoraSimple);
 
             mGuardiaBitacoraList.get(pos).getBitacoraSimple().setAsistio(true);
             mGuardiaBitacoraList.get(pos).getBitacoraSimple().setFecha(new DatePost().getDateKey());
-        }else {
+        } else {
 
             mGuardiaBitacoraList.get(pos).getBitacoraSimple().setAsistio(true);
         }
         notifyItemChanged(pos);
     }
 
-    public class GuardiaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class GuardiaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView mGuardianameDisplay;
         private ImageView mAsistioIcon, mNoAsistioIcon, mDobleTurnoIcon, mDescansoElaboradoIcon,
@@ -100,54 +91,66 @@ public class GuardiaAdapter extends RecyclerView.Adapter<GuardiaAdapter.GuardiaV
             itemView.setOnClickListener(this);
         }
 
-        public void bindGuardia(GuardiaBitacora guardia){
+        public void bindGuardia(GuardiaBitacora guardia) {
 
             mGuardianameDisplay.setText(guardia.getUsuarioNombre());
 
-            if (guardia.getBitacoraSimple() != null && guardia.getBitacoraSimple().getFecha() != null){
-                if (guardia.getBitacoraSimple().getFecha().equals(new DatePost().getDateKey()) ){
-                    // Bind
+            if (guardia.getBitacoraSimple() != null) {
+                if (guardia.getBitacoraSimple().getFecha() != null) {
+                    if (guardia.getBitacoraSimple().getFecha().equals(new DatePost().getDateKey())) {
+                        // Bind
 
-                    // Asistio
-                    if (guardia.getBitacoraSimple().isAsistio()){
-                        mAsistioIcon.setVisibility(View.VISIBLE);
+                        // Asistio
+                        if (guardia.getBitacoraSimple().isAsistio()) {
+                            mAsistioIcon.setVisibility(View.VISIBLE);
+                        }
+
+                        // Cubre Descanso
+                        if (guardia.getBitacoraSimple().isCubredescanso()) {
+                            mDescansoElaboradoIcon.setVisibility(View.VISIBLE);
+                        }
+
+                        // Doble Turno
+                        if (guardia.getBitacoraSimple().isDobleturno()) {
+                            mDobleTurnoIcon.setVisibility(View.VISIBLE);
+                        }
+
+                        // Horas Extra
+                        if (guardia.getBitacoraSimple().getHorasExtra() > 0) {
+                            mHorasExtraIcon.setVisibility(View.VISIBLE);
+                        }
+
+                        // No Asitio
+                        if (guardia.getBitacoraSimple().isNoasistio()) {
+                            mNoAsistioIcon.setVisibility(View.VISIBLE);
+                        }
+
                     }
-
-                    // Cubre Descanso
-                    if (guardia.getBitacoraSimple().isCubredescanso()){
-                        mDescansoElaboradoIcon.setVisibility(View.VISIBLE);
-                    }
-
-                    // Doble Turno
-                    if (guardia.getBitacoraSimple().isDobleturno()){
-                        mDobleTurnoIcon.setVisibility(View.VISIBLE);
-                    }
-
-                    // Horas Extra
-                    if (guardia.getBitacoraSimple().getHorasExtra() > 0){
-                        mHorasExtraIcon.setVisibility(View.VISIBLE);
-                    }
-
-                    // No Asitio
-                    if (guardia.getBitacoraSimple().isNoasistio()){
-                        mNoAsistioIcon.setVisibility(View.VISIBLE);
-                    }
-
                 }
+
+            } else {
+                restoreDefaultView();
             }
 
+        }
+
+        private void restoreDefaultView() {
+            mAsistioIcon.setVisibility(View.GONE);
+            mDescansoElaboradoIcon.setVisibility(View.GONE);
+            mDobleTurnoIcon.setVisibility(View.GONE);
+            mHorasExtraIcon.setVisibility(View.GONE);
+            mNoAsistioIcon.setVisibility(View.GONE);
         }
 
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(mContext, GuardiaActivity.class);
             intent.putExtra(ClienteActivity.EXTRA_CLIENTE, mCliente);
-            intent.putExtra(ClienteActivity.EXTRA_GUARDIA_BITACORA , mGuardiaBitacoraList.get(getAdapterPosition()));
+            intent.putExtra(ClienteActivity.EXTRA_GUARDIA_BITACORA, mGuardiaBitacoraList.get(getAdapterPosition()));
             intent.putExtra(ClienteActivity.EXTRA_LIST_POSITION, getAdapterPosition());
-            ((Activity)mContext).startActivityForResult(intent, ClienteActivity.REQUEST_FAVORITE);
+            ((Activity) mContext).startActivityForResult(intent, ClienteActivity.REQUEST_FAVORITE);
         }
     }
-
 
 
 }
